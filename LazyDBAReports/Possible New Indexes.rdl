@@ -10,11 +10,11 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="dsGetPossibleNewIndexesList">
+    <DataSet Name="dsPossibleNewIndexesByAdvantage">
       <Query>
         <DataSourceName>DataSource1</DataSourceName>
         <CommandType>StoredProcedure</CommandType>
-        <CommandText>GetPossibleNewIndexesList</CommandText>
+        <CommandText>GetPossibleNewIndexesByAdvantageList</CommandText>
       </Query>
       <Fields>
         <Field Name="IndexAdvantage">
@@ -975,7 +975,7 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>dsGetPossibleNewIndexesList</DataSetName>
+            <DataSetName>dsPossibleNewIndexesByAdvantage</DataSetName>
             <Height>1.2cm</Height>
             <Width>32.5cm</Width>
             <Style>

@@ -78,9 +78,19 @@
     <None Include="Source\System\Operator.sql" />
     <PostDeploy Include="Source\PostDeployment.sql" />
     <PreDeploy Include="Source\PreDeployment.sql" />
-    <Build Include="Source\Stored Procedure\GetPossibleNewIndexesList.sql" />
+    <Build Include="Source\Stored Procedure\GetPossibleNewIndexesByAdvantageList.sql" />
     <Build Include="Source\Stored Procedure\_DataCollector.sql" />
     <Build Include="Source\Stored Procedure\CPUUsageMonitor.sql" />
+    <Build Include="Source\Stored Procedure\GetCachedSPByExecCntList.sql" />
+    <Build Include="Source\Stored Procedure\GetCachedSPByExecTimeList.sql" />
+    <Build Include="Source\Stored Procedure\GetCachedSPByExecTimeVariableList.sql" />
+    <Build Include="Source\Stored Procedure\GetCachedSPByCPUCostList.sql" />
+    <Build Include="Source\Stored Procedure\GetCachedSPByLogicalReadsList.sql" />
+    <Build Include="Source\Stored Procedure\GetCachedSPByPhysicalReadsList.sql" />
+    <Build Include="Source\Stored Procedure\GetCachedSPByLogicalWritesList.sql" />
+    <Build Include="Source\Stored Procedure\GetCachedQueriesByIOCostList.sql" />
+    <Build Include="Source\Stored Procedure\GetPossibleNewIndexesBySprocList.sql" />
+    <Build Include="Source\Stored Procedure\GetWaitStatsList.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\LazyDBA.localhost.publish.xml" />

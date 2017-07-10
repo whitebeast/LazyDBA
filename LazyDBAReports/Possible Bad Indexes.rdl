@@ -10,7 +10,7 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="dsGetPossibleBadIndexesList">
+    <DataSet Name="dsPossibleBadIndexes">
       <Query>
         <DataSourceName>DataSource1</DataSourceName>
         <CommandType>StoredProcedure</CommandType>
@@ -773,7 +773,7 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>dsGetPossibleBadIndexesList</DataSetName>
+            <DataSetName>dsPossibleBadIndexes</DataSetName>
             <Height>1.2cm</Height>
             <Width>31.69396cm</Width>
             <Style>

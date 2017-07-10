@@ -3,6 +3,7 @@ AS
 BEGIN
 SET NOCOUNT ON;
 
+-- Possible Bad NC Indexes (writes > reads)
 SELECT 
 		OBJECT_NAME(s.[object_id]) AS 'TableName', 
 		i.name AS 'IndexName', 
@@ -27,5 +28,9 @@ ORDER BY
 		'TotalWrites' DESC, 
 		'TotalReads' ASC 
 OPTION (RECOMPILE);
+
+-- Look for indexes with high numbers of writes and zero or very low numbers of reads
+-- Consider your complete workload, and how long your instance has been running
+-- Investigate further before dropping an index!
 
 END

@@ -1,8 +1,9 @@
-﻿CREATE PROCEDURE [dbo].[GetPossibleNewIndexesList]
+﻿CREATE PROCEDURE [dbo].[GetPossibleNewIndexesByAdvantageList]
 AS
 BEGIN
 SET NOCOUNT ON;
 
+-- Missing Indexes for current database by Index Advantage
 SELECT	DISTINCT 
 		CONVERT(decimal(18,2), user_seeks * avg_total_user_cost * (avg_user_impact * 0.01)) AS 'IndexAdvantage', 
 		migs.last_user_seek AS 'LastUserSeekDate', 
@@ -27,5 +28,9 @@ WHERE	mid.database_id = DB_ID('$(TargetDBName)')
 ORDER BY 
 		'IndexAdvantage' DESC 
 OPTION (RECOMPILE);
+
+-- Look at index advantage, last user seek time, number of user seeks to help determine source and importance
+-- SQL Server is overly eager to add included columns, so beware
+-- Do not just blindly add indexes that show up from this query!!!
 
 END
