@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LazyDBA", "LazyDBA\LazyDBA.sqlproj", "{A54B7420-5E8C-4E7B-B9EF-013FF37EAD29}"
+EndProject
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "LazyDBAReports", "LazyDBAReports\LazyDBAReports.rptproj", "{DE9893A6-80E9-408F-9BE9-378425DDDF0E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		DebugLocal|Any CPU = DebugLocal|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A54B7420-5E8C-4E7B-B9EF-013FF37EAD29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A54B7420-5E8C-4E7B-B9EF-013FF37EAD29}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A54B7420-5E8C-4E7B-B9EF-013FF37EAD29}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A54B7420-5E8C-4E7B-B9EF-013FF37EAD29}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{A54B7420-5E8C-4E7B-B9EF-013FF37EAD29}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{A54B7420-5E8C-4E7B-B9EF-013FF37EAD29}.DebugLocal|Any CPU.Deploy.0 = Debug|Any CPU
+		{A54B7420-5E8C-4E7B-B9EF-013FF37EAD29}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A54B7420-5E8C-4E7B-B9EF-013FF37EAD29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A54B7420-5E8C-4E7B-B9EF-013FF37EAD29}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{DE9893A6-80E9-408F-9BE9-378425DDDF0E}.Debug|Any CPU.ActiveCfg = Debug
+		{DE9893A6-80E9-408F-9BE9-378425DDDF0E}.Debug|Any CPU.Build.0 = Debug
+		{DE9893A6-80E9-408F-9BE9-378425DDDF0E}.Debug|Any CPU.Deploy.0 = Debug
+		{DE9893A6-80E9-408F-9BE9-378425DDDF0E}.DebugLocal|Any CPU.ActiveCfg = DebugLocal
+		{DE9893A6-80E9-408F-9BE9-378425DDDF0E}.DebugLocal|Any CPU.Build.0 = DebugLocal
+		{DE9893A6-80E9-408F-9BE9-378425DDDF0E}.DebugLocal|Any CPU.Deploy.0 = DebugLocal
+		{DE9893A6-80E9-408F-9BE9-378425DDDF0E}.Release|Any CPU.ActiveCfg = Release
+		{DE9893A6-80E9-408F-9BE9-378425DDDF0E}.Release|Any CPU.Build.0 = Release
+		{DE9893A6-80E9-408F-9BE9-378425DDDF0E}.Release|Any CPU.Deploy.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
