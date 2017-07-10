@@ -14,7 +14,7 @@
       <Body>
         <ReportItems>
           <Subreport Name="srGetPossibleNewIndexesList">
-            <ReportName>rGetPossibleNewIndexesList</ReportName>
+            <ReportName>Possible New Indexes</ReportName>
             <Top>1.22301cm</Top>
             <Left>0.44662cm</Left>
             <Height>0.66792cm</Height>
@@ -30,7 +30,7 @@
             </Style>
           </Subreport>
           <Subreport Name="srGetPossibleBadIndexesList">
-            <ReportName>rGetPossibleBadIndexesList</ReportName>
+            <ReportName>Possible Bad Indexes</ReportName>
             <Top>2.56148cm</Top>
             <Left>0.44662cm</Left>
             <Height>0.66792cm</Height>

@@ -10,16 +10,16 @@
   <DataSets />
   <Reports>
     <ProjectItem>
-      <Name>rGetPossibleBadIndexesList.rdl</Name>
-      <FullPath>rGetPossibleBadIndexesList.rdl</FullPath>
+      <Name>Possible Bad Indexes.rdl</Name>
+      <FullPath>Possible Bad Indexes.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rMainReport.rdl</Name>
-      <FullPath>rMainReport.rdl</FullPath>
+      <Name>Possible New Indexes.rdl</Name>
+      <FullPath>Possible New Indexes.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>rGetPossibleNewIndexesList.rdl</Name>
-      <FullPath>rGetPossibleNewIndexesList.rdl</FullPath>
+      <Name>Main Report.rdl</Name>
+      <FullPath>Main Report.rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>
