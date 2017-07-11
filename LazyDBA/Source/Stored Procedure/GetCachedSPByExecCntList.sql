@@ -10,7 +10,7 @@ SET NOCOUNT ON;
 -- Top Cached SPs By Execution Count (SQL Server 2012)
 SELECT  TOP(@pRowCnt) 
         p.name AS [SP Name], 
-        qs.execution_count AS [Execution Time],
+        qs.execution_count AS [Execution Count],
         ISNULL(qs.execution_count/DATEDIFF(Minute, qs.cached_time, GETDATE()), 0) AS [Calls/Minute],
         qs.total_worker_time/qs.execution_count AS [Avg Worker Time], 
         qs.total_worker_time AS [Total Worker Time],  

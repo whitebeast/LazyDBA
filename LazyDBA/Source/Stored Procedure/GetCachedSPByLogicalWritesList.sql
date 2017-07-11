@@ -13,7 +13,7 @@ SELECT  TOP(@pRowCnt)
         p.name AS [SP Name], 
         qs.total_logical_writes AS [Total Logical Writes], 
         qs.total_logical_writes/qs.execution_count AS [Avg Logical Writes], 
-        qs.execution_count AS [Execution Time],
+        qs.execution_count AS [Execution Count],
         ISNULL(qs.execution_count/DATEDIFF(Minute, qs.cached_time, GETDATE()), 0) AS [Calls/Minute],
         qs.total_elapsed_time AS [Total Elapsed Time],
         qs.total_elapsed_time/qs.execution_count AS [Avg Elapsed Time], 

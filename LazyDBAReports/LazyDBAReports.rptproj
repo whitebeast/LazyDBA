@@ -10,6 +10,42 @@
   <DataSets />
   <Reports>
     <ProjectItem>
+      <Name>Cached queries (by IO cost).rdl</Name>
+      <FullPath>Cached queries (by IO cost).rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Cached stored procedures (by CPU cost).rdl</Name>
+      <FullPath>Cached stored procedures (by CPU cost).rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Cached stored procedures (by execution count).rdl</Name>
+      <FullPath>Cached stored procedures (by execution count).rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Cached stored procedures (by execution time - variable).rdl</Name>
+      <FullPath>Cached stored procedures (by execution time - variable).rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Cached stored procedures (by execution time).rdl</Name>
+      <FullPath>Cached stored procedures (by execution time).rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Cached stored procedures (by logical reads).rdl</Name>
+      <FullPath>Cached stored procedures (by logical reads).rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Cached stored procedures (by logical writes).rdl</Name>
+      <FullPath>Cached stored procedures (by logical writes).rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Cached stored procedures (by physical reads).rdl</Name>
+      <FullPath>Cached stored procedures (by physical reads).rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Main Report.rdl</Name>
+      <FullPath>Main Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
       <Name>Possible Bad Indexes.rdl</Name>
       <FullPath>Possible Bad Indexes.rdl</FullPath>
     </ProjectItem>
@@ -18,20 +54,12 @@
       <FullPath>Possible New Indexes (By advantage).rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>Main Report.rdl</Name>
-      <FullPath>Main Report.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
       <Name>Possible New Indexes (by stored procedure).rdl</Name>
       <FullPath>Possible New Indexes (By stored procedure).rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>Wait Statistics.rdl</Name>
       <FullPath>Wait Statistics.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
-      <Name>Cached stored procedures (by physical reads).rdl</Name>
-      <FullPath>Cached stored procedures (by physical reads).rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

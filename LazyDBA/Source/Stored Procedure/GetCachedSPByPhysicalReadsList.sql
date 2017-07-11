@@ -12,7 +12,7 @@ SELECT  TOP(@pRowCnt)
         p.name AS [SP Name],
         qs.total_physical_reads AS [Total Physical Reads], 
         qs.total_physical_reads/qs.execution_count AS [Avg Physical Reads], 
-        qs.execution_count AS [Execution Time], 
+        qs.execution_count AS [Execution Count], 
         qs.total_logical_reads AS [Total Logical Reads],
         qs.total_elapsed_time AS [Total Elapsed Time], 
         qs.total_elapsed_time/qs.execution_count AS [Avg Elapsed Time], 

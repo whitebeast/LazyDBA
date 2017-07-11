@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "LazyDBA", "LazyDBA\LazyDBA.sqlproj", "{A54B7420-5E8C-4E7B-B9EF-013FF37EAD29}"
 EndProject
 Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "LazyDBAReports", "LazyDBAReports\LazyDBAReports.rptproj", "{DE9893A6-80E9-408F-9BE9-378425DDDF0E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A54B7420-5E8C-4E7B-B9EF-013FF37EAD29} = {A54B7420-5E8C-4E7B-B9EF-013FF37EAD29}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

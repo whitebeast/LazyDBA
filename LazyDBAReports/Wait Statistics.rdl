@@ -64,31 +64,31 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>7.15667cm</Width>
+                  <Width>7.91704cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>3.26037cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>3.26037cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>3.26037cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>3.26037cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>3.26037cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>3.26037cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>3.26037cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.5cm</Width>
+                  <Width>3.26037cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -702,7 +702,7 @@
             </TablixRowHierarchy>
             <DataSetName>dsWaitStats</DataSetName>
             <Height>1.2cm</Height>
-            <Width>27.15667cm</Width>
+            <Width>34cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -713,7 +713,7 @@
         <Height>0.47244in</Height>
         <Style />
       </Body>
-      <Width>10.6916in</Width>
+      <Width>13.38583in</Width>
       <Page>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>

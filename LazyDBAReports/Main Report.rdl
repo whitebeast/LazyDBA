@@ -15,7 +15,7 @@
         <ReportItems>
           <Subreport Name="srGetPossibleNewIndexesList">
             <ReportName>Possible New Indexes (by advantage)</ReportName>
-            <Top>3.2064cm</Top>
+            <Top>3.37499cm</Top>
             <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <Visibility>
@@ -30,8 +30,7 @@
           </Subreport>
           <Subreport Name="srGetPossibleBadIndexesList">
             <ReportName>Possible Bad Indexes</ReportName>
-            <Top>0.6cm</Top>
-            <Left>0cm</Left>
+            <Top>0.64783cm</Top>
             <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>1</ZIndex>
@@ -59,8 +58,7 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>2.6064cm</Top>
-            <Left>0cm</Left>
+            <Top>2.72716cm</Top>
             <Height>0.6cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>2</ZIndex>
@@ -116,8 +114,8 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>1.26792cm</Top>
-            <Left>0cm</Left>
+            <Top>1.36358cm</Top>
+            <Left>0.00001cm</Left>
             <Height>0.6cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>4</ZIndex>
@@ -133,8 +131,7 @@
           </Textbox>
           <Subreport Name="srGetPossibleNewIndexesBySproc">
             <ReportName>Possible New Indexes (by stored procedure)</ReportName>
-            <Top>1.93848cm</Top>
-            <Left>0cm</Left>
+            <Top>2.01141cm</Top>
             <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>5</ZIndex>
@@ -150,8 +147,7 @@
           </Subreport>
           <Subreport Name="srWaitStats">
             <ReportName>Wait Statistics</ReportName>
-            <Top>4.47432cm</Top>
-            <Left>0cm</Left>
+            <Top>4.73857cm</Top>
             <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>6</ZIndex>
@@ -179,8 +175,7 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>3.87432cm</Top>
-            <Left>0cm</Left>
+            <Top>4.09074cm</Top>
             <Height>0.6cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>7</ZIndex>
@@ -196,7 +191,7 @@
           </Textbox>
           <Subreport Name="srCachedSPByPhysicalReads">
             <ReportName>Cached stored procedures (by physical reads)</ReportName>
-            <Top>5.74224cm</Top>
+            <Top>15.6472cm</Top>
             <Left>0cm</Left>
             <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
@@ -225,7 +220,7 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>5.14224cm</Top>
+            <Top>14.99937cm</Top>
             <Left>0cm</Left>
             <Height>0.6cm</Height>
             <Width>18.04459cm</Width>
@@ -240,8 +235,317 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Subreport Name="srCachedQueriesByIOCost">
+            <ReportName>Cached queries (by IO cost)</ReportName>
+            <Top>6.10214cm</Top>
+            <Height>0.66792cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>10</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+              <ToggleItem>tbCachedQueriesByIOCost</ToggleItem>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Subreport>
+          <Textbox Name="tbCachedQueriesByIOCost">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Cached queries (by IO cost)</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>5.45431cm</Top>
+            <Height>0.6cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>11</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Subreport Name="srCachedSPByCPUCost">
+            <ReportName>Cached stored procedures (by CPU cost)</ReportName>
+            <Top>7.46572cm</Top>
+            <Height>0.66792cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>12</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+              <ToggleItem>tbCachedSPByCPUCost</ToggleItem>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Subreport>
+          <Textbox Name="tbCachedSPByCPUCost">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Cached stored procedures (by CPU cost)</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>6.81789cm</Top>
+            <Height>0.6cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>13</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Subreport Name="srCachedSPByExecCnt">
+            <ReportName>Cached stored procedures (by execution count)</ReportName>
+            <Top>8.8293cm</Top>
+            <Height>0.66792cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>14</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+              <ToggleItem>tbCachedSPByExecCnt</ToggleItem>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Subreport>
+          <Textbox Name="tbCachedSPByExecCnt">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Cached stored procedures (by execution count)</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>8.18147cm</Top>
+            <Height>0.6cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>15</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="tbCachedSPByExecTime">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Cached stored procedures (by execution time)</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>9.54505cm</Top>
+            <Height>0.6cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>16</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Subreport Name="srCachedSPByExecTime">
+            <ReportName>Cached stored procedures (by execution time)</ReportName>
+            <Top>10.19288cm</Top>
+            <Height>0.66792cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>17</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+              <ToggleItem>tbCachedSPByExecTime</ToggleItem>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Subreport>
+          <Subreport Name="srCachedSPByExecTimeVar">
+            <ReportName>Cached stored procedures (by execution time - variable)</ReportName>
+            <Top>11.55646cm</Top>
+            <Height>0.66792cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>18</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+              <ToggleItem>tbCachedSPByExecTimeVar</ToggleItem>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Subreport>
+          <Textbox Name="tbCachedSPByExecTimeVar">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Cached stored procedures (by execution time - variable)</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>10.90863cm</Top>
+            <Height>0.6cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>19</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Textbox Name="tbCachedSPByLogicalReads">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Cached stored procedures (by logical reads)</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>12.27221cm</Top>
+            <Height>0.6cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>20</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Subreport Name="srCachedSPByLogicalReads">
+            <ReportName>Cached stored procedures (by logical reads)</ReportName>
+            <Top>12.92004cm</Top>
+            <Height>0.66792cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>21</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+              <ToggleItem>tbCachedSPByLogicalReads</ToggleItem>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Subreport>
+          <Textbox Name="tbCachedSPByLogicalWrites">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Cached stored procedures (by logical writes)</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>13.63579cm</Top>
+            <Height>0.6cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>22</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Subreport Name="srCachedSPByLogicalWrites">
+            <ReportName>Cached stored procedures (by logical writes)</ReportName>
+            <Top>14.28362cm</Top>
+            <Left>0cm</Left>
+            <Height>0.66792cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>23</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+              <ToggleItem>tbCachedSPByLogicalWrites</ToggleItem>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Subreport>
         </ReportItems>
-        <Height>4.70648in</Height>
+        <Height>7.64398in</Height>
         <Style />
       </Body>
       <Width>7.10417in</Width>
