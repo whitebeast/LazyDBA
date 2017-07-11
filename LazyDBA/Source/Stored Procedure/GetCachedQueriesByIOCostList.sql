@@ -1,11 +1,14 @@
 ﻿CREATE PROCEDURE [dbo].[GetCachedQueriesByIOCostList]
+(
+    @pRowCnt INT = 50
+)
 AS
 BEGIN
 
 SET NOCOUNT ON;
 
 -- Lists the top statements by average input/output usage for the current database
-SELECT  TOP(50) 
+SELECT  TOP(@pRowCnt) 
         OBJECT_NAME(qt.objectid, dbid) AS [SP Name],
         (qs.total_logical_reads + qs.total_logical_writes) / qs.execution_count AS [Avg IO], 
         qs.execution_count AS [Execution Count],

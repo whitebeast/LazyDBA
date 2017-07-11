@@ -14,12 +14,24 @@
       <FullPath>Possible Bad Indexes.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>Possible New Indexes.rdl</Name>
-      <FullPath>Possible New Indexes.rdl</FullPath>
+      <Name>Possible New Indexes (by advantage).rdl</Name>
+      <FullPath>Possible New Indexes (By advantage).rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>Main Report.rdl</Name>
       <FullPath>Main Report.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Possible New Indexes (by stored procedure).rdl</Name>
+      <FullPath>Possible New Indexes (By stored procedure).rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Wait Statistics.rdl</Name>
+      <FullPath>Wait Statistics.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>Cached stored procedures (by physical reads).rdl</Name>
+      <FullPath>Cached stored procedures (by physical reads).rdl</FullPath>
     </ProjectItem>
   </Reports>
   <Configurations>

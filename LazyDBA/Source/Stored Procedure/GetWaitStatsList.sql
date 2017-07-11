@@ -36,15 +36,15 @@ AS (
                 N'XE_DISPATCHER_WAIT', N'XE_TIMER_EVENT')
             AND waiting_tasks_count > 0)
 SELECT
-        MAX (W1.wait_type) AS [WaitType],
-        CAST (MAX (W1.WaitS) AS DECIMAL (16,2)) AS [Wait_Sec],
-        CAST (MAX (W1.ResourceS) AS DECIMAL (16,2)) AS [Resource_Sec],
-        CAST (MAX (W1.SignalS) AS DECIMAL (16,2)) AS [Signal_Sec],
+        MAX (W1.wait_type) AS [Wait Type],
+        CAST (MAX (W1.WaitS) AS DECIMAL (16,2)) AS [Wait Sec],
+        CAST (MAX (W1.ResourceS) AS DECIMAL (16,2)) AS [Resource Sec],
+        CAST (MAX (W1.SignalS) AS DECIMAL (16,2)) AS [Signal Sec],
         MAX (W1.WaitCount) AS [Wait Count],
         CAST (MAX (W1.Percentage) AS DECIMAL (5,2)) AS [Wait Percentage],
-        CAST ((MAX (W1.WaitS) / MAX (W1.WaitCount)) AS DECIMAL (16,4)) AS [AvgWait_Sec],
-        CAST ((MAX (W1.ResourceS) / MAX (W1.WaitCount)) AS DECIMAL (16,4)) AS [AvgRes_Sec],
-        CAST ((MAX (W1.SignalS) / MAX (W1.WaitCount)) AS DECIMAL (16,4)) AS [AvgSig_Sec]
+        CAST ((MAX (W1.WaitS) / MAX (W1.WaitCount)) AS DECIMAL (16,4)) AS [Avg Wait Sec],
+        CAST ((MAX (W1.ResourceS) / MAX (W1.WaitCount)) AS DECIMAL (16,4)) AS [Avg Res Sec],
+        CAST ((MAX (W1.SignalS) / MAX (W1.WaitCount)) AS DECIMAL (16,4)) AS [Avg Sig Sec]
 FROM    Waits AS W1
 JOIN    Waits AS W2
     ON  W2.RowNum <= W1.RowNum

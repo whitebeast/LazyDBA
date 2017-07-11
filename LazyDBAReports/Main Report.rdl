@@ -14,14 +14,13 @@
       <Body>
         <ReportItems>
           <Subreport Name="srGetPossibleNewIndexesList">
-            <ReportName>Possible New Indexes</ReportName>
-            <Top>1.22301cm</Top>
-            <Left>0.44662cm</Left>
+            <ReportName>Possible New Indexes (by advantage)</ReportName>
+            <Top>3.2064cm</Top>
             <Height>0.66792cm</Height>
-            <Width>7.5cm</Width>
+            <Width>18.04459cm</Width>
             <Visibility>
               <Hidden>true</Hidden>
-              <ToggleItem>tbPossibleNewIndexes</ToggleItem>
+              <ToggleItem>tbPossibleNewIndexesByAdvantage</ToggleItem>
             </Visibility>
             <Style>
               <Border>
@@ -31,10 +30,10 @@
           </Subreport>
           <Subreport Name="srGetPossibleBadIndexesList">
             <ReportName>Possible Bad Indexes</ReportName>
-            <Top>2.56148cm</Top>
-            <Left>0.44662cm</Left>
+            <Top>0.6cm</Top>
+            <Left>0cm</Left>
             <Height>0.66792cm</Height>
-            <Width>7.5cm</Width>
+            <Width>18.04459cm</Width>
             <ZIndex>1</ZIndex>
             <Visibility>
               <Hidden>true</Hidden>
@@ -46,24 +45,24 @@
               </Border>
             </Style>
           </Subreport>
-          <Textbox Name="tbPossibleNewIndexes">
+          <Textbox Name="tbPossibleNewIndexesByAdvantage">
             <CanGrow>true</CanGrow>
             <KeepTogether>true</KeepTogether>
             <Paragraphs>
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Possible new indexes list</Value>
+                    <Value>Possible new indexes list (by advantage)</Value>
                     <Style />
                   </TextRun>
                 </TextRuns>
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>0.55245cm</Top>
-            <Left>0.44662cm</Left>
+            <Top>2.6064cm</Top>
+            <Left>0cm</Left>
             <Height>0.6cm</Height>
-            <Width>7.5cm</Width>
+            <Width>18.04459cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
               <Border>
@@ -89,10 +88,9 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Top>1.96148cm</Top>
-            <Left>0.44662cm</Left>
+            <Left>0cm</Left>
             <Height>0.6cm</Height>
-            <Width>7.5cm</Width>
+            <Width>18.04459cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
               <Border>
@@ -104,8 +102,146 @@
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="tbPossibleNewIndexesBySproc">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Possible new indexes list (by stored procedure)</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>1.26792cm</Top>
+            <Left>0cm</Left>
+            <Height>0.6cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>4</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Subreport Name="srGetPossibleNewIndexesBySproc">
+            <ReportName>Possible New Indexes (by stored procedure)</ReportName>
+            <Top>1.93848cm</Top>
+            <Left>0cm</Left>
+            <Height>0.66792cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>5</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+              <ToggleItem>tbPossibleNewIndexesBySproc</ToggleItem>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Subreport>
+          <Subreport Name="srWaitStats">
+            <ReportName>Wait Statistics</ReportName>
+            <Top>4.47432cm</Top>
+            <Left>0cm</Left>
+            <Height>0.66792cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>6</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+              <ToggleItem>tbWaitStats</ToggleItem>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Subreport>
+          <Textbox Name="tbWaitStats">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Wait statistics</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>3.87432cm</Top>
+            <Left>0cm</Left>
+            <Height>0.6cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>7</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
+          <Subreport Name="srCachedSPByPhysicalReads">
+            <ReportName>Cached stored procedures (by physical reads)</ReportName>
+            <Top>5.74224cm</Top>
+            <Left>0cm</Left>
+            <Height>0.66792cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>8</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+              <ToggleItem>tbCachedSPByPhysicalReads</ToggleItem>
+            </Visibility>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Subreport>
+          <Textbox Name="tbCachedSPByPhysicalReads">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>Cached stored procedures (by physical reads)</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <Top>5.14224cm</Top>
+            <Left>0cm</Left>
+            <Height>0.6cm</Height>
+            <Width>18.04459cm</Width>
+            <ZIndex>9</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
-        <Height>4.40661in</Height>
+        <Height>4.70648in</Height>
         <Style />
       </Body>
       <Width>7.10417in</Width>

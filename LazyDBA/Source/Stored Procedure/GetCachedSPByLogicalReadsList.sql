@@ -1,19 +1,22 @@
 ﻿CREATE PROCEDURE [dbo].[GetCachedSPByLogicalReadsList]
+(
+    @pRowCnt INT = 25
+)
 AS
 BEGIN
 
 SET NOCOUNT ON;
 
 -- Top Cached SPs By Total Logical Reads (SQL Server 2012). Logical reads relate to memory pressure
-SELECT  TOP(25) 
+SELECT  TOP(@pRowCnt) 
         p.name AS [SP Name], 
-        qs.total_logical_reads AS [TotalLogicalReads], 
-        qs.total_logical_reads/qs.execution_count AS [AvgLogicalReads],
-        qs.execution_count, 
+        qs.total_logical_reads AS [Total Logical Reads], 
+        qs.total_logical_reads/qs.execution_count AS [Avg Logical Reads],
+        qs.execution_count AS [Execution Time], 
         ISNULL(qs.execution_count/DATEDIFF(Minute, qs.cached_time, GETDATE()), 0) AS [Calls/Minute], 
-        qs.total_elapsed_time, 
-        qs.total_elapsed_time/qs.execution_count AS [avg_elapsed_time], 
-        qs.cached_time
+        qs.total_elapsed_time AS [Total Elapsed Time], 
+        qs.total_elapsed_time/qs.execution_count AS [Avg Elapsed Time], 
+        qs.cached_time AS [Cached Time]
 FROM    [$(TargetDBName)].sys.procedures AS p WITH (NOLOCK)
 JOIN    [$(TargetDBName)].sys.dm_exec_procedure_stats AS qs WITH (NOLOCK)
     ON  p.[object_id] = qs.[object_id]
