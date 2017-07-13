@@ -61,25 +61,25 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>6.44572cm</Width>
+                  <Width>13.85408cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.85255cm</Width>
+                  <Width>2.7888cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.87901cm</Width>
+                  <Width>2.97401cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.27047cm</Width>
+                  <Width>3.07985cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.74672cm</Width>
+                  <Width>3.13276cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.50859cm</Width>
+                  <Width>3.05338cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.29692cm</Width>
+                  <Width>5.11713cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -158,9 +158,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Min Elapsed Time</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -191,9 +189,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Max Elapsed Time</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -224,9 +220,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Max Elapsed Time</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -257,9 +251,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Last Elapsed Time</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -356,7 +348,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Execution_Count.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>### ### ###;'0'</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -387,7 +381,7 @@
                                 <TextRun>
                                   <Value>=Fields!Min_Elapsed_Time.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###;'0'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -419,7 +413,7 @@
                                 <TextRun>
                                   <Value>=Fields!Avg_Elapsed_Time.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###;'0'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -451,7 +445,7 @@
                                 <TextRun>
                                   <Value>=Fields!Max_Elapsed_Time.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###;'0'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -483,7 +477,7 @@
                                 <TextRun>
                                   <Value>=Fields!Last_Elapsed_Time.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###;'0'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -561,7 +555,7 @@
             </TablixRowHierarchy>
             <DataSetName>dsCachedSPByExecTimeVar</DataSetName>
             <Height>1.2cm</Height>
-            <Width>34cm</Width>
+            <Width>34.00001cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>

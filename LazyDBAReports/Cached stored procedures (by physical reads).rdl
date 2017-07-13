@@ -65,28 +65,28 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.9053cm</Width>
+                  <Width>11.01177cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.41255cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.28026cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>2.69817cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.17442cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.09504cm</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>3.01567cm</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>4.31213cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>4.33859cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>4.15338cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>4.2063cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>3.96817cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>3.7565cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>3.35963cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -165,9 +165,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Avg Physical Reads</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -198,9 +196,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Execution Count</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -231,9 +227,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Total Logical Reads</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -264,9 +258,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Total Elapsed Time</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -328,9 +320,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Cached Time</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -396,7 +386,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Total_Physical_Reads.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>### ### ###;'0'</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -427,7 +419,7 @@
                                 <TextRun>
                                   <Value>=Fields!Avg_Physical_Reads.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###;'0'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -459,7 +451,7 @@
                                 <TextRun>
                                   <Value>=Fields!Execution_Count.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###;'0'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -491,7 +483,7 @@
                                 <TextRun>
                                   <Value>=Fields!Total_Logical_Reads.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###;'0'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -523,7 +515,7 @@
                                 <TextRun>
                                   <Value>=Fields!Total_Elapsed_Time.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###;'0'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -554,7 +546,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Avg_Elapsed_Time.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>### ### ###;'0'</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -584,9 +578,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Cached_Time.Value</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -634,7 +626,7 @@
             </TablixRowHierarchy>
             <DataSetName>dsCachedSPByPhysicalReads</DataSetName>
             <Height>1.2cm</Height>
-            <Width>34cm</Width>
+            <Width>34.00001cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>

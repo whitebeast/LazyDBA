@@ -59,7 +59,7 @@
               </Paragraph>
             </Paragraphs>
             <Top>2.72716cm</Top>
-            <Height>0.6cm</Height>
+            <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>2</ZIndex>
             <Style>
@@ -86,8 +86,7 @@
                 <Style />
               </Paragraph>
             </Paragraphs>
-            <Left>0cm</Left>
-            <Height>0.6cm</Height>
+            <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>3</ZIndex>
             <Style>
@@ -116,7 +115,7 @@
             </Paragraphs>
             <Top>1.36358cm</Top>
             <Left>0.00001cm</Left>
-            <Height>0.6cm</Height>
+            <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>4</ZIndex>
             <Style>
@@ -176,7 +175,7 @@
               </Paragraph>
             </Paragraphs>
             <Top>4.09074cm</Top>
-            <Height>0.6cm</Height>
+            <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>7</ZIndex>
             <Style>
@@ -192,7 +191,6 @@
           <Subreport Name="srCachedSPByPhysicalReads">
             <ReportName>Cached stored procedures (by physical reads)</ReportName>
             <Top>15.6472cm</Top>
-            <Left>0cm</Left>
             <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>8</ZIndex>
@@ -221,8 +219,7 @@
               </Paragraph>
             </Paragraphs>
             <Top>14.99937cm</Top>
-            <Left>0cm</Left>
-            <Height>0.6cm</Height>
+            <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>9</ZIndex>
             <Style>
@@ -266,7 +263,7 @@
               </Paragraph>
             </Paragraphs>
             <Top>5.45431cm</Top>
-            <Height>0.6cm</Height>
+            <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>11</ZIndex>
             <Style>
@@ -310,7 +307,7 @@
               </Paragraph>
             </Paragraphs>
             <Top>6.81789cm</Top>
-            <Height>0.6cm</Height>
+            <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>13</ZIndex>
             <Style>
@@ -354,7 +351,7 @@
               </Paragraph>
             </Paragraphs>
             <Top>8.18147cm</Top>
-            <Height>0.6cm</Height>
+            <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>15</ZIndex>
             <Style>
@@ -382,7 +379,7 @@
               </Paragraph>
             </Paragraphs>
             <Top>9.54505cm</Top>
-            <Height>0.6cm</Height>
+            <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>16</ZIndex>
             <Style>
@@ -442,7 +439,7 @@
               </Paragraph>
             </Paragraphs>
             <Top>10.90863cm</Top>
-            <Height>0.6cm</Height>
+            <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>19</ZIndex>
             <Style>
@@ -470,7 +467,7 @@
               </Paragraph>
             </Paragraphs>
             <Top>12.27221cm</Top>
-            <Height>0.6cm</Height>
+            <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>20</ZIndex>
             <Style>
@@ -514,7 +511,7 @@
               </Paragraph>
             </Paragraphs>
             <Top>13.63579cm</Top>
-            <Height>0.6cm</Height>
+            <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>22</ZIndex>
             <Style>
@@ -530,7 +527,6 @@
           <Subreport Name="srCachedSPByLogicalWrites">
             <ReportName>Cached stored procedures (by logical writes)</ReportName>
             <Top>14.28362cm</Top>
-            <Left>0cm</Left>
             <Height>0.66792cm</Height>
             <Width>18.04459cm</Width>
             <ZIndex>23</ZIndex>

@@ -76,40 +76,37 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>2.56547cm</Width>
+                  <Width>1.86062cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.27985cm</Width>
+                  <Width>1.94cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.56547cm</Width>
+                  <Width>5.22083cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.56547cm</Width>
+                  <Width>4.82396cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.56547cm</Width>
+                  <Width>5.45896cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.56547cm</Width>
+                  <Width>1.86062cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.56547cm</Width>
+                  <Width>1.41083cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.56547cm</Width>
+                  <Width>1.88708cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.56547cm</Width>
+                  <Width>1.83417cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.88839cm</Width>
+                  <Width>5.26021cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.74256cm</Width>
-                </TablixColumn>
-                <TablixColumn>
-                  <Width>2.56547cm</Width>
+                  <Width>2.44271cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -180,37 +177,6 @@
                     </TablixCell>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox6">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>Database Schema Table</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Textbox6</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <BackgroundColor>LightGrey</BackgroundColor>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
                         <Textbox Name="Textbox8">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
@@ -220,7 +186,7 @@
                                 <TextRun>
                                   <Value>Equality Columns</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -253,7 +219,7 @@
                                 <TextRun>
                                   <Value>Inequality Columns</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -286,7 +252,7 @@
                                 <TextRun>
                                   <Value>Included Columns</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -319,7 +285,7 @@
                                 <TextRun>
                                   <Value>Unique Compiles</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -352,7 +318,7 @@
                                 <TextRun>
                                   <Value>User Seeks</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -385,7 +351,7 @@
                                 <TextRun>
                                   <Value>Avg Total User Costs</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -418,7 +384,7 @@
                                 <TextRun>
                                   <Value>Avg User Impact</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -451,7 +417,7 @@
                                 <TextRun>
                                   <Value>Table Name</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -484,7 +450,7 @@
                                 <TextRun>
                                   <Value>Table Rows</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -521,7 +487,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Index_Advantage.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -551,43 +519,16 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Last_User_Seek_Date.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>M/d/yyyy</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
                           <rd:DefaultName>Last_User_Seek_Date</rd:DefaultName>
-                          <Style>
-                            <Border>
-                              <Color>LightGrey</Color>
-                              <Style>Solid</Style>
-                            </Border>
-                            <PaddingLeft>2pt</PaddingLeft>
-                            <PaddingRight>2pt</PaddingRight>
-                            <PaddingTop>2pt</PaddingTop>
-                            <PaddingBottom>2pt</PaddingBottom>
-                          </Style>
-                        </Textbox>
-                      </CellContents>
-                    </TablixCell>
-                    <TablixCell>
-                      <CellContents>
-                        <Textbox Name="Database_Schema_Table1">
-                          <CanGrow>true</CanGrow>
-                          <KeepTogether>true</KeepTogether>
-                          <Paragraphs>
-                            <Paragraph>
-                              <TextRuns>
-                                <TextRun>
-                                  <Value>=Fields!Database_Schema_Table.Value</Value>
-                                  <Style />
-                                </TextRun>
-                              </TextRuns>
-                              <Style />
-                            </Paragraph>
-                          </Paragraphs>
-                          <rd:DefaultName>Database_Schema_Table1</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -612,7 +553,7 @@
                                 <TextRun>
                                   <Value>=Fields!Equality_Columns.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -644,7 +585,7 @@
                                 <TextRun>
                                   <Value>=Fields!Inequality_Columns.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -676,7 +617,7 @@
                                 <TextRun>
                                   <Value>=Fields!Included_Columns.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -708,7 +649,8 @@
                                 <TextRun>
                                   <Value>=Fields!Unique_Compiles.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>### ### ###</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -740,7 +682,8 @@
                                 <TextRun>
                                   <Value>=Fields!User_Seeks.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>### ### ###</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -772,7 +715,8 @@
                                 <TextRun>
                                   <Value>=Fields!Avg_Total_User_Costs.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>0.00;(0.00)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -804,7 +748,8 @@
                                 <TextRun>
                                   <Value>=Fields!Avg_User_Impact.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>0.00;(0.00)</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -836,7 +781,7 @@
                                 <TextRun>
                                   <Value>=Fields!Table_Name.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -868,7 +813,8 @@
                                 <TextRun>
                                   <Value>=Fields!Table_Rows.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>### ### ###</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -906,7 +852,6 @@
                 <TablixMember />
                 <TablixMember />
                 <TablixMember />
-                <TablixMember />
               </TablixMembers>
             </TablixColumnHierarchy>
             <TablixRowHierarchy>
@@ -921,7 +866,7 @@
             </TablixRowHierarchy>
             <DataSetName>dsPossibleNewIndexesByAdvantage</DataSetName>
             <Height>1.2cm</Height>
-            <Width>34cm</Width>
+            <Width>33.99999cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>

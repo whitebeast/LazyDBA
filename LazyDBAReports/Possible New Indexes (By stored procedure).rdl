@@ -49,16 +49,16 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>9.61125cm</Width>
+                  <Width>7.94708cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>10.66958cm</Width>
+                  <Width>21.85334cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.85958cm</Width>
+                  <Width>2.12625cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>6.85958cm</Width>
+                  <Width>2.07333cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -169,7 +169,7 @@
                                 <TextRun>
                                   <Value>Use Counts</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -206,7 +206,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Object_Name.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -236,7 +238,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Query_Plan.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -266,7 +270,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Object_Type.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -297,7 +303,7 @@
                                 <TextRun>
                                   <Value>=Fields!Use_Counts.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <FontFamily>Segoe UI</FontFamily>
                                   </Style>
                                 </TextRun>
                               </TextRuns>

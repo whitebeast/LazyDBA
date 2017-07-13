@@ -49,16 +49,16 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.26311cm</Width>
+                  <Width>8.33227cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.66994cm</Width>
+                  <Width>1.95015cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.6964cm</Width>
+                  <Width>1.95015cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>21.37056cm</Width>
+                  <Width>21.76744cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -137,9 +137,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Execution Count</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -170,9 +168,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Query Text</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -238,7 +234,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Avg_IO.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>### ### ###</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -269,7 +267,7 @@
                                 <TextRun>
                                   <Value>=Fields!Execution_Count.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -300,9 +298,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Query_Text.Value</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />

@@ -13,8 +13,8 @@ SELECT  TOP(@pRowCnt)
         query_plan AS [Query Plan], 
         cp.objtype AS [Object Type], 
         cp.usecounts AS [Use Counts]
-FROM    [$(TargetDBName)].sys.dm_exec_cached_plans AS cp WITH (NOLOCK)
-CROSS APPLY [$(TargetDBName)].sys.dm_exec_query_plan(cp.plan_handle) AS qp
+FROM    sys.dm_exec_cached_plans AS cp WITH (NOLOCK)
+CROSS APPLY sys.dm_exec_query_plan(cp.plan_handle) AS qp
 WHERE   CAST(query_plan AS NVARCHAR(MAX)) LIKE N'%MissingIndex%'
     AND dbid = DB_ID('$(TargetDBName)')
 ORDER BY 

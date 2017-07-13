@@ -4,10 +4,9 @@ BEGIN
 SET NOCOUNT ON;
 
 -- Possible Bad NC Indexes (writes > reads)
-SELECT 
-		OBJECT_NAME(s.[object_id]) AS [Table Name], 
+SELECT  
+		t.name AS [Table Name], 
 		i.name AS [Index Name], 
-		i.index_id AS [Index Id], 
 		i.is_disabled AS [Is Disabled], 
 		i.is_hypothetical AS [Is Hypothetical], 
 		i.has_filter AS [Has Filter], 
@@ -17,12 +16,14 @@ SELECT
 		user_updates - (user_seeks + user_scans + user_lookups) AS [Difference]
 FROM	[$(TargetDBName)].sys.dm_db_index_usage_stats AS s WITH (NOLOCK)
 JOIN	[$(TargetDBName)].sys.indexes AS i WITH (NOLOCK) 
-	ON	s.[object_id] = i.[object_id]
+    ON	s.[object_id] = i.[object_id]
 	AND i.index_id = s.index_id
-WHERE	OBJECTPROPERTY(s.[object_id],'IsUserTable') = 1
-	AND s.database_id = DB_ID('$(TargetDBName)')
+JOIN    [$(TargetDBName)].sys.tables AS t WITH (NOLOCK) 
+    ON  t.object_id = s.object_id 
+WHERE	s.database_id = DB_ID('$(TargetDBName)')
 	AND user_updates > (user_seeks + user_scans + user_lookups)
 	AND i.index_id > 1
+    AND t.is_ms_shipped = 0 -- user tables only
 ORDER BY 
 		[Difference] DESC, 
 		[Total Writes] DESC, 

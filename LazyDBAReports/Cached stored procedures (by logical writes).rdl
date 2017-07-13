@@ -65,28 +65,28 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>5.95822cm</Width>
+                  <Width>12.33468cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.36505cm</Width>
+                  <Width>3.20088cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.39151cm</Width>
+                  <Width>3.01568cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.78297cm</Width>
+                  <Width>2.72464cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.25922cm</Width>
+                  <Width>2.59235cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>4.02109cm</Width>
+                  <Width>3.06859cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.80942cm</Width>
+                  <Width>2.9363cm</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>3.41255cm</Width>
+                  <Width>4.12693cm</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -165,9 +165,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Avg Logical Writes</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -198,9 +196,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Execution Count</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -230,10 +226,8 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Calls Minute</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Value>Calls/Minute</Value>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -264,9 +258,7 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>Total Elapsed Time</Value>
-                                  <Style>
-                                    <FontFamily>Arial</FontFamily>
-                                  </Style>
+                                  <Style />
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -394,7 +386,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Total_Logical_Writes.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>### ### ###;'0'</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -425,7 +419,7 @@
                                 <TextRun>
                                   <Value>=Fields!Avg_Logical_Writes.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###;'0'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -457,7 +451,7 @@
                                 <TextRun>
                                   <Value>=Fields!Execution_Count.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###;'0'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -489,7 +483,7 @@
                                 <TextRun>
                                   <Value>=Fields!Calls_Minute.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###;'0'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -521,7 +515,7 @@
                                 <TextRun>
                                   <Value>=Fields!Total_Elapsed_Time.Value</Value>
                                   <Style>
-                                    <FontFamily>Arial</FontFamily>
+                                    <Format>### ### ###;'0'</Format>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -552,7 +546,9 @@
                               <TextRuns>
                                 <TextRun>
                                   <Value>=Fields!Avg_Elapsed_Time.Value</Value>
-                                  <Style />
+                                  <Style>
+                                    <Format>### ### ###;'0'</Format>
+                                  </Style>
                                 </TextRun>
                               </TextRuns>
                               <Style />
@@ -630,7 +626,7 @@
             </TablixRowHierarchy>
             <DataSetName>dsCachedSPByLogicalWrites</DataSetName>
             <Height>1.2cm</Height>
-            <Width>34cm</Width>
+            <Width>34.00005cm</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -641,7 +637,7 @@
         <Height>0.47244in</Height>
         <Style />
       </Body>
-      <Width>13.38583in</Width>
+      <Width>13.38585in</Width>
       <Page>
         <PageHeight>29.7cm</PageHeight>
         <PageWidth>21cm</PageWidth>
