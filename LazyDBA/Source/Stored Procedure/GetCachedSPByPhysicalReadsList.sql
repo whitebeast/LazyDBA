@@ -25,6 +25,7 @@ JOIN    [$(TargetDBName)].sys.dm_exec_procedure_stats AS qs WITH (NOLOCK)
     ON  p.[object_id] = qs.[object_id]
 WHERE   qs.database_id = DB_ID('$(TargetDBName)')
     AND qs.total_physical_reads > 0
+    AND NOT EXISTS (SELECT 1 FROM dbo.Exception AS e WHERE e.ObjectName = p.name)
 ORDER BY 
         qs.total_physical_reads DESC, 
         qs.total_logical_reads DESC 
@@ -34,8 +35,8 @@ OPTION (RECOMPILE);
 -- You should look at this if you see signs of I/O pressure or of memory pressure
 
 SET @pHTML =
-    N'<table>
-        <tr>'+
+    N'<table>' + 
+        N'<tr>'+
             N'<th style="width: 40%;">SP Name</th>' +
             N'<th style="width: 5%;" >Total Physical Reads</th>' +
             N'<th style="width: 5%;" >Avg Physical Reads</th>' +
@@ -47,7 +48,7 @@ SET @pHTML =
         N'</tr>' +
                 CAST ( ( 
                     SELECT  
-                           td=REPLACE(ISNULL(CAST([SP Name] AS NVARCHAR(MAX)),''),'"',''),'',      
+                           td=REPLACE(ISNULL([SP Name],''),'"',''),'',      
                            td=REPLACE(ISNULL(CAST([Total Physical Reads] AS NVARCHAR(MAX)),''),'"',''),'',
                            td=REPLACE(ISNULL(CAST([Avg Physical Reads] AS NVARCHAR(MAX)),''),'"',''),'',
                            td=REPLACE(ISNULL(CAST([Execution Count] AS NVARCHAR(MAX)),''),'"',''),'',

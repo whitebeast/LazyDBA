@@ -68,6 +68,7 @@
     <Folder Include="Source\System" />
     <Folder Include="Source\System\SQLJob" />
     <Folder Include="Source\System\Manual running" />
+    <Folder Include="Source\Stored Procedure\TODO" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Source\Table\Config.sql" />
@@ -88,11 +89,13 @@
     <Build Include="Source\Stored Procedure\GetCachedSPByPhysicalReadsList.sql" />
     <Build Include="Source\Stored Procedure\GetCachedSPByLogicalWritesList.sql" />
     <Build Include="Source\Stored Procedure\GetCachedQueriesByIOCostList.sql" />
-    <Build Include="Source\Stored Procedure\GetPossibleNewIndexesBySprocList.sql" />
     <Build Include="Source\Stored Procedure\GetWaitStatsList.sql" />
     <Build Include="Source\Stored Procedure\GetSQLJobTimeline.sql" />
     <None Include="Source\System\Manual running\EmailProfile.sql" />
     <None Include="Source\Script\ConfigInitial.sql" />
+    <Build Include="Source\Table\Exception.sql" />
+    <None Include="Source\Stored Procedure\TODO\GetPossibleNewIndexesBySprocList.sql" />
+    <None Include="Source\System\SQLJob\DataCollectorJob.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\System\SQLJob\CPUUsageMonitoringJob.sql" />

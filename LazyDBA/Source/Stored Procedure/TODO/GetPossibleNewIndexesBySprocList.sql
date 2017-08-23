@@ -11,25 +11,28 @@ IF OBJECT_ID('tempdb..#tPossibleNewIndexesBySprocList') IS NOT NULL DROP TABLE #
 -- Find missing index warnings for cached plans in the current database
 -- Note: This query could take some time on a busy instance
 SELECT  TOP(@pRowCnt) 
-        OBJECT_NAME(objectid) AS [Object Name], 
+        p.name AS [Object Name], 
         query_plan AS [Query Plan], 
         cp.objtype AS [Object Type], 
         cp.usecounts AS [Use Counts]
-INTO #tPossibleNewIndexesBySprocList
+--INTO #tPossibleNewIndexesBySprocList
 FROM    sys.dm_exec_cached_plans AS cp WITH (NOLOCK)
 CROSS APPLY sys.dm_exec_query_plan(cp.plan_handle) AS qp
+JOIN    [$(TargetDBName)].sys.procedures AS p WITH (NOLOCK)
+    ON p.object_id = qp.objectid  
 WHERE   CAST(query_plan AS NVARCHAR(MAX)) LIKE N'%MissingIndex%'
     AND dbid = DB_ID('$(TargetDBName)')
+    AND NOT EXISTS (SELECT 1 FROM dbo.Exception AS e WHERE e.ObjectName = p.name)
 ORDER BY 
         cp.usecounts DESC 
 OPTION (RECOMPILE);
 
 -- Helps you connect missing indexes to specific stored procedures or queries
 -- This can help you decide whether to add them or not
-
+/*
 SET @pHTML =
-    N'<table>
-        <tr>'+
+    N'<table>' + 
+        N'<tr>'+
             N'<th>Object Name</th>' +
             N'<th>Query Plan</th>' +
             N'<th>Object Type</th>' +
@@ -37,14 +40,15 @@ SET @pHTML =
         N'</tr>' +
                 CAST ( ( 
                     SELECT  
-                           td=REPLACE(ISNULL(CAST([Object Name] AS NVARCHAR(MAX)),''),'"',''),'',      
-                           td=REPLACE(ISNULL(CAST([Query Plan] AS NVARCHAR(MAX)),''),'"',''),'',
-                           td=REPLACE(ISNULL(CAST([Object Type] AS NVARCHAR(MAX)),''),'"',''),'',
-                           td=REPLACE(ISNULL(CAST([Use Counts] AS NVARCHAR(MAX)),''),'"','')
-                    FROM #tPossibleNewIndexesByAdvantageList 
+                           td=REPLACE(ISNULL([Object Name],''),'"',''),'',      
+                           td=REPLACE(ISNULL([Query Plan],''),'"',''),'',
+                           td=REPLACE(ISNULL([Object Type],''),'"',''),'',
+                           td=REPLACE(ISNULL([Use Counts],''),'"','')
+                    FROM #tPossibleNewIndexesBySprocList 
                     FOR XML PATH('tr'), TYPE 
                 ) AS NVARCHAR(MAX) ) +
         N'</table>';   
+        */
 
 IF OBJECT_ID('tempdb..#tPossibleNewIndexesBySprocList') IS NOT NULL DROP TABLE #tPossibleNewIndexesBySprocList;
 

@@ -24,6 +24,7 @@ FROM    [$(TargetDBName)].sys.procedures AS p WITH (NOLOCK)
 JOIN    [$(TargetDBName)].sys.dm_exec_procedure_stats AS qs WITH (NOLOCK)
     ON  p.[object_id] = qs.[object_id]
 WHERE   qs.database_id = DB_ID('$(TargetDBName)')
+    AND NOT EXISTS (SELECT 1 FROM dbo.Exception AS e WHERE e.ObjectName = p.name)
 ORDER BY 
         [Avg Elapsed Time] DESC 
 OPTION (RECOMPILE);
@@ -32,8 +33,8 @@ OPTION (RECOMPILE);
 -- may be easy to optimize with standard query tuning techniques
 
 SET @pHTML =
-    N'<table>
-        <tr>'+
+    N'<table>' + 
+        N'<tr>'+
             N'<th style="width: 40%;">SP Name</th>' +
             N'<th style="width: 5%;" >Avg Elapsed Time</th>' +
             N'<th style="width: 5%;" >Total Elapsed Time</th>' +
@@ -45,7 +46,7 @@ SET @pHTML =
         N'</tr>' +
                 CAST ( ( 
                     SELECT  
-                           td=REPLACE(ISNULL(CAST([SP Name] AS NVARCHAR(MAX)),''),'"',''),'',      
+                           td=REPLACE(ISNULL([SP Name],''),'"',''),'',      
                            td=REPLACE(ISNULL(CAST([Avg Elapsed Time] AS NVARCHAR(MAX)),''),'"',''),'',
                            td=REPLACE(ISNULL(CAST([Total Elapsed Time] AS NVARCHAR(MAX)),''),'"',''),'',
                            td=REPLACE(ISNULL(CAST([Execution Count] AS NVARCHAR(MAX)),''),'"',''),'',

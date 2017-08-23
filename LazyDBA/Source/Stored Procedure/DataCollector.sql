@@ -1,6 +1,8 @@
 ﻿CREATE PROCEDURE [dbo].[DataCollector]
     @pEmailProfileName NVARCHAR(100),
-    @pEmailRecipients NVARCHAR(100)
+    @pEmailRecipients NVARCHAR(100),
+    @PruningPeriod INT = 120,
+    @pDebugMode BIT = 0
 AS
 BEGIN
 
@@ -224,24 +226,23 @@ IF EXISTS (SELECT 1 FROM ##tOutput) BEGIN
             ;
 END        
 
-SELECT len(html), html FROM ##tMail order by id
-
-/*
-EXEC msdb.dbo.sp_send_dbmail	
-	@profile_name = @pEmailProfileName,
-	@recipients = @pEmailRecipients,
-	@subject = 'LazyDBA: Email notification',
-	@body = @body,
-	@body_format = 'HTML', -- or TEXT
-	@importance = 'HIGH', --Low Normal High
-	@execute_query_database = 'master',
-	@query_result_header = 1,
-	@query = @query,
-	@query_result_no_padding = 1,  -- prevent SQL adding padding spaces in the result
-	--@query_no_truncate = 1,       -- mutually exclusive with @query_result_no_padding 
-	@attach_query_result_as_file = @attach_query_result_as_file,
-	@query_attachment_filename = @filename;
-*/
+IF @pDebugMode = 0 BEGIN
+    EXEC msdb.dbo.sp_send_dbmail	
+	    @profile_name = @pEmailProfileName,
+	    @recipients = @pEmailRecipients,
+	    @subject = 'LazyDBA: Email notification',
+	    @body = @body,
+	    @body_format = 'HTML', -- or TEXT
+	    @importance = 'HIGH', --Low Normal High
+	    @execute_query_database = 'master',
+	    @query_result_header = 1,
+	    @query = @query,
+	    @query_result_no_padding = 1,  -- prevent SQL adding padding spaces in the result
+	    --@query_no_truncate = 1,       -- mutually exclusive with @query_result_no_padding 
+	    @attach_query_result_as_file = @attach_query_result_as_file,
+	    @query_attachment_filename = @filename;
+END 
+ELSE SELECT * FROM ##tMail ORDER BY ID
 
 IF OBJECT_ID('tempdb..##tMail') IS NOT NULL DROP TABLE ##tMail;
 IF OBJECT_ID('tempdb..##tOutput') IS NOT NULL DROP TABLE ##tOutput;

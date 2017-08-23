@@ -61,8 +61,8 @@ OPTION (RECOMPILE);
 -- Cumulative wait stats are not as useful on an idle instance that is not under load or performance pressure
 
 SET @pHTML =
-    N'<table>
-        <tr>'+
+    N'<table>' + 
+        N'<tr>'+
             N'<th style="width: 20%;">Wait Type</th>' +
             N'<th style="width: 5%;" >Wait (sec)</th>' +
             N'<th style="width: 5%;" >Resource (sec)</th>' +
@@ -75,7 +75,7 @@ SET @pHTML =
         N'</tr>' +
                 CAST ( ( 
                     SELECT  
-                           td=REPLACE(ISNULL(CAST([Wait Type] AS NVARCHAR(MAX)),''),'"',''),'',      
+                           td=REPLACE(ISNULL([Wait Type],''),'"',''),'',      
                            td=REPLACE(ISNULL(CAST([Wait Sec] AS NVARCHAR(MAX)),''),'"',''),'',
                            td=REPLACE(ISNULL(CAST([Resource Sec] AS NVARCHAR(MAX)),''),'"',''),'',
                            td=REPLACE(ISNULL(CAST([Signal Sec] AS NVARCHAR(MAX)),''),'"',''),'',

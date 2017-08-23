@@ -41,8 +41,8 @@ OPTION (RECOMPILE);
 -- Investigate further before dropping an index!
 
 SET @pHTML =
-    N'<table>
-        <tr>'+
+    N'<table>' + 
+        N'<tr>'+
             N'<th style="width: 15%;">Table Name</th>' +
             N'<th style="width: 40%;">Index Name</th>' +
             N'<th style="width: 5%;" >Is Disabled</th>' +
@@ -55,8 +55,8 @@ SET @pHTML =
         N'</tr>' +
                 CAST ( ( 
                     SELECT  
-                           td=REPLACE(ISNULL(CAST([Table Name] AS NVARCHAR(MAX)),''),'"',''),'',      
-                           td=REPLACE(ISNULL(CAST([Index Name] AS NVARCHAR(MAX)),''),'"',''),'',      
+                           td=REPLACE(ISNULL([Table Name],''),'"',''),'',      
+                           td=REPLACE(ISNULL([Index Name],''),'"',''),'',      
                            td=REPLACE(ISNULL(CAST([Is Disabled] AS NVARCHAR(MAX)),''),'"',''),'',
                            td=REPLACE(ISNULL(CAST([Is Hypothetical] AS NVARCHAR(MAX)),''),'"',''),'',
                            td=REPLACE(ISNULL(CAST([Has Filter] AS NVARCHAR(MAX)),''),'"',''),'',

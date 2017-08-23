@@ -1,0 +1,5 @@
+﻿CREATE TABLE [dbo].[Exception]
+(
+    ExceptionId INT IDENTITY(1,1) NOT NULL CONSTRAINT pkException PRIMARY KEY CLUSTERED,
+    ObjectName NVARCHAR(100) NOT NULL
+)

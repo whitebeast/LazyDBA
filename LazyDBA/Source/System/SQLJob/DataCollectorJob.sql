@@ -3,11 +3,11 @@ GO
 
 BEGIN TRANSACTION
 
-PRINT N'Creating CPU Usage Monitoring Job...';
+PRINT N'Creating Data collector Job...';
 
 DECLARE @ReturnCode INT = 0,
 		@JobId UNIQUEIDENTIFIER,
-		@name NVARCHAR(100) = N'$(ProjectName).CPU Usage Monitoring Job'
+		@name NVARCHAR(100) = N'$(ProjectName).Data collector Job'
 
 SELECT	@JobId = job_id
 FROM	msdb..sysjobs 
@@ -32,14 +32,14 @@ BEGIN
 			@notify_level_netsend=0, 
 			@notify_level_page=0, 
 			@delete_level=0, 
-			@description=N'Monitoring of CPU usage', 
+			@description=N'Collect data for reporting', 
 			@category_name=N'[Uncategorized (Local)]', 
 			@owner_login_name=N'sa', 
 			@notify_email_operator_name=N'DBA', 
 			@job_id = @jobId OUTPUT
 	IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 
-	EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'1. Run CPUUsageMonitor procedure', 
+	EXEC @ReturnCode = msdb.dbo.sp_add_jobstep @job_id=@jobId, @step_name=N'1. Run DataCollector procedure', 
 			@step_id=1, 
 			@cmdexec_success_code=0, 
 			@on_success_action=1, 
@@ -49,7 +49,20 @@ BEGIN
 			@retry_attempts=0, 
 			@retry_interval=0, 
 			@os_run_priority=0, @subsystem=N'TSQL', 
-			@command=N'EXECUTE CPUUsageMonitor;',
+			@command=
+N'DECLARE @Profile NVARCHAR(100),
+         @Email NVARCHAR(100),
+         @PruningPeriod INT
+
+SELECT @Profile = ConfigValue FROM dbo.Config WHERE ConfigItem = N''Email profile name'';
+SELECT @Email = ConfigValue FROM dbo.Config WHERE ConfigItem = N''Email recipients'';
+SELECT @PruningPeriod = ConfigValue FROM dbo.Config WHERE ConfigItem = N''History table pruning period'';
+
+EXEC dbo.[DataCollector]
+    @pEmailProfileName = @Profile,
+    @pEmailRecipients = @Email,
+    @PruningPeriod = @PruningPeriod,
+    @pDebugMode = 0',
 			@database_name=N'$(ProjectName)', 
 			@flags=0
 	IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
@@ -57,15 +70,15 @@ BEGIN
 	EXEC @ReturnCode = msdb.dbo.sp_update_job @job_id = @jobId, @start_step_id = 1
 	IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback
 
-	EXEC @ReturnCode = msdb.dbo.sp_add_jobschedule @job_id=@jobId, @name=N'CPU Usage Monitoring Job schedule', 
+	EXEC @ReturnCode = msdb.dbo.sp_add_jobschedule @job_id=@jobId, @name=N'DataCollector Job schedule', 
 			@enabled=1, 
-			@freq_type=4, 
+			@freq_type=8, 
 			@freq_interval=1, 
-			@freq_subday_type=8, 
-			@freq_subday_interval=1, 
+			@freq_subday_type=1, 
+			@freq_subday_interval=0, 
 			@freq_relative_interval=0, 
-			@freq_recurrence_factor=0, 
-			@active_start_date=20170710, 
+			@freq_recurrence_factor=1, 
+			@active_start_date=20170101, 
 			@active_end_date=99991231, 
 			@active_start_time=0, 
 			@active_end_time=235959

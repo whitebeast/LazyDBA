@@ -42,8 +42,8 @@ OPTION (RECOMPILE);
 -- Do not just blindly add indexes that show up from this query!!!
 
 SET @pHTML =
-    N'<table>
-        <tr>'+
+    N'<table>' + 
+        N'<tr>'+
             N'<th style="width: 5%;" >Index Advantage</th>' +
             N'<th style="width: 10%;">Last User Seek Date</th>' +
             N'<th style="width: 20%;">Equality Columns</th>' +
@@ -60,14 +60,14 @@ SET @pHTML =
                     SELECT  
                            td=REPLACE(ISNULL(CAST([Index Advantage] AS NVARCHAR(MAX)),''),'"',''),'',      
                            td=REPLACE(CONVERT(VARCHAR,ISNULL([Last User Seek Date],''),121),'"',''),'', 
-                           td=REPLACE(ISNULL(CAST([Equality Columns] AS NVARCHAR(MAX)),''),'"',''),'', 
-                           td=REPLACE(ISNULL(CAST([Inequality Columns] AS NVARCHAR(MAX)),''),'"',''),'', 
-                           td=REPLACE(ISNULL(CAST([Included Columns] AS NVARCHAR(MAX)),''),'"',''),'', 
+                           td=REPLACE(ISNULL([Equality Columns],''),'"',''),'', 
+                           td=REPLACE(ISNULL([Inequality Columns],''),'"',''),'', 
+                           td=REPLACE(ISNULL([Included Columns],''),'"',''),'', 
                            td=REPLACE(ISNULL(CAST([Unique Compiles] AS NVARCHAR(MAX)),''),'"',''),'', 
                            td=REPLACE(ISNULL(CAST([User Seeks] AS NVARCHAR(MAX)),''),'"',''),'', 
                            td=REPLACE(ISNULL(CAST([Avg Total User Costs] AS NVARCHAR(MAX)),''),'"',''),'',                       
                            td=REPLACE(ISNULL(CAST([Avg User Impact] AS NVARCHAR(MAX)),''),'"',''),'', 
-                           td=REPLACE(ISNULL(CAST([Table Name] AS NVARCHAR(MAX)),''),'"',''),'', 
+                           td=REPLACE(ISNULL([Table Name],''),'"',''),'', 
                            td=REPLACE(ISNULL(CAST([Table Rows] AS NVARCHAR(MAX)),''),'"','')
                     FROM #tPossibleNewIndexesByAdvantageList 
                     FOR XML PATH('tr'), TYPE 

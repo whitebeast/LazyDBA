@@ -2,6 +2,7 @@
 GO
 :r .\System\SQLJob\CPUUsageMonitoringJob.sql
 :r .\System\SQLJob\DatabaseMaintenanceJob.sql
+:r .\System\SQLJob\DataCollectorJob.sql
 GO
 
 USE [$(ProjectName)]
