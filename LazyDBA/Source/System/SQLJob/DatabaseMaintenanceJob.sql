@@ -7,7 +7,7 @@ PRINT N'Creating Database Maintenance Job...';
 
 DECLARE @ReturnCode INT = 0,
 		@JobId UNIQUEIDENTIFIER,
-		@name NVARCHAR(100) = N'Database Maintenance Job'
+		@name NVARCHAR(100) = N'$(ProjectName).Database Maintenance Job'
 
 SELECT	@JobId = job_id
 FROM	msdb..sysjobs 

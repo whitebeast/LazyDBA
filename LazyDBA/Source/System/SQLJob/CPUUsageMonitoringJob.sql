@@ -7,7 +7,7 @@ PRINT N'Creating CPU Usage Monitoring Job...';
 
 DECLARE @ReturnCode INT = 0,
 		@JobId UNIQUEIDENTIFIER,
-		@name NVARCHAR(100) = N'CPU Usage Monitoring Job'
+		@name NVARCHAR(100) = N'$(ProjectName).CPU Usage Monitoring Job'
 
 SELECT	@JobId = job_id
 FROM	msdb..sysjobs 

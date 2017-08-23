@@ -1,11 +1,13 @@
 ﻿CREATE PROCEDURE [dbo].[GetCachedSPByExecTimeVariableList]
 (
-    @pRowCnt INT = 25
+    @pRowCnt INT = 10,
+    @pHTML NVARCHAR(max) OUTPUT
 )
 AS
 BEGIN
 
 SET NOCOUNT ON;
+IF OBJECT_ID('tempdb..#tCachedSPByExecTimeVariableList') IS NOT NULL DROP TABLE #tCachedSPByExecTimeVariableList;
 
 -- Top Cached SPs By Avg Elapsed Time with execution time variability (SQL Server 2012)
 SELECT  TOP(@pRowCnt) 
@@ -16,6 +18,7 @@ SELECT  TOP(@pRowCnt)
         qs.max_elapsed_time AS [Max Elapsed Time], 
         qs.last_elapsed_time AS [Last Elapsed Time],
         qs.cached_time AS [Cached Time]
+INTO #tCachedSPByExecTimeVariableList
 FROM    [$(TargetDBName)].sys.procedures AS p WITH (NOLOCK)
 JOIN    [$(TargetDBName)].sys.dm_exec_procedure_stats AS qs WITH (NOLOCK)
     ON  p.[object_id] = qs.[object_id]
@@ -26,5 +29,32 @@ OPTION (RECOMPILE);
 
 -- This gives you some interesting information about the variability in the
 -- execution time of your cached stored procedures, which is useful for tuning
+
+SET @pHTML =
+    N'<table>
+        <tr>'+
+            N'<th style="width: 40%;">SP Name</th>' +
+            N'<th style="width: 5%;" >Execution Count</th>' +
+            N'<th style="width: 5%;" >Min Elapsed Time</th>' +
+            N'<th style="width: 5%;" >Avg Elapsed Time</th>' +
+            N'<th style="width: 5%;" >Max Elapsed Time</th>' +
+            N'<th style="width: 5%;" >Last Elapsed Time</th>' +
+            N'<th style="width: 10%;">Cached Time</th>' +
+        N'</tr>' +
+                CAST ( ( 
+                    SELECT  
+                           td=REPLACE(ISNULL(CAST([SP Name] AS NVARCHAR(MAX)),''),'"',''),'',      
+                           td=REPLACE(ISNULL(CAST([Execution Count] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Min Elapsed Time] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Avg Elapsed Time] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Max Elapsed Time] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Last Elapsed Time] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(CONVERT(NVARCHAR,ISNULL([Cached Time],''),121),'"','')
+                    FROM #tCachedSPByExecTimeVariableList 
+                    FOR XML PATH('tr'), TYPE 
+                ) AS NVARCHAR(MAX) ) +
+        N'</table>';   
+
+IF OBJECT_ID('tempdb..#tCachedSPByExecTimeVariableList') IS NOT NULL DROP TABLE #tCachedSPByExecTimeVariableList;
 
 END

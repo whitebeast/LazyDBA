@@ -67,19 +67,18 @@
     <Folder Include="Source\Script" />
     <Folder Include="Source\System" />
     <Folder Include="Source\System\SQLJob" />
+    <Folder Include="Source\System\Manual running" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Source\Table\Configuration.sql" />
-    <Build Include="Source\Table\NotificationRecipient.sql" />
+    <Build Include="Source\Table\Config.sql" />
     <Build Include="Source\Stored Procedure\GetPossibleBadIndexesList.sql" />
     <Build Include="Source\Stored Procedure\MaintainDB.sql" />
     <Build Include="Source\Table\MaintenanceLog.sql" />
     <None Include="Source\System\SQLJob\DatabaseMaintenanceJob.sql" />
-    <None Include="Source\System\Operator.sql" />
     <PostDeploy Include="Source\PostDeployment.sql" />
     <PreDeploy Include="Source\PreDeployment.sql" />
     <Build Include="Source\Stored Procedure\GetPossibleNewIndexesByAdvantageList.sql" />
-    <Build Include="Source\Stored Procedure\_DataCollector.sql" />
+    <Build Include="Source\Stored Procedure\DataCollector.sql" />
     <Build Include="Source\Stored Procedure\CPUUsageMonitor.sql" />
     <Build Include="Source\Stored Procedure\GetCachedSPByExecCntList.sql" />
     <Build Include="Source\Stored Procedure\GetCachedSPByExecTimeList.sql" />
@@ -91,16 +90,16 @@
     <Build Include="Source\Stored Procedure\GetCachedQueriesByIOCostList.sql" />
     <Build Include="Source\Stored Procedure\GetPossibleNewIndexesBySprocList.sql" />
     <Build Include="Source\Stored Procedure\GetWaitStatsList.sql" />
+    <Build Include="Source\Stored Procedure\GetSQLJobTimeline.sql" />
+    <None Include="Source\System\Manual running\EmailProfile.sql" />
+    <None Include="Source\Script\ConfigInitial.sql" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\LazyDBA.localhost.publish.xml" />
     <None Include="Source\System\SQLJob\CPUUsageMonitoringJob.sql" />
+    <None Include="Properties\LazyDBA.localhost.CREATE.publish.xml" />
+    <None Include="Properties\LazyDBA.localhost.UPDATE.publish.xml" />
   </ItemGroup>
   <ItemGroup>
-    <SqlCmdVariable Include="DBAemail">
-      <DefaultValue>mark.herasimovich@itechart-group.com</DefaultValue>
-      <Value>$(SqlCmdVar__3)</Value>
-    </SqlCmdVariable>
     <SqlCmdVariable Include="TargetDBName">
       <DefaultValue>agile_pm</DefaultValue>
       <Value>$(SqlCmdVar__1)</Value>
@@ -111,15 +110,18 @@
     </SqlCmdVariable>
   </ItemGroup>
   <ItemGroup>
-    <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
-      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac</HintPath>
-      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
-      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
-    </ArtifactReference>
+    <RefactorLog Include="LazyDBA.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
     <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\msdb.dacpac">
       <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\msdb.dacpac</HintPath>
       <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
       <DatabaseVariableLiteralValue>msdb</DatabaseVariableLiteralValue>
+    </ArtifactReference>
+    <ArtifactReference Include="$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac">
+      <HintPath>$(DacPacRootPath)\Extensions\Microsoft\SQLDB\Extensions\SqlServer\110\SqlSchemas\master.dacpac</HintPath>
+      <SuppressMissingDependenciesErrors>False</SuppressMissingDependenciesErrors>
+      <DatabaseVariableLiteralValue>master</DatabaseVariableLiteralValue>
     </ArtifactReference>
   </ItemGroup>
 </Project>
