@@ -17,7 +17,7 @@ SELECT N'Email recipients',N'mark.herasimovich@itechart-group.com' UNION ALL
 SELECT N'History table pruning period',N'120' UNION ALL
 SELECT '',''
 
-INSERT INTO dbo.Config 
+INSERT INTO dbo._Config 
     (
         ConfigItem,
         ConfigValue
@@ -25,7 +25,7 @@ INSERT INTO dbo.Config
 SELECT  t.ConfigItem,
         t.ConfigValue
 FROM    @tConfig AS t
-LEFT JOIN dbo.Config c ON c.ConfigItem = t.ConfigItem AND c.ConfigValue = t.ConfigValue
+LEFT JOIN dbo._Config c ON c.ConfigItem = t.ConfigItem AND c.ConfigValue = t.ConfigValue
 WHERE c.ConfigItem IS NULL
-    
+GO    
     

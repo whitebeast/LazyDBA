@@ -22,7 +22,7 @@ JOIN    [$(TargetDBName)].sys.procedures AS p WITH (NOLOCK)
     ON p.object_id = qp.objectid  
 WHERE   CAST(query_plan AS NVARCHAR(MAX)) LIKE N'%MissingIndex%'
     AND dbid = DB_ID('$(TargetDBName)')
-    AND NOT EXISTS (SELECT 1 FROM dbo.Exception AS e WHERE e.ObjectName = p.name)
+    AND NOT EXISTS (SELECT 1 FROM dbo._Exception AS e WHERE e.ObjectName = p.name)
 ORDER BY 
         cp.usecounts DESC 
 OPTION (RECOMPILE);

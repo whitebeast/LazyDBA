@@ -39,22 +39,25 @@ ORDER BY SDT;
 IF EXISTS (SELECT 1 FROM @tJobRunTime) 
 BEGIN
 
-    INSERT INTO ##tSQLJobTimeline (HTML) 
-    SELECT 
-'<head>
-<!--<META HTTP-EQUIV="refresh" CONTENT="3">-->
-<script type="text/javascript" src="https://www.google.com/jsapi?autoload={''modules'':[{''name'':''visualization'', ''version'':''1'',''packages'':[''timeline'']}]}"></script>
-<script type="text/javascript">
-google.setOnLoadCallback(drawChart);
-function drawChart() {
-var container = document.getElementById(''JobTimeline'');
-var chart = new google.visualization.Timeline(container);
-var dataTable = new google.visualization.DataTable();
-dataTable.addColumn({ type: ''string'', id: ''Position'' });
-dataTable.addColumn({ type: ''string'', id: ''Name'' });
-dataTable.addColumn({ type: ''date'', id: ''Start'' });
-dataTable.addColumn({ type: ''date'', id: ''End'' });
-dataTable.addRows([';
+    INSERT INTO ##tSQLJobTimeline (HTML) SELECT 
+    '<head>
+    <!--<META HTTP-EQUIV="refresh" CONTENT="3">-->
+    <script type="text/javascript" src="https://www.google.com/jsapi?autoload={''modules'':[{''name'':''visualization'', ''version'':''1'',''packages'':[''timeline'']}]}"></script>'
+    INSERT INTO ##tSQLJobTimeline (HTML) SELECT 
+    '<script type="text/javascript">
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {'
+    INSERT INTO ##tSQLJobTimeline (HTML) SELECT
+    'var container = document.getElementById(''JobTimeline'');
+    var chart = new google.visualization.Timeline(container);
+    var dataTable = new google.visualization.DataTable();'
+    INSERT INTO ##tSQLJobTimeline (HTML) SELECT 
+    'dataTable.addColumn({ type: ''string'', id: ''Position'' });
+    dataTable.addColumn({ type: ''string'', id: ''Name'' });
+    dataTable.addColumn({ type: ''date'', id: ''Start'' });
+    dataTable.addColumn({ type: ''date'', id: ''End'' });
+    dataTable.addRows([
+    '
 
     INSERT INTO ##tSQLJobTimeline (HTML) 
     SELECT  ' [ ' 

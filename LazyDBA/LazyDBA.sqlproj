@@ -71,10 +71,10 @@
     <Folder Include="Source\Stored Procedure\TODO" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Source\Table\Config.sql" />
+    <Build Include="Source\Table\_Config.sql" />
     <Build Include="Source\Stored Procedure\GetPossibleBadIndexesList.sql" />
     <Build Include="Source\Stored Procedure\MaintainDB.sql" />
-    <Build Include="Source\Table\MaintenanceLog.sql" />
+    <Build Include="Source\Table\_MaintenanceLog.sql" />
     <None Include="Source\System\SQLJob\DatabaseMaintenanceJob.sql" />
     <PostDeploy Include="Source\PostDeployment.sql" />
     <PreDeploy Include="Source\PreDeployment.sql" />
@@ -93,9 +93,22 @@
     <Build Include="Source\Stored Procedure\GetSQLJobTimeline.sql" />
     <None Include="Source\System\Manual running\EmailProfile.sql" />
     <None Include="Source\Script\ConfigInitial.sql" />
-    <Build Include="Source\Table\Exception.sql" />
+    <Build Include="Source\Table\_Exception.sql" />
     <None Include="Source\Stored Procedure\TODO\GetPossibleNewIndexesBySprocList.sql" />
     <None Include="Source\System\SQLJob\DataCollectorJob.sql" />
+    <Build Include="Source\Function\fnSplit.sql" />
+    <Build Include="Source\Table\CachedQueriesByIOCostList.sql" />
+    <Build Include="Source\Table\CachedSPByCPUCostList.sql" />
+    <Build Include="Source\Table\CachedSPByExecCntList.sql" />
+    <Build Include="Source\Table\CachedSPByExecTimeList.sql" />
+    <Build Include="Source\Table\CachedSPByExecTimeVariableList.sql" />
+    <Build Include="Source\Table\CachedSPByLogicalReadsList.sql" />
+    <Build Include="Source\Table\CachedSPByLogicalWritesList.sql" />
+    <Build Include="Source\Table\CachedSPByPhysicalReadsList.sql" />
+    <Build Include="Source\Table\PossibleBadIndexesList.sql" />
+    <Build Include="Source\Table\PossibleNewIndexesByAdvantageList.sql" />
+    <Build Include="Source\Table\WaitStatsList.sql" />
+    <None Include="Source\Stored Procedure\TODO\Procedure1.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\System\SQLJob\CPUUsageMonitoringJob.sql" />

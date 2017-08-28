@@ -64,7 +64,7 @@ BEGIN
 			@retry_attempts=0, 
 			@retry_interval=0, 
 			@os_run_priority=0, @subsystem=N'TSQL', 
-			@command=N'DELETE FROM dbo.MaintenanceLog WHERE DateTime <= DATEADD(MONTH,-1,GETDATE())', 
+			@command=N'DELETE FROM dbo._MaintenanceLog WHERE DateTime <= DATEADD(MONTH,-1,GETDATE())', 
 			@database_name=N'$(ProjectName)', 
 			@flags=0
 	IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback

@@ -1,0 +1,969 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" />
+        <title> LazyDBA report on 2017-08-28.html </title>
+        <style>
+            #slider {
+                width: 100%;
+                color: #66666;
+                font-family: Helvetica;
+                font-size: 20px;
+            }
+            .header {
+                border: 1px solid #cccccc;
+                padding: 8px;
+                margin-top: 5px;
+                cursor: pointer;
+                text-align: center;
+            }
+            .header:hover {
+                color: #666666;
+            }
+            .content {
+                overflow: hidden;
+            }
+            .text {
+                width: 2000;
+                border: 1px solid #cccccc;
+                border-top: none;
+                padding: 5px;
+                text-align: left;
+                background: #eeeeee;
+                font-size: 14px;
+            }
+            .content table {
+                border-collapse: collapse;
+                border-spacing: 0px;
+            }
+            .content table td,
+            .content table th {
+                border: 1px black solid;
+                border-collapse: collapse;
+                padding: 2px;
+            }
+            .content table tr:nth-child(2n){
+                background-color: #D4D4D4;
+            }
+        </style>
+        <script type="text/javascript">
+            var array = new Array();
+            var speed = 10;
+            var timer = 10;
+
+            function slider(target,showfirst) {
+                var slider = document.getElementById(target);
+                var divs = slider.getElementsByTagName('div');
+                var divslength = divs.length;
+
+                for(i = 0; i < divslength; i++) {
+                    var div = divs[i];
+                    var divid = div.id;
+                    if(divid.indexOf("header") != -1) {
+                        div.onclick = new Function("processClick(this)");
+                    }
+                    else if(divid.indexOf("content") != -1) {
+                        var section = divid.replace('-content','');
+
+                        array.push(section);
+                        div.maxh = div.offsetHeight;
+                        if(showfirst == 1 && i == 1) {
+                            div.style.display = 'block';
+                        }
+                        else {
+                            div.style.display = 'none';
+                        }
+                    }
+                }
+            }
+
+            function processClick(div) {
+                var catlength = array.length;
+
+                for(i = 0; i < catlength; i++) {
+                    var section = array[i];
+                    var head = document.getElementById(section + '-header');
+                    var cont = section + '-content';
+                    var contdiv = document.getElementById(cont);
+
+                    clearInterval(contdiv.timer);
+                    if(head == div && contdiv.style.display == 'none') {
+                        contdiv.style.height = '0px';
+                        contdiv.style.display = 'block';
+                        initSlide(cont,1);
+                    }
+                    else if(contdiv.style.display == 'block') {
+                        initSlide(cont,-1);
+                    }
+                }
+            }
+
+            function initSlide(id,dir) {
+                var cont = document.getElementById(id);
+                var maxh = cont.maxh;
+
+                cont.direction = dir;
+                cont.timer = setInterval("slide('" + id + "')", timer);
+            }
+
+
+            function slide(id) {
+                var cont = document.getElementById(id);
+                var maxh = cont.maxh;
+                var currheight = cont.offsetHeight;
+                var dist;
+
+                if(cont.direction == 1) {
+                    dist = (Math.round((maxh - currheight) / speed));
+                }
+                else {dist = (Math.round(currheight / speed));
+                }
+                if(dist <= 1) {
+                    dist = 1;
+                }
+                cont.style.height = currheight + (dist * cont.direction) + 'px';
+                cont.style.opacity = currheight / cont.maxh;
+                cont.style.filter = 'alpha(opacity=' + (currheight * 100 / cont.maxh) + ')';
+                if(currheight < 2 && cont.direction != 1) {
+                    cont.style.display = 'none';
+                    clearInterval(cont.timer);
+                }
+                else if(currheight > (maxh - 2) && cont.direction == 1) {
+                    clearInterval(cont.timer);
+                }
+            }
+        </script>
+    </head>
+    <body onload="slider('slider',0)">
+        <div id="slider">
+<div class="header" id="1-header">Cached queries (by IO cost)</div><div class="content" id="1-content">
+    <div class="text"><table><tr><th style="width: 10%;">SP Name</th><th style="width: 3%;">Avg IO</th><th style="width: 2%;">Execution Count</th><th style="width: 85%;">Query Text</th></tr><tr><td>GenerateClaims</td><td>16183115</td><td>9</td><td>	insert into ClaimLineDiagnosis&#x0D;
+		(&#x0D;
+			[ClaimLineId]&#x0D;
+			,[ICD9DiagnosisCode]&#x0D;
+			,[ICD10DiagnosisCode]&#x0D;
+			,[CreatedBy]&#x0D;
+			,[CreatedOn]&#x0D;
+			,[ModifiedBy]&#x0D;
+			,[ModifiedOn]&#x0D;
+		)&#x0D;
+		select tdc.ClaimLineId,&#x0D;
+		case when dc.ICD = 9 then dc.Code&#x0D;
+			else eqvICD9.ICD9Code&#x0D;
+		end,&#x0D;
+		case when dc.ICD = 10 then dc.Code&#x0D;
+			 else NULL&#x0D;
+		end,&#x0D;
+		@UserId CreatedBy,&#x0D;
+        GetDate() CreatedOn,&#x0D;
+        @UserId ModifiedBy,&#x0D;
+        GetDate() ModifiedOn&#x0D;
+		from @ClaimLineDiagnosis tdc&#x0D;
+		join [DiagnosisCode] dc on tdc.DiagnosisCodeId = dc.DiagnosisCodeId&#x0D;
+		left join (&#x0D;
+			select top 1 with ties&#x0D;
+					dcICD10.DiagnosisCodeId as DiagnosisCodeICD10Id,&#x0D;
+					dcICD9.Code as ICD9Code&#x0D;
+			from @ClaimLineDiagnosis dcICD10&#x0D;
+			join [DiagnosisCodeMapping] dcm on dcICD10.DiagnosisCodeId = dcm.DiagnosisCodeId&#x0D;
+			join [DiagnosisCode] dcICD9 on dcm.MappedDiagnosisCodeId = dcICD9.DiagnosisCodeId&#x0D;
+			where dcICD9.ICD = 9&#x0D;
+			order by ROW_NUMBER() over (partition by dcICD10.DiagnosisCodeId order by dcICD9.DiagnosisCodeId)&#x0D;
+			) eqvICD9 on dc.DiagnosisCodeId = eqvICD9.DiagnosisCodeICD10Id AND dc.ICD = 10&#x0D;
+&#x0D;
+		insert into ClaimLineAdjustment&#x0D;
+		(&#x0D;
+			[ClaimLineId]&#x0D;
+			,[PaymentProcess]&#x0D;
+			,[GroupCode]&#x0D;
+			,[ReasonCode]&#x0D;
+			,[Amount]&#x0D;
+			,[ReasonCodeTypeId]&#x0D;
+			,[CreatedBy]&#x0D;
+            ,[CreatedOn]&#x0D;
+            ,[ModifiedBy]&#x0D;
+            ,[ModifiedOn]&#x0D;
+		)&#x0D;
+		SELECT&#x0D;
+		claimLine.ClaimLineId 'Claim Line Id',&#x0D;
+		paymentProcessLookup.Type 'Payment Process',&#x0D;
+		case &#x0D;
+			when adjustmentTr.AdjustmentUnknownCode IS NOT NULL OR (adjustmentTr.AdjustmentCarcReasonCodeId IS NOT NULL AND claimAdjustmentReasonCode.ReasonCodeTypeId NOT IN (2, 3, 4))&#x0D;
+			then adjustmentGroupLookup.Type&#x0D;
+			else claimAdjustmentReasonCode.ElectronicRemitanceGroupName&#x0D;
+		end 'Group Code',&#x0D;
+		case &#x0D;
+			when adjustmentTr.AdjustmentUnknownCode IS NOT NULL then adjustmentTr.AdjustmentUnknownCode&#x0D;
+			when claimAdjustmentReasonCode.ReasonCodeTypeId IN (2, 3, 4) then claimAdjustmentReasonCode.ElectronicRemitanceReasonCode&#x0D;
+			else claimAdjustmentReasonCode.Code&#x0D;
+		end 'Reason Code',&#x0D;
+		ISNULL(adjustmentTr.TransactionAmount, 0) * ISNULL(adjustmentTr.TransactionUnits, 1) 'Amount',&#x0D;
+		claimAdjustmentReasonCode.ReasonCodeTypeId 'Rea</td></tr><tr><td>RunBCBSEvalHold</td><td>4362715</td><td>13</td><td> with ApptsToHold as&#x0D;
+                (&#x0D;
+                    select&#x0D;
+                        a.AppointmentID as EvalAppointmentID,&#x0D;
+                        a.CaseID,&#x0D;
+                        ca.AppointmentID as CaseAppointmentID&#x0D;
+                    from&#x0D;
+                        [vwEncounterInsuranceInfo] ei&#x0D;
+                        join Appointment a on ei.EncounterInsuranceInfoID = a.appointmentid&#x0D;
+                        join AppointmentType at on a.appointmenttypeid = at.appointmenttypeid&#x0D;
+                        join InsuranceCarrier ic on ei.PrimaryCarrierID = ic.InsuranceCarrierID&#x0D;
+                        join location l on a.LocationID = l.LocationID&#x0D;
+                        left join vwAHInsurancePayments ip on ip.appointmentid = a.appointmentid&#x0D;
+                        left join appointment ca on a.caseid = ca.caseid&#x0D;
+                            and ca.AppointmentID &lt;&gt; a.AppointmentID&#x0D;
+                    where&#x0D;
+                        a.IsOnHold = 'false'&#x0D;
+                        and a.IsCancelled = 'false'&#x0D;
+                        and ca.IsOnHold = 'false'&#x0D;
+                        and ca.IsCancelled = 'false'&#x0D;
+                        and at.description like '%eval%'&#x0D;
+                        and ic.CarrierName = 'Blue Cross Blue Shield'&#x0D;
+                        and ic.ElectronicFormTypeLookupID = 2500&#x0D;
+                        and a.HoldReasonLookupID &lt;&gt; 3600 -- Exclude manual holds&#x0D;
+                    group by&#x0D;
+                        a.AppointmentID,&#x0D;
+                        a.CaseID,&#x0D;
+                        ca.AppointmentID,&#x0D;
+                        l.CompanyID&#x0D;
+                    having&#x0D;
+                        isnull(Count(ip.TransactionID), 0) &lt; 1&#x0D;
+                        and l.CompanyID = 2&#x0D;
+                )&#x0D;
+                update&#x0D;
+                    a&#x0D;
+                set&#x0D;
+                    a.IsOnHold = 'true',&#x0D;
+                    a.HoldReasonLookupID = @HoldReasonLookupId,&#x0D;
+                    a.ModifiedOn = @ModifiedOn,&#x0D;
+                    a.ModifiedBy = 1&#x0D;
+                from&#x0D;
+                    appointment a&#x0D;
+                    join ApptsToHold ah on a.AppointmentID = ah.CaseAppointmentID&#x0D;
+&#x0D;
+END&#x0D;
+&#x0D;
+&#x0D;
+&#x0D;
+&#x0D;
+</td></tr><tr><td>GetSiteProfileReportByDayData</td><td>3878376</td><td>1</td><td> select&#x0D;
+        d.Day,&#x0D;
+        d.Month,&#x0D;
+        d.Year,&#x0D;
+        d.Date,&#x0D;
+        l.LocationId, l.DisplayName,&#x0D;
+        l.FinancialCode,&#x0D;
+        cl.ClinicianId, cl.ClinicianLookupId, cl.[Type], cl.FirstName, cl.LastName,&#x0D;
+        CameFromClinicianIds =&#x0D;
+            cast(case&#x0D;
+                    when cl.ClinicianId in (select * from @filterClinicians)&#x0D;
+                    then 1&#x0D;
+                    else 0&#x0D;
+                end as bit),&#x0D;
+        CameFromLocationids =&#x0D;
+            cast(case&#x0D;
+                    when l.LocationId in (select * from @filterLocations)&#x0D;
+                    then 1&#x0D;
+                    else 0&#x0D;
+                end as bit),&#x0D;
+        sum(tr.TransactionUnits) as TransactionUnitsSum,&#x0D;
+        TotalMinutesSum =&#x0D;
+            (select sum(tr.TotalMinutes)&#x0D;
+            from @timeReports tr&#x0D;
+            where tr.ClinicianId = cl.ClinicianId&#x0D;
+                and tr.LocationId = l.LocationId&#x0D;
+                and cast(tr.ReportingDate as date) = d.Date),&#x0D;
+		TotalTrackingVisitsSum =&#x0D;
+            (select sum(tr.Visits)&#x0D;
+            from @timeReports tr&#x0D;
+            where tr.ClinicianId = cl.ClinicianId&#x0D;
+                and tr.LocationId = l.LocationId&#x0D;
+                and cast(tr.ReportingDate as date) = d.Date),&#x0D;
+		TotalTrackingEvalsSum = &#x0D;
+		    (select sum(tr.Evals)&#x0D;
+            from @timeReports tr&#x0D;
+            where tr.ClinicianId = cl.ClinicianId&#x0D;
+                and tr.LocationId = l.LocationId&#x0D;
+                and cast(tr.ReportingDate as date) = d.Date),&#x0D;
+		TotalTrackingUnitsSum = &#x0D;
+		    (select sum(tr.Units)&#x0D;
+            from @timeReports tr&#x0D;
+            where tr.ClinicianId = cl.ClinicianId&#x0D;
+                and tr.LocationId = l.LocationId&#x0D;
+                and cast(tr.ReportingDate as date) = d.Date),&#x0D;
+		TotalTrackingNSCancelSum = &#x0D;
+		    (select sum(tr.NoShowCancel)&#x0D;
+            from @timeReports tr&#x0D;
+            where tr.ClinicianId = cl.ClinicianId&#x0D;
+                and tr.LocationId = l.LocationId&#x0D;
+                and cast(tr.ReportingDate as date) = d.Date),&#x0D;
+		TotalTrackingProceduresSum = &#x0D;
+		    (select sum(tr.[Procedures])&#x0D;
+            from @timeReports tr&#x0D;
+            where tr.ClinicianId = cl.ClinicianId&#x0D;
+                and tr.LocationId = l.LocationId&#x0D;
+                and cast(tr.ReportingDate as date) = d.Date),&#x0D;
+        sum(isnull(tr.RVU, 0) * isnull(tr.TransactionUnits, 0)) as RVUSum,&#x0D;
+		ProceduresCount = count(tr.ChargeMasterCodeId),&#x0D;
+        FirstAppointmentCount =&#x0D;
+            (select count(*)&#x0D;
+                 from @visits vis &#x0D;
+				     join (select row_number() over (partition by ta.[CaseId] order by ta.StartTime, ta.AppointmentId) [Index], &#x0D;
+								ta.AppointmentId&#x0D;
+						  from @visits v&#x0D;
+					      join Appointment ta on v.CaseId = ta.CaseId&#x0D;
+                          where ta.Deleted = 0&#x0D;
+							 and ta.ArrivalTime is not null&#x0D;
+							 and ta.IsCancelled = 0&#x0D;
+						  group by ta.CaseId, ta.AppointmentId, ta.StartTime) tt on tt.AppointmentId = vis.AppointmentId and tt.[Index] = 1 and cast(vis.ArrivalTime as date) = d.Date &#x0D;
+                where vis.ClinicianId = cl.ClinicianId&#x0D;
+                    and vis.LocationId = l.LocationId),&#x0D;
+        TotalAppointmentCount =&#x0D;
+            (select count(*)&#x0D;
+            from @visits v&#x0D;
+            where cast(v.ArrivalTime as date) = d.Date&#x0D;
+                and v.ClinicianId = cl.ClinicianId&#x0D;
+                and v.LocationId = l.LocationId),&#x0D;
+        CanceledAppointmentCount =&#x0D;
+            (select count(*)&#x0D;
+            from Appointment ta&#x0D;
+			left join [CancellationReason] cr on cr.[CancellationReasonId] = ta.[CancellationReasonId]&#x0D;
+            where ta.Deleted = 0&#x0D;
+                and ta.IsCancelled = 1&#x0D;
+                and cr.IgnoreCancellation = 0 --Voided&#x0D;
+                and cast(isnull(ta.ArrivalTime, ta.StartTime) as date) = d.Date&#x0D;
+                and (@startDate is null or isnull(ta.ArrivalTime, ta.StartTime) &gt;= @startDate)&#x0D;
+                and (@endDate is null or isnull(ta.ArrivalTime, ta.StartTime) &lt;= @endDate)&#x0D;
+                and ta.ClinicianId = cl.ClinicianId&#x0D;
+                and ta.LocationId = l.LocationId)&#x0D;
+    into #result&#x0D;
+    from @dates d&#x0D;
+        inner join @locations l&#x0D;
+            on 1 = 1&#x0D;
+&#x0D;
+        inner join @clinicians cl&#x0D;
+            on 1 = 1&#x0D;
+&#x0D;
+        left join @transactions tr&#x0D;
+				on l.LocationId = tr.LocationId&#x0D;
+					and cl.ClinicianId = tr.ClinicianId&#x0D;
+					and d.Date = tr.ArrivalDate&#x0D;
+    where&#x0D;
+        (l.LocationId in (select * from @filterLocations)&#x0D;
+            or cl.ClinicianId in (select * from @filterClinicians))&#x0D;
+    group by&#x0D;
+        d.Day, d.Month, d.Year, d.Date,&#x0D;
+        l.LocationId, l.DisplayName, l.FinancialCode,&#x0D;
+        cl.ClinicianId, cl.ClinicianLookupId, cl.[Type], cl.UserId, cl.FirstName, cl.LastName&#x0D;
+    order by l.DisplayName, cl.[Type], cl.LastName, cl.FirstName, cl.ClinicianId, d.[Date]&#x0D;
+&#x0D;
+&#x0D;
+    select *&#x0D;
+    from #result r&#x0D;
+    where&#x0D;
+        Exists(&#x0D;
+            select top 1 ClinicianId&#x0D;
+            from #result t&#x0D;
+            where&#x0D;
+                t.LocationId = r.LocationId&#x0D;
+                and t.ClinicianId = r.ClinicianId&#x0D;
+                and t.[Year] = r.[Year]&#x0D;
+                and t.[Month] = r.[Month]&#x0D;
+                and (TransactionUnitsSum &gt; 0&#x0D;
+                    or TotalMinutesSum &gt; 0&#x0D;
+                    or RVUSum &gt; 0&#x0D;
+                    or FirstAppointmentCount &gt; 0&#x0D;
+                    or TotalAppointmentCount &gt; 0&#x0D;
+                    or CanceledAppointmentCount &gt; 0))&#x0D;
+</td></tr><tr><td>GenerateClaims</td><td>3238262</td><td>9</td><td>	insert into ClaimDiagnosis&#x0D;
+	(&#x0D;
+		[ClaimId]&#x0D;
+		,[DiagnosisOrder]&#x0D;
+		,[ICD9DiagnosisCode]&#x0D;
+		,[ICD10DiagnosisCode]&#x0D;
+		,[IsExternal]&#x0D;
+		,[CreatedBy]&#x0D;
+		,[CreatedOn]&#x0D;
+		,[ModifiedBy]&#x0D;
+		,[ModifiedOn]&#x0D;
+	)&#x0D;
+	select tdc.ClaimId,&#x0D;
+		tdc.DiagnosisOrder,&#x0D;
+		case when dc.ICD = 9 then dc.Code&#x0D;
+			else eqvICD9.ICD9Code&#x0D;
+		end,&#x0D;
+		case when dc.ICD = 10 then dc.Code&#x0D;
+			 else NULL&#x0D;
+		end,&#x0D;
+		dc.IsExternal,&#x0D;
+		@UserId CreatedBy,&#x0D;
+        GetDate() CreatedOn,&#x0D;
+        @UserId ModifiedBy,&#x0D;
+        GetDate() ModifiedOn&#x0D;
+	from @claimDiagnosis tdc&#x0D;
+	join [DiagnosisCode] dc on tdc.DiagnosisCodeId = dc.DiagnosisCodeId&#x0D;
+	left join (&#x0D;
+			select top 1 with ties&#x0D;
+					dcICD10.DiagnosisCodeId as DiagnosisCodeICD10Id,&#x0D;
+					dcICD9.Code as ICD9Code&#x0D;
+			from @claimDiagnosis dcICD10&#x0D;
+			join [DiagnosisCodeMapping] dcm on dcICD10.DiagnosisCodeId = dcm.DiagnosisCodeId&#x0D;
+			join [DiagnosisCode] dcICD9 on dcm.MappedDiagnosisCodeId = dcICD9.DiagnosisCodeId&#x0D;
+			where dcICD9.ICD = 9&#x0D;
+			order by ROW_NUMBER() over (partition by dcICD10.DiagnosisCodeId order by dcICD9.DiagnosisCodeId)&#x0D;
+			) eqvICD9 on dc.DiagnosisCodeId = eqvICD9.DiagnosisCodeICD10Id AND dc.ICD = 10&#x0D;
+&#x0D;
+		insert into @claimLines&#x0D;
+		select &#x0D;
+            t.TransactionId,&#x0D;
+            t.[ParentTransactionId],&#x0D;
+            t.[AppointmentId],&#x0D;
+			cla.ClaimId,&#x0D;
+			0,&#x0D;
+			t.PaymentProcessLookupId&#x0D;
+		from [Transaction] t&#x0D;
+            left join ChargeBatchTransaction cbt on cbt.TransactionId = t.TransactionId&#x0D;
+			left join [Claim] cla on t.[AppointmentId] = cla.AppointmentId&#x0D;
+        where t.TransactionTypeLookupId IN ( 1100, 1106 ) and&#x0D;
+            t.PaymentProcessLookupId in (1301,1302,1303)&#x0D;
+            and t.Deleted = 0&#x0D;
+            and cbt.ChargeBatchId = @ChargeBatchId&#x0D;
+            and cla.ChargeBatchId = @ChargeBatchId&#x0D;
+        order by ClaimId&#x0D;
+&#x0D;
+		insert into @claimLines&#x0D;
+		select distinct &#x0D;
+            t.TransactionId,&#x0D;
+            t.[ParentTransactionId],&#x0D;
+            t.[AppointmentId],&#x0D;
+			cl.ClaimId,&#x0D;
+			1,&#x0D;
+			cl.PaymentProcessId&#x0D;
+		from [Transaction] t&#x0D;
+		join @claimLines cl on t.[AppointmentId] = cl.AppointmentId&#x0D;
+		join [Lookup] paymPr on paymPr.LookupId = cl.PaymentProcessId&#x0D;
+		join [Claim]  c on cl.ClaimId = c.ClaimId and c.PaymentProcess = paymPr.Type&#x0D;
+        where t.TransactionTypeLookupId IN ( 1100, 1106 ) and&#x0D;
+    </td></tr><tr><td>DistributePatientPayments</td><td>3027835</td><td>1</td><td>	insert into @ProcedureBalances&#x0D;
+	SELECT&#x0D;
+		procs.AppointmentId,&#x0D;
+		procs.CaseId,&#x0D;
+		procs.CaseBalance,&#x0D;
+		procs.ProcedureTransactionId,&#x0D;
+		procs.Charges,&#x0D;
+		(Charges - isnull(&#x0D;
+			(SELECT &#x0D;
+				SUM(t_payments.TransactionAmount)&#x0D;
+				FROM [Transaction] t_payments&#x0D;
+				WHERE &#x0D;
+						t_payments.Deleted = 0&#x0D;
+						AND t_payments.TransactionStatusLookupId &lt;&gt; 1706&#x0D;
+						AND (t_payments.TransactionTypeLookupId = 1102)&#x0D;
+						AND t_payments.ParentTransactionId = procs.ProcedureTransactionId&#x0D;
+		), 0) -&#x0D;
+		isnull((SELECT  &#x0D;
+					SUM(ISNULL(t.TransactionAmount,0))&#x0D;
+				FROM [Transaction] t&#x0D;
+				WHERE &#x0D;
+						t.Deleted = 0&#x0D;
+						AND t.TransactionTypeLookupId = 1103&#x0D;
+						AND t.PaymentProcessLookupId = 1304&#x0D;
+						AND t.TransactionStatusLookupId &lt;&gt; 1706&#x0D;
+						AND t.ParentTransactionId = procs.ProcedureTransactionId&#x0D;
+		), 0) -&#x0D;
+		isnull(&#x0D;
+			(SELECT &#x0D;
+					SUM(ISNULL(t.TransactionAmount,0))&#x0D;
+				FROM [Transaction] t&#x0D;
+				WHERE &#x0D;
+					t.Deleted = 0&#x0D;
+					AND t.TransactionTypeLookupId = 1104&#x0D;
+					AND t.ParentTransactionId = procs.ProcedureTransactionId&#x0D;
+		), 0)),&#x0D;
+		procs.AgeDate,&#x0D;
+		rank() OVER (PARTITION BY CaseId ORDER BY AgeDate, TransactionDate ASC),&#x0D;
+		procs.CaseBalance,&#x0D;
+		procs.TransactionDate&#x0D;
+	FROM&#x0D;
+		@patientChargesByProcedure procs&#x0D;
+	GROUP BY&#x0D;
+		procs.ProcedureTransactionId,&#x0D;
+		procs.AppointmentId,&#x0D;
+		procs.CaseId,&#x0D;
+		procs.AgeDate,&#x0D;
+		procs.CaseBalance,&#x0D;
+		procs.Charges,&#x0D;
+		procs.TransactionDate              &#x0D;
+	HAVING&#x0D;
+		(Charges - isnull(&#x0D;
+			(SELECT &#x0D;
+				SUM(t_payments.TransactionAmount)&#x0D;
+				FROM [Transaction] t_payments&#x0D;
+				WHERE &#x0D;
+						t_payments.Deleted = 0&#x0D;
+						AND t_payments.TransactionStatusLookupId &lt;&gt; 1706&#x0D;
+						AND (t_payments.TransactionTypeLookupId = 1102)&#x0D;
+						AND t_payments.ParentTransactionId = procs.ProcedureTransactionId&#x0D;
+		), 0) -&#x0D;
+		isnull((SELECT  &#x0D;
+					SUM(ISNULL(t.TransactionAmount,0))&#x0D;
+				FROM [Transaction] t&#x0D;
+				WHERE &#x0D;
+						t.Deleted = 0&#x0D;
+						AND t.TransactionTypeLookupId = 1103&#x0D;
+						AND t.PaymentProcessLookupId = 1304&#x0D;
+						AND t.TransactionStatusLookupId &lt;&gt; 1706&#x0D;
+						AND t.ParentTransactionId = procs.ProcedureTransactionId&#x0D;
+		), 0) -&#x0D;
+		isnull(&#x0D;
+			(SELECT &#x0D;
+					SUM(ISNULL(t.TransactionAmount,0))&#x0D;
+				FROM [Transaction] t&#x0D;
+				WHERE &#x0D;
+					t.Deleted = 0&#x0D;
+					AND t.TransactionTypeLookupId = 1104&#x0D;
+					AND t.ParentTransactionId = procs.ProcedureTransactionId&#x0D;
+		), 0) &gt; 0)&#x0D;
+	ORDER BY &#x0D;
+		procs.CaseId, &#x0D;
+		procs.AgeDate, &#x0D;
+		procs.ProcedureTransactionId&#x0D;
+&#x0D;
+	--FOR DEBUGGING&#x0D;
+	--select * from @ProcedureBalances procs&#x0D;
+	--where AppointmentId=507745&#x0D;
+&#x0D;
+	BEGIN TRANSACTION;&#x0D;
+&#x0D;
+	BEGIN TRY&#x0D;
+&#x0D;
+		declare @ProcedureTransactionId int, @AppointmentId int, @CaseId int,&#x0D;
+				@ProcedureBalance decimal(18, 2)&#x0D;
+		declare curData cursor LOCAL FAST_FORWARD for &#x0D;
+		select ProcedureTransactionId, AppointmentId, CaseId, Balance&#x0D;
+		from   @ProcedureBalances &#x0D;
+		order by CaseId, AgeRank&#x0D;
+&#x0D;
+		open curData&#x0D;
+		fetch next from curData into @ProcedureTransactionId, @AppointmentId, @CaseId, @ProcedureBalance&#x0D;
+&#x0D;
+		while @@fetch_status = 0&#x0D;
+		begin&#x0D;
+		&#x0D;
+			declare @pendingChangesExist bit = 0&#x0D;
+			declare @caseBalance decimal(18, 2) = 0&#x0D;
+			declare @amountToApply decimal(18, 2) = 0&#x0D;
+			select @caseBalance = CaseBalance from @ProcedureBalances where ProcedureTransactionId = @ProcedureTransactionId &#x0D;
+&#x0D;
+			if (exists (select top 1 chi.TransactionId&#x0D;
+						from ChargeHistoryItem chi&#x0D;
+						where chi.Deleted = 0 and Applied = 0 and chi.TransactionId = @ProcedureTransactionId))&#x0D;
+				set @pendingChangesExist = 1&#x0D;
+			if (exists (select top 1 ChargeTransactionId&#x0D;
+						from PaymentVoucherLine pvl&#x0D;
+						where pvl.Deleted = 0 and IsClosed = 0 and pvl.ChargeTransactionId = @ProcedureTransactionId))&#x0D;
+				set @pendingChangesExist = 1&#x0D;
+&#x0D;
+			if (@caseBalance &gt; 0 and @pendingChangesExist = 0)&#x0D;
+			begin&#x0D;
+&#x0D;
+				if (@caseBalance - @ProcedureBalance &gt;= 0)&#x0D;
+					set @amountToApply = @ProcedureBalance&#x0D;
+				else set @amountToApply = @caseBalance&#x0D;
+&#x0D;
+				INSERT INTO [Transaction]&#x0D;
+						(AppointmentId, &#x0D;
+						 TransactionAmount, &#x0D;
+						 TransactionDate, &#x0D;
+						 TransactionTypeLookupId, &#x0D;
+						 TransactionStatusLookupId, &#x0D;
+						 ServiceTypeLookupId, &#x0D;
+						 PaymentProcessLookupId, &#x0D;
+						 TransactionUnits, &#x0D;
+						 ParentTransactionId, &#x0D;
+						 EffectiveDate, &#x0D;
+						 CreatedBy, &#x0D;
+						 CreatedOn, &#x0D;
+						 ModifiedBy, &#x0D;
+						 ModifiedOn,&#x0D;
+						 DoNotBatch,&#x0D;
+						 IsPatientPayOverride,&#x0D;
+						 Deleted) &#x0D;
+				output inserted.ParentTransactionId, inserted.TransactionId into @outputValues&#x0D;
+				SELECT&#x0D;
+				   procs.AppointmentId,&#x0D;
+				   @amountToApply AS TransactionAmount,  &#x0D;
+				   Getdate() AS TransactionDate, &#x0D;
+				   1104 AS TransactionTypeLookupId, &#x0D;
+				   1702 AS TransactionStatusLookupId, &#x0D;
+				   1200 AS ServiceTypeLookupId, &#x0D;
+				   1304 AS PaymentProcessLookupId, &#x0D;
+				   1 AS TransactionUnits, &#x0D;
+				   procs.ProcedureTransactionId AS ParentTransactionId, &#x0D;
+				   Getdate() AS EffectiveDate, &#x0D;
+				   @UserId AS CreatedBy, &#x0D;
+				   Getdate() AS CreatedOn, &#x0D;
+				   @UserId AS ModifiedBy, &#x0D;
+				   Getdate() AS ModifiedOn, &#x0D;
+				   0 as DoNotBatch,&#x0D;
+				   0 as IsPatientpayOverride,&#x0D;</td></tr><tr><td>DistributePatientPayments</td><td>2447784</td><td>1</td><td>	insert into @patientChargesByProcedure&#x0D;
+		SELECT&#x0D;
+			a.AppointmentId,&#x0D;
+			a.[CaseId],&#x0D;
+			c.CashBalance as CaseBalance,&#x0D;
+			procs.TransactionId as ProcedureTransactionId,&#x0D;
+			a.StartTime as AgeDate,&#x0D;
+			CASE &#x0D;
+				WHEN procs.PaymentProcessLookupId = 1304 &#x0D;
+					THEN isnull(procs.TransactionAmount, 0) * isnull(procs.TransactionUnits, 1) &#x0D;
+				ELSE&#x0D;
+					SUM(isnull(patCharges.TransactionAmount, 0) * isnull(patCharges.TransactionUnits, 1))&#x0D;
+			END as Charges,&#x0D;
+			procs.TransactionDate&#x0D;
+		FROM &#x0D;
+			[Transaction] procs&#x0D;
+			LEFT JOIN [Transaction] patCharges on procs.TransactionId = patCharges.ParentTransactionId&#x0D;
+				AND patCharges.TransactionTypeLookupId = 1100 AND patCharges.PaymentProcessLookupId = 1304 AND patCharges.Deleted = 0&#x0D;
+			JOIN Appointment a on procs.[AppointmentId] = a.AppointmentId&#x0D;
+			JOIN [Case] c on a.[CaseId] = c.CaseId&#x0D;
+		WHERE&#x0D;
+			procs.ParentTransactionId IS NULL&#x0D;
+			AND procs.TransactionTypeLookupId = 1100&#x0D;
+			AND procs.Deleted = 0&#x0D;
+			AND (procs.TransactionStatusLookupId = 1700) -- Billed Only&#x0D;
+			AND c.CashBalance &gt; 0&#x0D;
+			AND c.IsFinancialClosed = 0&#x0D;
+			AND a.IsOnHold = 0&#x0D;
+		GROUP BY&#x0D;
+			procs.TransactionId,&#x0D;
+			a.AppointmentId,&#x0D;
+			a.[CaseId],&#x0D;
+			a.StartTime,&#x0D;
+			c.CashBalance,&#x0D;
+			procs.PaymentProcessLookupId,&#x0D;
+			procs.TransactionAmount,&#x0D;
+			procs.TransactionUnits,&#x0D;
+			procs.TransactionDate&#x0D;
+&#x0D;
+	declare @ProcedureBalances table(&#x0D;
+		AppointmentId int,&#x0D;
+		CaseId int,&#x0D;
+		CaseBalance decimal(18, 2),&#x0D;
+		ProcedureTransactionId int,&#x0D;
+		Charges decimal(18, 2),&#x0D;
+		Balance decimal(18, 2),&#x0D;
+		AgeDate datetime,&#x0D;
+		AgeRank int,&#x0D;
+		SavedCashBalance decimal(18, 2),&#x0D;
+		TransactionDate datetime&#x0D;
+	)&#x0D;
+&#x0D;
+	insert into @ProcedureBalances&#x0D;
+	SELECT&#x0D;
+		procs.AppointmentId,&#x0D;
+		procs.CaseId,&#x0D;
+		procs.CaseBalance,&#x0D;
+		procs.ProcedureTransactionId,&#x0D;
+		procs.Charges,&#x0D;
+		(Charges - isnull(&#x0D;
+			(SELECT &#x0D;
+				SUM(t_payments.TransactionAmount)&#x0D;
+				FROM [Transaction] t_payments&#x0D;
+				WHERE &#x0D;
+						t_payments.Deleted = 0&#x0D;
+						AND t_payments.TransactionStatusLookupId &lt;&gt; 1706&#x0D;
+						AND (t_payments.TransactionTypeLookupId = 1102)&#x0D;
+						AND t_payments.ParentTransactionId = procs.ProcedureTransactionId&#x0D;
+		), 0) -&#x0D;
+		isnull((SELECT  &#x0D;
+					SUM(ISNULL(t.TransactionAmount,0))&#x0D;
+				FROM [Transaction] t&#x0D;
+				WHERE &#x0D;
+						t.Deleted = 0&#x0D;
+						AND t.TransactionTypeLookupId = 1103&#x0D;
+						AND t.PaymentProcessLookupId = 1304&#x0D;
+						AND t.TransactionStatusLookupId &lt;&gt; 1706&#x0D;
+						AND t.ParentTransactionId = procs.ProcedureTransactionId&#x0D;
+		), 0) -&#x0D;
+		isnull(&#x0D;
+			(SELECT &#x0D;
+					SUM(ISNULL(t.TransactionAmount,0))&#x0D;
+				FROM [Transaction] t&#x0D;
+				WHERE &#x0D;
+					t.Deleted = 0&#x0D;
+					AND t.TransactionTypeLookupId = 1104&#x0D;
+					AND t.ParentTransactionId = procs.Procedu</td></tr><tr><td>GetTransactionsForAutoBatch</td><td>1040824</td><td>13</td><td> select&#x0D;
+       t.[TransactionId] as Id&#x0D;
+      ,t.[AppointmentId]&#x0D;
+      ,[TransactionDate]&#x0D;
+      ,[TransactionAmount]&#x0D;
+      ,[Modifier]&#x0D;
+      ,[TransactionTypeLookupId]&#x0D;
+      ,[TransactionStatusLookupId]&#x0D;
+      ,[ServiceTypeLookupId]&#x0D;
+      ,[PaymentProcessLookupId]&#x0D;
+      ,[ProcedureRatePlanId]&#x0D;
+      ,[TransactionUnits]&#x0D;
+      ,t.[ChargeBatchId]&#x0D;
+      ,[BilledInsurancePolicyId]&#x0D;
+      ,[ParentTransactionId]&#x0D;
+      ,[PaymentTypeLookupId]&#x0D;
+      ,[PaymentText]&#x0D;
+      ,[PaymentAllowedAmount]&#x0D;
+      ,[Modifier2]&#x0D;
+      ,[Modifier3]&#x0D;
+      ,[Modifier4]&#x0D;
+      ,[ResubmitCode]&#x0D;
+      ,[SecondaryInsurancePolicyId]&#x0D;
+      ,[TertiaryInsurancePolicyId]&#x0D;
+      ,[EffectiveDate]&#x0D;
+      ,[BillingClinicianId]&#x0D;
+      ,[BillingClinicianReason]&#x0D;
+      ,t.[LocationId]&#x0D;
+      ,[DayCloseId]&#x0D;
+      ,[BilledInsurancePolicyAuthCode]&#x0D;
+      ,[SecondaryInsurancePolicyAuthCode]&#x0D;
+      ,[TertiaryInsurancePolicyAuthCode]&#x0D;
+      ,[GuarantorContactId]&#x0D;
+      ,[RefusedCopayAmount]&#x0D;
+      ,[RefusedDeductibleAmount]&#x0D;
+      ,[ApplyBalanceLookupId]&#x0D;
+      ,t.[CreatedBy]&#x0D;
+      ,t.[CreatedOn]&#x0D;
+      ,t.[ModifiedBy]&#x0D;
+      ,t.[ModifiedOn]&#x0D;
+      ,[IsPatientPayOverride]&#x0D;
+      ,[RebilledOn]&#x0D;
+      ,[RebillOriginalTransactionId]&#x0D;
+      ,[PaymentVoucherLineId]&#x0D;
+      ,[Modifier5]&#x0D;
+      ,[ChargeMasterCodeId]&#x0D;
+      ,[BillingAccountNumberId]&#x0D;
+      ,[AuditErrorTypeLookupId]&#x0D;
+      ,[AuditNote]&#x0D;
+      ,t.[Deleted]&#x0D;
+      ,t.[DeletedBy]&#x0D;
+      ,t.[DeletedOn]&#x0D;
+      ,[DoNotBatch]&#x0D;
+      ,[UnknownInsurancePolicyId]&#x0D;
+      ,[UnknownCarrierId]&#x0D;
+      ,[AdjustmentGroupCodeLookupId]&#x0D;
+      ,[AdjustmentCarcReasonCodeId]&#x0D;
+      ,[RefusedCoInsuranceAmount]&#x0D;
+      ,[AdjustmentUnknownCode]&#x0D;
+    from&#x0D;
+        [Transaction] t&#x0D;
+        join Appointment appt on appt.AppointmentID = t.AppointmentID&#x0D;
+        join [Case] c on c.CaseID = appt.CaseID&#x0D;
+        left join [ChargeBatchTransaction] cbt on t.TransactionId = cbt.TransactionId&#x0D;
+    where t.TransactionTypeLookupID IN (1100, 1106) -- Procedure&#x0D;
+        and (t.TransactionStatusLookupID = 1702 or t.TransactionStatusLookupID = 1700 or t.TransactionStatusLookupID = 1705) -- Created, Billed, Resubmit&#x0D;
+        and t.Deleted = 'false'&#x0D;
+        and (t.PaymentProcessLookupID = 1301 or t.PaymentProcessLookupID = 1302 or t.PaymentProcessLookupID = 1303)&#x0D;
+        and (t.PaymentProcessLookupID &lt;&gt; 1301&#x0D;
+                    or&#x0D;
+                (@includePrimaries = 1 and (appt.StartTime &lt; dateadd(dd, -@primaryThreshold, cast(getdate() as date)))))&#x0D;
+        and (t.PaymentProcessLookupID &lt;&gt; 1302&#x0D;
+                    or (@includeSecondaries = 1 and (appt.StartTime &lt; dateadd(dd, -@secondaryThreshold, cast(getdate() as date)))))&#x0D;
+        and (t.PaymentProcessLookupID &lt;&gt; 1303&#x0D;
+                    or (@includeTertiaries = 1 and (appt.StartTime &lt; dateadd(dd, -@tertiaryThreshold, cast(getdate() as date)))))&#x0D;
+        and cbt.ChargeBatchID is null&#x0D;
+        and t.TransactionStatusLookupID = 1702 -- Created&#x0D;
+        and appt.IsOnHold = 'false' and t.DoNotBatch = 'false'&#x0D;
+        and c.CompanyID = @CompanyId&#x0D;
+END&#x0D;
+&#x0D;
+&#x0D;
+&#x0D;
+</td></tr><tr><td>MaintainDB</td><td>936360</td><td>4</td><td> UPDATE dba&#x0D;
+        SET&#x0D;
+            dba.avg_frag_percent_after = dm.avg_fragmentation_in_percent,&#x0D;
+            dba.fragment_count_after = dm.fragment_count,&#x0D;
+            dba.pages_count_after = dm.page_count&#x0D;
+        FROM sys.dm_db_index_physical_stats(DB_ID(), null, null, null, null) dm&#x0D;
+        JOIN @index_defrag_statistic dba &#x0D;
+          ON dm.object_id = dba.object_id&#x0D;
+         AND dm.index_id = dba.index_id&#x0D;
+        WHERE dm.index_id &gt; 0&#x0D;
+        ;&#x0D;
+&#x0D;
+        select * from @index_defrag_statistic;    &#x0D;
+    end;&#x0D;
+    &#x0D;
+    &#x0D;
+    if @pActivateUpdateStatistic = 1 begin;&#x0D;
+        declare statisticsCur cursor local fast_forward for&#x0D;
+        SELECT SCHEMA_NAME(o.[schema_id]),o.name,s.name,s.no_recompute&#x0D;
+        FROM (&#x0D;
+            SELECT &#x0D;
+                  [object_id]&#x0D;
+                , name&#x0D;
+                , stats_id&#x0D;
+                , no_recompute&#x0D;
+                , last_update = STATS_DATE([object_id], stats_id)&#x0D;
+    </td></tr><tr><td>GetSiteProfileReportByDayData</td><td>873445</td><td>2</td><td>	insert into @clinicians (ClinicianId, ClinicianLookupId, FirstName, LastName, UserId, [Type])&#x0D;
+	select distinct&#x0D;
+		 tcl.ClinicianId, tcl.ClinicianLookupId,&#x0D;
+        tpu.FirstName, tpu.LastName, tpu.UserId,&#x0D;
+        tcll.[Type]&#x0D;
+	from (&#x0D;
+			select a.LocationId,&#x0D;
+				   isnull(ctuh.ClinicianId, t.BillingClinicianId) ClinicianId&#x0D;
+			from [Appointment] a&#x0D;
+			join [Transaction] t &#x0D;
+						on t.[AppointmentId] = a.AppointmentId &#x0D;
+							and t.Deleted = 0&#x0D;
+							and t.ParentTransactionId is null&#x0D;
+							and t.TransactionStatusLookupId &lt;&gt; 1706&#x0D;
+							and t.TransactionTypeLookupId = 1100&#x0D;
+			left join [ClinicianTransactionUnitHistory] ctuh&#x0D;
+						on t.TransactionId = ctuh.TransactionId&#x0D;
+						and ctuh.Deleted = 0&#x0D;
+			where a.Deleted = 0&#x0D;
+				and a.IsCancelled = 0&#x0D;
+				and a.ArrivalTime is not null&#x0D;
+				and (@startDate is null or a.ArrivalTime &gt;= @startDate)&#x0D;
+				and (@endDate is null or a.ArrivalTime &lt;= @endDate)&#x0D;
+				) t&#x0D;
+		inner join Clinician tcl&#x0D;
+            on t.ClinicianId = tcl.ClinicianId&#x0D;
+        inner join Profile_User tpu&#x0D;
+            on tcl.UserId = tpu.UserId&#x0D;
+        inner join [Lookup] tcll&#x0D;
+            on tcl.ClinicianLookupId = tcll.LookupId&#x0D;
+	where not tcl.ClinicianId in (select ClinicianId from @clinicians)&#x0D;
+		and (t.LocationId in (select * from @filterLocations)&#x0D;
+            or tcl.ClinicianId in (select * from @filterClinicians))&#x0D;
+&#x0D;
+    insert into @clinicians (ClinicianId, ClinicianLookupId, FirstName, LastName, UserId, [Type])&#x0D;
+    select distinct&#x0D;
+        tcl.ClinicianId, tcl.ClinicianLookupId,&#x0D;
+        tpu.FirstName, tpu.LastName, tpu.UserId,&#x0D;
+        tcll.[Type]&#x0D;
+    from TimeReport tr&#x0D;
+        inner join Clinician tcl&#x0D;
+            on tr.ClinicianId = tcl.ClinicianId&#x0D;
+                and tcl.Deleted = 0&#x0D;
+        inner join Location tl --Location of clinician&#x0D;
+            on tl.CompanyId = tcl.CompanyId&#x0D;
+                and tl.Deleted = 0&#x0D;
+                and (tl.LocationId in (select * from @filterLocations)&#x0D;
+                    or tcl.ClinicianId in (select * from @filterClinicians))&#x0D;
+        inner join Profile_User tpu&#x0D;
+            on tcl.UserId = tpu.UserId&#x0D;
+                and tpu.Deleted = 0&#x0D;
+        inner join [Lookup] tcll&#x0D;
+            on tcl.ClinicianLookupId = tcll.LookupId&#x0D;
+                and tcll.Deleted = 0&#x0D;
+    where tr.Deleted = 0&#x0D;
+        and not tcl.ClinicianId in (select ClinicianId from @clinicians)&#x0D;
+        and (tr.LocationId in (select * from @filterLocations)&#x0D;
+            or tcl.ClinicianId in (select * from @filterClinicians))&#x0D;
+        and (@startDate is null or tr.ReportingDate &gt;= @startDate)&#x0D;
+        and (@endDate is null or tr.ReportingDate &lt;= @endDate)&#x0D;
+&#x0D;
+    insert into @clinicians (ClinicianId, ClinicianLookupId, FirstName, LastName, UserId, [Typ</td></tr><tr><td>GetSiteProfileReportByDayData</td><td>819987</td><td>2</td><td> insert into @clinicians (ClinicianId, ClinicianLookupId, FirstName, LastName, UserId, [Type])&#x0D;
+    select distinct&#x0D;
+        tcl.ClinicianId, tcl.ClinicianLookupId,&#x0D;
+        tpu.FirstName, tpu.LastName, tpu.UserId,&#x0D;
+        tcll.[Type]&#x0D;
+    from Appointment ta&#x0D;
+        inner join Clinician tcl&#x0D;
+            on ta.ClinicianId = tcl.ClinicianId&#x0D;
+        inner join Profile_User tpu&#x0D;
+            on tcl.UserId = tpu.UserId&#x0D;
+        inner join [Lookup] tcll&#x0D;
+            on tcl.ClinicianLookupId = tcll.LookupId&#x0D;
+		left join [CancellationReason] cr on cr.[CancellationReasonId] = ta.[CancellationReasonId]&#x0D;
+    where&#x0D;
+        ta.Deleted = 0&#x0D;
+        and ((ta.IsCancelled = 0&#x0D;
+                and ta.ArrivalTime is not null&#x0D;
+                and (@startDate is null or ta.ArrivalTime &gt;= @startDate)&#x0D;
+                and (@endDate is null or ta.ArrivalTime &lt;= @endDate))&#x0D;
+            or (ta.IsCancelled = 1&#x0D;
+                and cr.IgnoreCancellation = 0 --Voided&#x0D;
+                and (@startDate is null or isnull(ta.ArrivalTime, ta.StartTime) &gt;= @startDate)&#x0D;
+                and (@endDate is null or isnull(ta.ArrivalTime, ta.StartTime) &lt;= @endDate)))&#x0D;
+        and ta.ClinicianId in (&#x0D;
+                select ClinicianId&#x0D;
+                from Clinician tc&#x0D;
+                where&#x0D;
+                    tc.ClinicianLookupId in (301 /*Physical Therapist*/,&#x0D;
+                        302 /*Physical Therapist Assistant*/,&#x0D;
+                        300 /*Occupational Therapist*/,&#x0D;
+                        303 /*Occupational Therapist Assistant*/,&#x0D;
+                        304 /*Speech Therapist*/,&#x0D;
+                        305 /*Speech Therapist Assistant*/,&#x0D;
+                        309 /*Athletic Trainer*/))&#x0D;
+        and (ta.LocationId in (select * from @filterLocations)&#x0D;
+            or tcl.ClinicianId in (select * from @filterClinicians))&#x0D;
+&#x0D;
+	insert into @clinicians (ClinicianId, ClinicianLookupId, FirstName, LastName, UserId, [Type])&#x0D;
+	select distinct&#x0D;
+		 tcl.ClinicianId, tcl.ClinicianLookupId,&#x0D;
+        tpu.FirstName, tpu.LastName, tpu.UserId,&#x0D;
+        tcll.[Type]&#x0D;
+	from (&#x0D;
+			select a.LocationId,&#x0D;
+				   isnull(ctuh.ClinicianId, t.BillingClinicianId) ClinicianId&#x0D;
+			from [Appointment] a&#x0D;
+			join [Transaction] t &#x0D;
+						on t.[AppointmentId] = a.AppointmentId &#x0D;
+							and t.Deleted = 0&#x0D;
+							and t.ParentTransactionId is null&#x0D;
+							and t.TransactionStatusLookupId &lt;&gt; 1706&#x0D;
+							and t.TransactionTypeLookupId = 1100&#x0D;
+			left join [ClinicianTransactionUnitHistory] ctuh&#x0D;
+						on t.TransactionId = ctuh.TransactionId&#x0D;
+						and ctuh.Deleted = 0&#x0D;
+			where a.Deleted = 0&#x0D;
+				and a.IsCancelled = 0&#x0D;
+				and a.ArrivalTime is not null&#x0D;
+				and (@startDate is null or a.ArrivalTime &gt;= @startDate)&#x0D;
+				and (@endDate is null or a.ArrivalTime &lt;= @endDate)&#x0D;
+				) t&#x0D;
+		inner join Clinician tcl&#x0D;
+            on t.ClinicianId = tcl.ClinicianId&#x0D;
+        inner join Profile_User tpu&#x0D;
+            on tcl.UserId = tpu.UserId&#x0D;
+        inner join [Lookup] tcll&#x0D;
+            on tcl.ClinicianLookupId = tcll.LookupId&#x0D;
+	where not tcl.ClinicianId in (select ClinicianId from @clinicians)&#x0D;
+		and (t.LocationId in (select * from @filterLocations)&#x0D;
+            or tcl.ClinicianId in (select * from @filterClinicians))&#x0D;
+&#x0D;
+    insert into @clinicians (ClinicianId, ClinicianLookupId, FirstName, LastName, UserId, [Type])&#x0D;
+    select distinct&#x0D;
+        tcl.ClinicianId, tcl.ClinicianLookupId,&#x0D;
+        tpu.FirstName, tpu.LastName, tpu.UserId,&#x0D;
+        tcll.[Type]&#x0D;
+    from TimeReport tr&#x0D;
+        inner join Clinician tcl&#x0D;
+            on tr.ClinicianId = tcl.ClinicianId&#x0D;
+                and tcl.Deleted = 0&#x0D;
+        inner join Location tl --Location of clinician&#x0D;
+            on tl.Company</td></tr></table></div></div>
+<div class="header" id="2-header">Cached stored procedures (by CPU cost)</div><div class="content" id="2-content">
+    <div class="text"><table><tr><th style="width: 40%;" >SP Name</th><th style="width: 5%;"  >Total Worker Time</th><th style="width: 5%;"  >Avg Worker Time</th><th style="width: 5%;"  >Execution Count</th><th style="width: 5%;"  >Calls/Minute</th><th style="width: 5%;"  >Total Elapsed Time</th><th style="width: 5%;"  >Avg Elapsed Time</th><th style="width: 10%;" >Cached Time</th></tr><tr><td>GetCaseDocumentState</td><td>974169420</td><td>22290</td><td>43703</td><td>29</td><td>1103626525</td><td>25252</td><td>2017-08-27 07:00:43.273</td></tr><tr><td>GetAppointmentScheduleItemList</td><td>515079608</td><td>57815</td><td>8909</td><td>5</td><td>615574548</td><td>69095</td><td>2017-08-27 05:32:33.987</td></tr><tr><td>MaintainDB</td><td>487796761</td><td>121949190</td><td>4</td><td>0</td><td>1912534516</td><td>478133629</td><td>2017-08-25 05:30:00.670</td></tr><tr><td>RunBCBSEvalHold</td><td>472871234</td><td>36374710</td><td>13</td><td>0</td><td>538015961</td><td>41385843</td><td>2017-08-27 05:44:48.860</td></tr><tr><td>GenerateClaims</td><td>418700594</td><td>46522288</td><td>9</td><td>0</td><td>423062238</td><td>47006915</td><td>2017-08-28 01:45:48.147</td></tr><tr><td>LogEventEmailNotification</td><td>197016057</td><td>3863059</td><td>51</td><td>0</td><td>206556126</td><td>4050120</td><td>2017-08-27 06:00:00.277</td></tr><tr><td>GetCasesForFinancialClose</td><td>145588962</td><td>6329954</td><td>23</td><td>0</td><td>151451737</td><td>6584858</td><td>2017-08-28 01:30:01.747</td></tr><tr><td>SearchRootDiagnosis</td><td>67267694</td><td>388830</td><td>173</td><td>0</td><td>71351529</td><td>412436</td><td>2017-08-27 07:10:49.333</td></tr><tr><td>GetSiteProfileReportByDayData</td><td>57183540</td><td>57183540</td><td>1</td><td>0</td><td>61583526</td><td>61583526</td><td>2017-08-28 07:27:08.653</td></tr><tr><td>SearchChildDiagnosis</td><td>56111097</td><td>758258</td><td>74</td><td>0</td><td>58747837</td><td>793889</td><td>2017-08-27 07:10:53.520</td></tr></table></div></div>
+<div class="header" id="3-header">Cached stored procedures (by execution count)</div><div class="content" id="3-content">
+    <div class="text"><table><tr><th style="width: 40%;">SP Name</th><th style="width: 5%; ">Execution Count</th><th style="width: 5%; ">Calls/Minute</th><th style="width: 5%; ">Avg Worker Time</th><th style="width: 5%; ">Total Worker Time</th><th style="width: 5%; ">Total Elapsed Time</th><th style="width: 5%; ">Avg Elapsed Time</th><th style="width: 10%;">Cached Time</th></tr><tr><td>GetCaseDocumentState</td><td>43703</td><td>29</td><td>22290</td><td>974169420</td><td>1103626525</td><td>25252</td><td>2017-08-27 07:00:43.273</td></tr><tr><td>GetChargeFinancialOverview</td><td>23387</td><td>13</td><td>909</td><td>21280270</td><td>31701183</td><td>1355</td><td>2017-08-27 03:10:46.620</td></tr><tr><td>GetAppointmentState</td><td>22528</td><td>15</td><td>87</td><td>1976181</td><td>2515894</td><td>111</td><td>2017-08-27 07:00:43.657</td></tr><tr><td>GetLastUpdateDate</td><td>19829</td><td>12</td><td>294</td><td>5841443</td><td>5864425</td><td>295</td><td>2017-08-27 05:32:33.950</td></tr><tr><td>GetChargeBalance</td><td>9072</td><td>5</td><td>1541</td><td>13986694</td><td>14005673</td><td>1543</td><td>2017-08-27 03:10:47.540</td></tr><tr><td>GetPayerResponsibility</td><td>9072</td><td>5</td><td>1906</td><td>17296032</td><td>17320044</td><td>1909</td><td>2017-08-27 03:10:47.577</td></tr><tr><td>GetAppointmentScheduleItemList</td><td>8909</td><td>5</td><td>57815</td><td>515079608</td><td>615574548</td><td>69095</td><td>2017-08-27 05:32:33.987</td></tr><tr><td>InsertVoucherLines</td><td>1707</td><td>1</td><td>4203</td><td>7174922</td><td>13430250</td><td>7867</td><td>2017-08-27 03:10:45.740</td></tr><tr><td>CanDischargeCase</td><td>1485</td><td>1</td><td>716</td><td>1064531</td><td>6712202</td><td>4520</td><td>2017-08-27 07:00:45.610</td></tr><tr><td>GetClinicCptCodeItemList</td><td>1007</td><td>0</td><td>9461</td><td>9527238</td><td>10243479</td><td>10172</td><td>2017-08-27 07:00:59.903</td></tr></table></div></div>
+<div class="header" id="4-header">Cached stored procedures (by execution time)</div><div class="content" id="4-content">
+    <div class="text"><table><tr><th style="width: 40%;">SP Name</th><th style="width: 5%;" >Avg Elapsed Time</th><th style="width: 5%;" >Total Elapsed Time</th><th style="width: 5%;" >Execution Count</th><th style="width: 5%;" >Calls/Minute</th><th style="width: 5%;" >Avg Worker Time</th><th style="width: 5%;" >Total Worker Time</th><th style="width: 10%;">Cached Time</th></tr><tr><td>DistributePatientPayments</td><td>674120602</td><td>674120602</td><td>1</td><td>0</td><td>22342466</td><td>22342466</td><td>2017-08-28 00:45:31.900</td></tr><tr><td>MaintainDB</td><td>478133629</td><td>1912534516</td><td>4</td><td>0</td><td>121949190</td><td>487796761</td><td>2017-08-25 05:30:00.670</td></tr><tr><td>GetSiteProfileReportByDayData</td><td>61583526</td><td>61583526</td><td>1</td><td>0</td><td>57183540</td><td>57183540</td><td>2017-08-28 07:27:08.653</td></tr><tr><td>GenerateClaims</td><td>47006915</td><td>423062238</td><td>9</td><td>0</td><td>46522288</td><td>418700594</td><td>2017-08-28 01:45:48.147</td></tr><tr><td>RunBCBSEvalHold</td><td>41385843</td><td>538015961</td><td>13</td><td>0</td><td>36374710</td><td>472871234</td><td>2017-08-27 05:44:48.860</td></tr><tr><td>RunBillPatientCharges</td><td>19480165</td><td>19480165</td><td>1</td><td>0</td><td>7591241</td><td>7591241</td><td>2017-08-28 00:45:11.707</td></tr><tr><td>GetCasesForFinancialClose</td><td>6584858</td><td>151451737</td><td>23</td><td>0</td><td>6329954</td><td>145588962</td><td>2017-08-28 01:30:01.747</td></tr><tr><td>LogEventEmailNotification</td><td>4050120</td><td>206556126</td><td>51</td><td>0</td><td>3863059</td><td>197016057</td><td>2017-08-27 06:00:00.277</td></tr><tr><td>GetTransactionsForAutoBatch</td><td>2543378</td><td>33063919</td><td>13</td><td>0</td><td>2507521</td><td>32597784</td><td>2017-08-28 01:45:38.673</td></tr><tr><td>GetFacilityStatisticsReportData</td><td>2514820</td><td>22633388</td><td>9</td><td>0</td><td>701053</td><td>6309477</td><td>2017-08-27 09:33:04.910</td></tr></table></div></div>
+<div class="header" id="5-header">Cached stored procedures (by execution time - variable)</div><div class="content" id="5-content">
+    <div class="text"><table><tr><th style="width: 40%;">SP Name</th><th style="width: 5%;" >Execution Count</th><th style="width: 5%;" >Min Elapsed Time</th><th style="width: 5%;" >Avg Elapsed Time</th><th style="width: 5%;" >Max Elapsed Time</th><th style="width: 5%;" >Last Elapsed Time</th><th style="width: 10%;">Cached Time</th></tr><tr><td>DistributePatientPayments</td><td>1</td><td>674120602</td><td>674120602</td><td>674120602</td><td>674120602</td><td>2017-08-28 00:45:31.900</td></tr><tr><td>MaintainDB</td><td>4</td><td>254957606</td><td>478133629</td><td>737420223</td><td>254957606</td><td>2017-08-25 05:30:00.670</td></tr><tr><td>GetSiteProfileReportByDayData</td><td>1</td><td>61583526</td><td>61583526</td><td>61583526</td><td>61583526</td><td>2017-08-28 07:27:08.653</td></tr><tr><td>GenerateClaims</td><td>9</td><td>399030</td><td>47006915</td><td>128632364</td><td>57217275</td><td>2017-08-28 01:45:48.147</td></tr><tr><td>RunBCBSEvalHold</td><td>13</td><td>33303914</td><td>41385843</td><td>73715218</td><td>73715218</td><td>2017-08-27 05:44:48.860</td></tr><tr><td>RunBillPatientCharges</td><td>1</td><td>19480165</td><td>19480165</td><td>19480165</td><td>19480165</td><td>2017-08-28 00:45:11.707</td></tr><tr><td>GetCasesForFinancialClose</td><td>23</td><td>1326083</td><td>6584858</td><td>18626072</td><td>1368082</td><td>2017-08-28 01:30:01.747</td></tr><tr><td>LogEventEmailNotification</td><td>51</td><td>3522197</td><td>4050120</td><td>7058474</td><td>4153241</td><td>2017-08-27 06:00:00.277</td></tr><tr><td>GetTransactionsForAutoBatch</td><td>13</td><td>2000</td><td>2543378</td><td>8542485</td><td>3297194</td><td>2017-08-28 01:45:38.673</td></tr><tr><td>GetFacilityStatisticsReportData</td><td>9</td><td>30005</td><td>2514820</td><td>8042467</td><td>71004</td><td>2017-08-27 09:33:04.910</td></tr></table></div></div>
+<div class="header" id="6-header">Cached stored procedures (by logical reads)</div><div class="content" id="6-content">
+    <div class="text"><table><tr><th style="width: 40%;">SP Name</th><th style="width: 5%;" >Total Logical Reads</th><th style="width: 5%;" >Avg Logical Reads</th><th style="width: 5%;" >Execution Count</th><th style="width: 5%;" >Calls/Minute</th><th style="width: 5%;" >Total Elapsed Time</th><th style="width: 5%;" >Avg Elapsed Time</th><th style="width: 10%;">Cached Time</th></tr><tr><td>GenerateClaims</td><td>177398446</td><td>19710938</td><td>9</td><td>0</td><td>423062238</td><td>47006915</td><td>2017-08-28 01:45:48.147</td></tr><tr><td>GetAppointmentScheduleItemList</td><td>124910188</td><td>14020</td><td>8909</td><td>5</td><td>615574548</td><td>69095</td><td>2017-08-27 05:32:33.987</td></tr><tr><td>RunBCBSEvalHold</td><td>56715283</td><td>4362714</td><td>13</td><td>0</td><td>538015961</td><td>41385843</td><td>2017-08-27 05:44:48.860</td></tr><tr><td>GetCaseDocumentState</td><td>44867624</td><td>1026</td><td>43703</td><td>29</td><td>1103626525</td><td>25252</td><td>2017-08-27 07:00:43.273</td></tr><tr><td>MaintainDB</td><td>39490991</td><td>9872747</td><td>4</td><td>0</td><td>1912534516</td><td>478133629</td><td>2017-08-25 05:30:00.670</td></tr><tr><td>GetTransactionsForAutoBatch</td><td>13530724</td><td>1040824</td><td>13</td><td>0</td><td>33063919</td><td>2543378</td><td>2017-08-28 01:45:38.673</td></tr><tr><td>GetCasesForFinancialClose</td><td>12501883</td><td>543560</td><td>23</td><td>0</td><td>151451737</td><td>6584858</td><td>2017-08-28 01:30:01.747</td></tr><tr><td>GetSiteProfileReportByDayData</td><td>7593000</td><td>7593000</td><td>1</td><td>0</td><td>61583526</td><td>61583526</td><td>2017-08-28 07:27:08.653</td></tr><tr><td>DistributePatientPayments</td><td>5474791</td><td>5474791</td><td>1</td><td>0</td><td>674120602</td><td>674120602</td><td>2017-08-28 00:45:31.900</td></tr><tr><td>SearchRootDiagnosis</td><td>2884533</td><td>16673</td><td>173</td><td>0</td><td>71351529</td><td>412436</td><td>2017-08-27 07:10:49.333</td></tr></table></div></div>
+<div class="header" id="7-header">Cached stored procedures (by logical writes)</div><div class="content" id="7-content">
+    <div class="text"><table><tr><th style="width: 40%;">SP Name</th><th style="width: 5%;" >Total Logical Writes</th><th style="width: 5%;" >Avg Logical Writes</th><th style="width: 5%;" >Execution Count</th><th style="width: 5%;" >Calls/Minute</th><th style="width: 5%;" >Total Elapsed Time</th><th style="width: 5%;" >Avg Elapsed Time</th><th style="width: 10%;">Cached Time</th></tr><tr><td>MaintainDB</td><td>849982</td><td>212495</td><td>4</td><td>0</td><td>1912534516</td><td>478133629</td><td>2017-08-25 05:30:00.670</td></tr><tr><td>GetAppointmentScheduleItemList</td><td>15012</td><td>1</td><td>8909</td><td>5</td><td>615574548</td><td>69095</td><td>2017-08-27 05:32:33.987</td></tr><tr><td>CreateClinicChargeBatch</td><td>3846</td><td>427</td><td>9</td><td>0</td><td>1638109</td><td>182012</td><td>2017-08-28 01:45:47.537</td></tr><tr><td>InsertVoucherLines</td><td>3228</td><td>1</td><td>1707</td><td>1</td><td>13430250</td><td>7867</td><td>2017-08-27 03:10:45.740</td></tr><tr><td>DistributePatientPayments</td><td>1025</td><td>1025</td><td>1</td><td>0</td><td>674120602</td><td>674120602</td><td>2017-08-28 00:45:31.900</td></tr><tr><td>GenerateClaims</td><td>836</td><td>92</td><td>9</td><td>0</td><td>423062238</td><td>47006915</td><td>2017-08-28 01:45:48.147</td></tr><tr><td>ProcessDiagnosis</td><td>797</td><td>3</td><td>203</td><td>0</td><td>7922310</td><td>39026</td><td>2017-08-27 07:12:03.260</td></tr><tr><td>GenerateHistoryItemsForChargeBatch</td><td>485</td><td>53</td><td>9</td><td>0</td><td>698239</td><td>77582</td><td>2017-08-28 01:47:11.037</td></tr><tr><td>GetSiteProfileReportByDayData</td><td>343</td><td>343</td><td>1</td><td>0</td><td>61583526</td><td>61583526</td><td>2017-08-28 07:27:08.653</td></tr><tr><td>GetClinicCptCodeItemList</td><td>260</td><td>0</td><td>1007</td><td>0</td><td>10243479</td><td>10172</td><td>2017-08-27 07:00:59.903</td></tr></table></div></div>
+<div class="header" id="8-header">Cached stored procedures (by physical reads)</div><div class="content" id="8-content">
+    <div class="text"><table><tr><th style="width: 40%;">SP Name</th><th style="width: 5%;" >Total Physical Reads</th><th style="width: 5%;" >Avg Physical Reads</th><th style="width: 5%;" >Execution Count</th><th style="width: 5%;" >Total Logical Reads</th><th style="width: 5%;" >Total Elapsed Time</th><th style="width: 5%;" >Avg Elapsed Time</th><th style="width: 10%;">Cached Time</th></tr><tr><td>MaintainDB</td><td>6052578</td><td>1513144</td><td>4</td><td>39490991</td><td>1912534516</td><td>478133629</td><td>2017-08-25 05:30:00.670</td></tr><tr><td>RunBCBSEvalHold</td><td>458886</td><td>35298</td><td>13</td><td>56715283</td><td>538015961</td><td>41385843</td><td>2017-08-27 05:44:48.860</td></tr><tr><td>GetCasesForFinancialClose</td><td>439554</td><td>19111</td><td>23</td><td>12501883</td><td>151451737</td><td>6584858</td><td>2017-08-28 01:30:01.747</td></tr><tr><td>LogEventEmailNotification</td><td>342518</td><td>6716</td><td>51</td><td>2462842</td><td>206556126</td><td>4050120</td><td>2017-08-27 06:00:00.277</td></tr><tr><td>RunBillPatientCharges</td><td>306840</td><td>306840</td><td>1</td><td>310826</td><td>19480165</td><td>19480165</td><td>2017-08-28 00:45:11.707</td></tr><tr><td>DistributePatientPayments</td><td>298512</td><td>298512</td><td>1</td><td>5474791</td><td>674120602</td><td>674120602</td><td>2017-08-28 00:45:31.900</td></tr><tr><td>GetCaseDocumentState</td><td>114517</td><td>2</td><td>43703</td><td>44867624</td><td>1103626525</td><td>25252</td><td>2017-08-27 07:00:43.273</td></tr><tr><td>GetAppointmentScheduleItemList</td><td>68129</td><td>7</td><td>8909</td><td>124910188</td><td>615574548</td><td>69095</td><td>2017-08-27 05:32:33.987</td></tr><tr><td>GetAppointmentIdsWithInsuranceWarning</td><td>45170</td><td>5018</td><td>9</td><td>102591</td><td>7227390</td><td>803043</td><td>2017-08-27 06:44:50.900</td></tr><tr><td>GetFacilityStatisticsReportData</td><td>38523</td><td>4280</td><td>9</td><td>2339501</td><td>22633388</td><td>2514820</td><td>2017-08-27 09:33:04.910</td></tr></table></div></div>
+<div class="header" id="9-header">Possible Bad Indexes</div><div class="content" id="9-content">
+    <div class="text"><table><tr><th style="width: 15%;">Table Name</th><th style="width: 40%;">Index Name</th><th style="width: 5%;" >Is Disabled</th><th style="width: 5%;" >Is Hypothetical</th><th style="width: 5%;" >Has Filter</th><th style="width: 5%;" >Fill Factor</th><th style="width: 5%;" >Total Writes</th><th style="width: 5%;" >Total Reads</th><th style="width: 5%;" >Difference</th></tr><tr><td>CaseDocumentTreatmentDiagnosis</td><td>IX_TreatmentId</td><td>0</td><td>0</td><td>0</td><td>0</td><td>5953916</td><td>1649901</td><td>4304015</td></tr><tr><td>ChargeHistoryItem</td><td>ixChargeHistoryItem_LinkedTransactionId_inc</td><td>0</td><td>0</td><td>0</td><td>0</td><td>767419</td><td>52412</td><td>715007</td></tr><tr><td>App_CaseDocument</td><td>ixApp_CaseDocument_InUseBy_ModifiedOn_inc</td><td>0</td><td>0</td><td>0</td><td>0</td><td>819854</td><td>162973</td><td>656881</td></tr><tr><td>CaseDocumentTreatment</td><td>IX_CaseDocumentId</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1875861</td><td>1267488</td><td>608373</td></tr><tr><td>Transaction</td><td>ixTransaction_TransactionStatusLookupId_ChargeBatchId_DoNotBatch_Deleted_inc</td><td>0</td><td>0</td><td>0</td><td>0</td><td>503241</td><td>1547</td><td>501694</td></tr><tr><td>Transaction</td><td>ixTransaction_TransactionTypeLookupId_Deleted_inc</td><td>0</td><td>0</td><td>0</td><td>0</td><td>499404</td><td>9043</td><td>490361</td></tr><tr><td>Transaction</td><td>ixTransaction_ChargeBatchId_inc</td><td>0</td><td>0</td><td>0</td><td>0</td><td>432802</td><td>3205</td><td>429597</td></tr><tr><td>TransactionDiagnosis</td><td>ixTransactionDiagnosis_TransactionId_inc</td><td>0</td><td>0</td><td>0</td><td>0</td><td>434718</td><td>58120</td><td>376598</td></tr><tr><td>Transaction</td><td>ixTransaction_TransactionTypeLookupId_ParentTransactionId_TransactionStatusLookupId_PaymentProcessLookupId_inc_filtered</td><td>0</td><td>0</td><td>1</td><td>0</td><td>349095</td><td>4597</td><td>344498</td></tr><tr><td>Transaction</td><td>ixTransaction_LocationId_Deleted_TransactionStatusLookupId_inc</td><td>0</td><td>0</td><td>0</td><td>0</td><td>434056</td><td>111998</td><td>322058</td></tr></table></div></div>
+<div class="header" id="10-header">Possible New Indexes (by advantage)</div><div class="content" id="10-content">
+    <div class="text"><table><tr><th style="width: 5%;" >Index Advantage</th><th style="width: 10%;">Last User Seek Date</th><th style="width: 20%;">Equality Columns</th><th style="width: 20%;">Inequality Columns</th><th style="width: 20%;">Included Columns</th><th style="width: 5%;" >Unique Compiles</th><th style="width: 5%;" >User Seeks</th><th style="width: 5%;" >Avg Total User Costs</th><th style="width: 5%;" >Avg User Impact</th><th style="width: 10%;">Table Name</th><th style="width: 5%;" >Table Rows</th></tr><tr><td>4996110.02</td><td>2017-08-28 07:29:09.100</td><td>[LocationId], [Deleted]</td><td>[StartTime], [Category]</td><td>[AppointmentId], [CaseId], [ClinicianId], [AppointmentTypeId], [EndTime], [ArrivalTime], [IsCancelled], [StudentId], [PrimaryInsuranceAuthorizationId], [SecondaryInsuranceAuthorizationId], [TertiaryInsuranceAuthorizationId], [IsEval], [MedicalReviewStatus]</td><td>39</td><td>2145896</td><td>2.80305</td><td>83.06</td><td>Appointment</td><td>2888460</td></tr><tr><td>4996110.02</td><td>2017-08-28 07:29:09.100</td><td>[LocationId], [Deleted]</td><td>[StartTime], [Category]</td><td>[AppointmentId], [CaseId], [ClinicianId], [AppointmentTypeId], [EndTime], [ArrivalTime], [IsCancelled], [StudentId], [PrimaryInsuranceAuthorizationId], [SecondaryInsuranceAuthorizationId], [TertiaryInsuranceAuthorizationId], [IsEval], [MedicalReviewStatus]</td><td>39</td><td>2145896</td><td>2.80305</td><td>83.06</td><td>Appointment</td><td>2889788</td></tr><tr><td>4027880.51</td><td>2017-08-28 07:28:57.770</td><td>[Deleted]</td><td/><td>[Filename]</td><td>56</td><td>76619</td><td>65.8363</td><td>79.85</td><td>CaseDocumentFile</td><td>3130950</td></tr><tr><td>4023020.32</td><td>2017-08-28 07:14:37.867</td><td>[AppointmentId]</td><td/><td>[TransactionId], [TransactionDate], [TransactionAmount], [Modifier], [TransactionTypeLookupId], [TransactionStatusLookupId], [ServiceTypeLookupId], [PaymentProcessLookupId], [ProcedureRatePlanId], [TransactionUnits], [ChargeBatchId], [BilledInsurancePolicyId], [ParentTransactionId], [PaymentTypeLookupId], [PaymentText], [PaymentAllowedAmount], [Modifier2], [Modifier3], [Modifier4], [ResubmitCode], [SecondaryInsurancePolicyId], [TertiaryInsurancePolicyId], [EffectiveDate], [BillingClinicianId], [BillingClinicianReason], [LocationId], [DayCloseId], [BilledInsurancePolicyAuthCode], [SecondaryInsurancePolicyAuthCode], [TertiaryInsurancePolicyAuthCode], [GuarantorContactId], [RefusedCopayAmount], [RefusedDeductibleAmount], [ApplyBalanceLookupId], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsPatientPayOverride], [RebilledOn], [RebillOriginalTransactionId], [PaymentVoucherLineId], [Modifier5], [ChargeMasterCodeId], [BillingAccountNumberId], [AuditErrorTypeLookupId], [AuditNote], [DoNotBatch], [UnknownInsurancePolicyId], [UnknownCarrierId], [Deleted], [DeletedBy], [DeletedOn], [AdjustmentGroupCodeLookupId], [AdjustmentCarcReasonCodeId], [AdjustmentUnknownCode], [RefusedCoInsuranceAmount]</td><td>41</td><td>41926</td><td>96.0898</td><td>99.86</td><td>Transaction</td><td>12809152</td></tr><tr><td>4023020.32</td><td>2017-08-28 07:14:37.867</td><td>[AppointmentId]</td><td/><td>[TransactionId], [TransactionDate], [TransactionAmount], [Modifier], [TransactionTypeLookupId], [TransactionStatusLookupId], [ServiceTypeLookupId], [PaymentProcessLookupId], [ProcedureRatePlanId], [TransactionUnits], [ChargeBatchId], [BilledInsurancePolicyId], [ParentTransactionId], [PaymentTypeLookupId], [PaymentText], [PaymentAllowedAmount], [Modifier2], [Modifier3], [Modifier4], [ResubmitCode], [SecondaryInsurancePolicyId], [TertiaryInsurancePolicyId], [EffectiveDate], [BillingClinicianId], [BillingClinicianReason], [LocationId], [DayCloseId], [BilledInsurancePolicyAuthCode], [SecondaryInsurancePolicyAuthCode], [TertiaryInsurancePolicyAuthCode], [GuarantorContactId], [RefusedCopayAmount], [RefusedDeductibleAmount], [ApplyBalanceLookupId], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [IsPatientPayOverride], [RebilledOn], [RebillOriginalTransactionId], [PaymentVoucherLineId], [Modifier5], [ChargeMasterCodeId], [BillingAccountNumberId], [AuditErrorTypeLookupId], [AuditNote], [DoNotBatch], [UnknownInsurancePolicyId], [UnknownCarrierId], [Deleted], [DeletedBy], [DeletedOn], [AdjustmentGroupCodeLookupId], [AdjustmentCarcReasonCodeId], [AdjustmentUnknownCode], [RefusedCoInsuranceAmount]</td><td>41</td><td>41926</td><td>96.0898</td><td>99.86</td><td>Transaction</td><td>12841472</td></tr><tr><td>3718007.44</td><td>2017-08-28 07:28:54.880</td><td>[Deleted], [RelatedCaseDocumentFileId]</td><td/><td>[CaseDocumentFileId], [DocumentationSection], [SubmittedOn], [SubmittedBy], [AppointmentDate], [Status], [CaseId], [Description], [DeletedBy], [DeletedOn], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn], [Filename], [ContentType], [Version], [FileDocumentDataId], [DeletedStatus], [CaseFileTypeId]</td><td>78</td><td>56874</td><td>65.8269</td><td>99.31</td><td>CaseDocumentFile</td><td>3130950</td></tr><tr><td>1165422.69</td><td>2017-08-28 07:28:37.770</td><td/><td>[TreatmentId]</td><td>[Modifier]</td><td>54303</td><td>54303</td><td>22.6148</td><td>94.9</td><td>CaseDocumentTreatmentModifier</td><td>2042238</td></tr><tr><td>1048880.50</td><td>2017-08-28 07:28:38.080</td><td/><td>[TreatmentId]</td><td>[CaseDocumentTreatmentModifierId], [Modifier], [CreatedBy], [CreatedOn], [ModifiedBy], [ModifiedOn]</td><td>54303</td><td>54303</td><td>22.6148</td><td>85.41</td><td>CaseDocumentTreatmentModifier</td><td>2042238</td></tr><tr><td>936292.54</td><td>2017-08-28 07:28:56.920</td><td>[CaseDocumentId]</td><td>[StatusLookupId]</td><td/><td>107</td><td>111690</td><td>8.38715</td><td>99.95</td><td>DailyNoteSubmissionQueueItem</td><td>987594</td></tr><tr><td>805692.29</td><td>2017-08-28 07:28:55.010</td><td>[InitialEvaluationId], [Deleted]</td><td/><td/><td>133</td><td>203472</td><td>6.58527</td><td>60.13</td><td>InitialEvaluationCustomMeasurement</td><td>245044</td></tr></table></div></div>
+<div class="header" id="11-header">Wait Statistics</div><div class="content" id="11-content">
+    <div class="text"><table><tr><th style="width: 20%;">Wait Type</th><th style="width: 5%;" >Wait (sec)</th><th style="width: 5%;" >Resource (sec)</th><th style="width: 5%;" >Signal (sec)</th><th style="width: 5%;" >Wait count</th><th style="width: 5%;" >Wait Percentage</th><th style="width: 5%;" >Avg Wait (sec)</th><th style="width: 5%;" >Avg Resource (sec)</th><th style="width: 5%;" >Avg Signal (sec)</th></tr><tr><td>CXPACKET</td><td>1190914.47</td><td>1053246.39</td><td>137668.09</td><td>197873833</td><td>48.86</td><td>0.0060</td><td>0.0053</td><td>0.0007</td></tr><tr><td>OLEDB</td><td>414899.08</td><td>414899.08</td><td>0.00</td><td>5242441168</td><td>17.02</td><td>0.0001</td><td>0.0001</td><td>0.0000</td></tr><tr><td>PAGEIOLATCH_SH</td><td>326798.72</td><td>302578.68</td><td>24220.05</td><td>26329956</td><td>13.41</td><td>0.0124</td><td>0.0115</td><td>0.0009</td></tr><tr><td>SOS_SCHEDULER_YIELD</td><td>101858.85</td><td>523.89</td><td>101334.96</td><td>409945088</td><td>4.18</td><td>0.0002</td><td>0.0000</td><td>0.0002</td></tr><tr><td>TRACEWRITE</td><td>93343.82</td><td>93326.37</td><td>17.45</td><td>46681</td><td>3.83</td><td>1.9996</td><td>1.9992</td><td>0.0004</td></tr><tr><td>WRITELOG</td><td>60517.28</td><td>57342.77</td><td>3174.51</td><td>19403068</td><td>2.48</td><td>0.0031</td><td>0.0030</td><td>0.0002</td></tr><tr><td>ASYNC_NETWORK_IO</td><td>50358.97</td><td>47779.93</td><td>2579.04</td><td>28444967</td><td>2.07</td><td>0.0018</td><td>0.0017</td><td>0.0001</td></tr><tr><td>ASYNC_IO_COMPLETION</td><td>49834.71</td><td>49831.39</td><td>3.32</td><td>11736</td><td>2.04</td><td>4.2463</td><td>4.2460</td><td>0.0003</td></tr><tr><td>LATCH_EX</td><td>38739.13</td><td>27253.44</td><td>11485.68</td><td>628869605</td><td>1.59</td><td>0.0001</td><td>0.0000</td><td>0.0000</td></tr><tr><td>BACKUPBUFFER</td><td>34052.90</td><td>33095.51</td><td>957.39</td><td>7273414</td><td>1.40</td><td>0.0047</td><td>0.0046</td><td>0.0001</td></tr><tr><td>IO_COMPLETION</td><td>25858.78</td><td>25486.08</td><td>372.70</td><td>8419794</td><td>1.06</td><td>0.0031</td><td>0.0030</td><td>0.0000</td></tr><tr><td>BACKUPIO</td><td>23574.21</td><td>23494.55</td><td>79.67</td><td>5124953</td><td>0.97</td><td>0.0046</td><td>0.0046</td><td>0.0000</td></tr><tr><td>PAGEIOLATCH_EX</td><td>10948.92</td><td>10881.67</td><td>67.25</td><td>1295916</td><td>0.45</td><td>0.0084</td><td>0.0084</td><td>0.0001</td></tr></table></div></div>
+</div> </body> </html>

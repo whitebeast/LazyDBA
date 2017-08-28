@@ -54,9 +54,9 @@ N'DECLARE @Profile NVARCHAR(100),
          @Email NVARCHAR(100),
          @PruningPeriod INT
 
-SELECT @Profile = ConfigValue FROM dbo.Config WHERE ConfigItem = N''Email profile name'';
-SELECT @Email = ConfigValue FROM dbo.Config WHERE ConfigItem = N''Email recipients'';
-SELECT @PruningPeriod = ConfigValue FROM dbo.Config WHERE ConfigItem = N''History table pruning period'';
+SELECT @Profile = ConfigValue FROM dbo._Config WHERE ConfigItem = N''Email profile name'';
+SELECT @Email = ConfigValue FROM dbo._Config WHERE ConfigItem = N''Email recipients'';
+SELECT @PruningPeriod = ConfigValue FROM dbo._Config WHERE ConfigItem = N''History table pruning period'';
 
 EXEC dbo.[DataCollector]
     @pEmailProfileName = @Profile,

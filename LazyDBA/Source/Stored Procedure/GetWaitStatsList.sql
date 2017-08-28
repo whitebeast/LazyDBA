@@ -1,11 +1,10 @@
 ﻿CREATE PROCEDURE [dbo].[GetWaitStatsList]
-(   
-    @pHTML NVARCHAR(max) OUTPUT
+(
+    @pReportDate DATETIME2
 )
 AS
 BEGIN
 SET NOCOUNT ON;
-IF OBJECT_ID('tempdb..#tWaitStatsList') IS NOT NULL DROP TABLE #tWaitStatsList;
 
 -- Isolate top waits for server instance since last restart or wait statistics clear
 WITH [Waits] 
@@ -39,7 +38,21 @@ AS (
                 N'WAIT_XTP_OFFLINE_CKPT_NEW_LOG', N'WAIT_XTP_CKPT_CLOSE', N'XE_DISPATCHER_JOIN',
                 N'XE_DISPATCHER_WAIT', N'XE_TIMER_EVENT')
             AND waiting_tasks_count > 0)
+INSERT INTO [dbo].[WaitStatsList]
+    (
+        [ReportDate],
+        [Wait Type],
+        [Wait Sec],
+        [Resource Sec],
+        [Signal Sec],
+        [Wait Count],
+        [Wait Percentage],
+        [Avg Wait Sec],
+        [Avg Res Sec],
+        [Avg Sig Sec]
+    )
 SELECT
+        @pReportDate,
         MAX (W1.wait_type) AS [Wait Type],
         CAST (MAX (W1.WaitS) AS DECIMAL (16,2)) AS [Wait Sec],
         CAST (MAX (W1.ResourceS) AS DECIMAL (16,2)) AS [Resource Sec],
@@ -49,7 +62,6 @@ SELECT
         CAST ((MAX (W1.WaitS) / MAX (W1.WaitCount)) AS DECIMAL (16,4)) AS [Avg Wait Sec],
         CAST ((MAX (W1.ResourceS) / MAX (W1.WaitCount)) AS DECIMAL (16,4)) AS [Avg Res Sec],
         CAST ((MAX (W1.SignalS) / MAX (W1.WaitCount)) AS DECIMAL (16,4)) AS [Avg Sig Sec]
-INTO #tWaitStatsList
 FROM    Waits AS W1
 JOIN    Waits AS W2
     ON  W2.RowNum <= W1.RowNum
@@ -59,36 +71,5 @@ HAVING  SUM (W2.Percentage) - MAX (W1.Percentage) < 99 -- percentage threshold
 OPTION (RECOMPILE);
 
 -- Cumulative wait stats are not as useful on an idle instance that is not under load or performance pressure
-
-SET @pHTML =
-    N'<table>' + 
-        N'<tr>'+
-            N'<th style="width: 20%;">Wait Type</th>' +
-            N'<th style="width: 5%;" >Wait (sec)</th>' +
-            N'<th style="width: 5%;" >Resource (sec)</th>' +
-            N'<th style="width: 5%;" >Signal (sec)</th>' +
-            N'<th style="width: 5%;" >Wait count</th>' +
-            N'<th style="width: 5%;" >Wait Percentage</th>' +
-            N'<th style="width: 5%;" >Avg Wait (sec)</th>' +
-            N'<th style="width: 5%;" >Avg Resource (sec)</th>' +
-            N'<th style="width: 5%;" >Avg Signal (sec)</th>' +
-        N'</tr>' +
-                CAST ( ( 
-                    SELECT  
-                           td=REPLACE(ISNULL([Wait Type],''),'"',''),'',      
-                           td=REPLACE(ISNULL(CAST([Wait Sec] AS NVARCHAR(MAX)),''),'"',''),'',
-                           td=REPLACE(ISNULL(CAST([Resource Sec] AS NVARCHAR(MAX)),''),'"',''),'',
-                           td=REPLACE(ISNULL(CAST([Signal Sec] AS NVARCHAR(MAX)),''),'"',''),'',
-                           td=REPLACE(ISNULL(CAST([Wait Count] AS NVARCHAR(MAX)),''),'"',''),'',
-                           td=REPLACE(ISNULL(CAST([Wait Percentage] AS NVARCHAR(MAX)),''),'"',''),'',
-                           td=REPLACE(ISNULL(CAST([Avg Wait Sec] AS NVARCHAR(MAX)),''),'"',''),'',
-                           td=REPLACE(ISNULL(CAST([Avg Res Sec] AS NVARCHAR(MAX)),''),'"',''),'',
-                           td=REPLACE(ISNULL(CAST([Avg Sig Sec] AS NVARCHAR(MAX)),''),'"','')
-                    FROM #tWaitStatsList 
-                    FOR XML PATH('tr'), TYPE 
-                ) AS NVARCHAR(MAX) ) +
-        N'</table>';   
-        
-IF OBJECT_ID('tempdb..#tWaitStatsList') IS NOT NULL DROP TABLE #tWaitStatsList;
 
 END
