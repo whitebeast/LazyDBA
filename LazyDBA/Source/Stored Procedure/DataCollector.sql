@@ -9,17 +9,17 @@ BEGIN
 SET NOCOUNT ON;
 DECLARE @ReportDate DATETIME2 = GETDATE();
 
-EXEC GetCachedQueriesByIOCostList @ReportDate;
-EXEC GetCachedSPByCPUCostList @ReportDate;
-EXEC GetCachedSPByExecCntList @ReportDate;
-EXEC GetCachedSPByExecTimeList @ReportDate;
-EXEC GetCachedSPByExecTimeVariableList @ReportDate;
-EXEC GetCachedSPByLogicalReadsList @ReportDate;
-EXEC GetCachedSPByLogicalWritesList @ReportDate;
-EXEC GetCachedSPByPhysicalReadsList @ReportDate;
-EXEC GetPossibleBadIndexesList @ReportDate;
-EXEC GetPossibleNewIndexesByAdvantageList @ReportDate;
-EXEC GetWaitStatsList @ReportDate;
+EXEC AddCachedQueriesByIOCost @ReportDate;
+EXEC AddCachedSPByCPUCost @ReportDate;
+EXEC AddCachedSPByExecCnt @ReportDate;
+EXEC AddCachedSPByExecTime @ReportDate;
+EXEC AddCachedSPByExecTimeVariable @ReportDate;
+EXEC AddCachedSPByLogicalReads @ReportDate;
+EXEC AddCachedSPByLogicalWrites @ReportDate;
+EXEC AddCachedSPByPhysicalReads @ReportDate;
+EXEC AddPossibleBadIndexes @ReportDate;
+EXEC AddPossibleNewIndexesByAdvantage @ReportDate;
+EXEC AddWaitStats @ReportDate;
 
 -- EXEC GetPossibleNewIndexesBySprocList;
 -- EXEC GetSQLJobTimeline 1;

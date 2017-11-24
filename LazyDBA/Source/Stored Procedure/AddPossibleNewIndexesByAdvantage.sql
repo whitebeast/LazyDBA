@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GetPossibleNewIndexesByAdvantageList]
+﻿CREATE PROCEDURE [dbo].[AddPossibleNewIndexesByAdvantageList]
 (   
     @pReportDate DATETIME2,
     @pRowCnt INT = 10

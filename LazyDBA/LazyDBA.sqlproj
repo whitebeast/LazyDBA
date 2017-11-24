@@ -72,25 +72,25 @@
   </ItemGroup>
   <ItemGroup>
     <Build Include="Source\Table\_Config.sql" />
-    <Build Include="Source\Stored Procedure\GetPossibleBadIndexesList.sql" />
+    <Build Include="Source\Stored Procedure\AddPossibleBadIndexes.sql" />
     <Build Include="Source\Stored Procedure\MaintainDB.sql" />
     <Build Include="Source\Table\_MaintenanceLog.sql" />
     <None Include="Source\System\SQLJob\DatabaseMaintenanceJob.sql" />
     <PostDeploy Include="Source\PostDeployment.sql" />
     <PreDeploy Include="Source\PreDeployment.sql" />
-    <Build Include="Source\Stored Procedure\GetPossibleNewIndexesByAdvantageList.sql" />
+    <Build Include="Source\Stored Procedure\AddPossibleNewIndexesByAdvantage.sql" />
     <Build Include="Source\Stored Procedure\DataCollector.sql" />
     <Build Include="Source\Stored Procedure\CPUUsageMonitor.sql" />
-    <Build Include="Source\Stored Procedure\GetCachedSPByExecCntList.sql" />
-    <Build Include="Source\Stored Procedure\GetCachedSPByExecTimeList.sql" />
-    <Build Include="Source\Stored Procedure\GetCachedSPByExecTimeVariableList.sql" />
-    <Build Include="Source\Stored Procedure\GetCachedSPByCPUCostList.sql" />
-    <Build Include="Source\Stored Procedure\GetCachedSPByLogicalReadsList.sql" />
-    <Build Include="Source\Stored Procedure\GetCachedSPByPhysicalReadsList.sql" />
-    <Build Include="Source\Stored Procedure\GetCachedSPByLogicalWritesList.sql" />
-    <Build Include="Source\Stored Procedure\GetCachedQueriesByIOCostList.sql" />
-    <Build Include="Source\Stored Procedure\GetWaitStatsList.sql" />
-    <Build Include="Source\Stored Procedure\GetSQLJobTimeline.sql" />
+    <Build Include="Source\Stored Procedure\AddCachedSPByExecCnt.sql" />
+    <Build Include="Source\Stored Procedure\AddCachedSPByExecTime.sql" />
+    <Build Include="Source\Stored Procedure\AddCachedSPByExecTimeVariable.sql" />
+    <Build Include="Source\Stored Procedure\AddCachedSPByCPUCost.sql" />
+    <Build Include="Source\Stored Procedure\AddCachedSPByLogicalReads.sql" />
+    <Build Include="Source\Stored Procedure\AddCachedSPByPhysicalReads.sql" />
+    <Build Include="Source\Stored Procedure\AddCachedSPByLogicalWrites.sql" />
+    <Build Include="Source\Stored Procedure\AddCachedQueriesByIOCost.sql" />
+    <Build Include="Source\Stored Procedure\AddWaitStats.sql" />
+    <Build Include="Source\Stored Procedure\AddSQLJobTimeline.sql" />
     <None Include="Source\System\Manual running\EmailProfile.sql" />
     <None Include="Source\Script\ConfigInitial.sql" />
     <Build Include="Source\Table\_Exception.sql" />
@@ -109,6 +109,8 @@
     <Build Include="Source\Table\PossibleNewIndexesByAdvantageList.sql" />
     <Build Include="Source\Table\WaitStatsList.sql" />
     <None Include="Source\Stored Procedure\TODO\Procedure1.sql" />
+    <Build Include="Source\Stored Procedure\LstWaitStats.sql" />
+    <Build Include="Source\Stored Procedure\LstWaitStatsDiff.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\System\SQLJob\CPUUsageMonitoringJob.sql" />

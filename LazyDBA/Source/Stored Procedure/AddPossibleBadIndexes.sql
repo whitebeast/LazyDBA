@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GetPossibleBadIndexesList]
+﻿CREATE PROCEDURE [dbo].[AddPossibleBadIndexesList]
 (   
     @pReportDate DATETIME2,
     @pRowCnt INT = 10

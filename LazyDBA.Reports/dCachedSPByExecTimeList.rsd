@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>dsLazyDBA</DataSourceReference>
+      <CommandText>SELECT * FROM [dbo].[CachedSPByExecTimeList]</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="CachedSPByExecTimeListId">
+        <DataField>CachedSPByExecTimeListId</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="ReportDate">
+        <DataField>ReportDate</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="SP_Name">
+        <DataField>SP Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Avg_Elapsed_Time">
+        <DataField>Avg Elapsed Time</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="Total_Elapsed_Time">
+        <DataField>Total Elapsed Time</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="Execution_Count">
+        <DataField>Execution Count</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="Calls_Minute">
+        <DataField>Calls/Minute</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="Avg_Worker_Time">
+        <DataField>Avg Worker Time</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="Total_Worker_Time">
+        <DataField>Total Worker Time</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="Cached_Time">
+        <DataField>Cached Time</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

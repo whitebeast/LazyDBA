@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>dsLazyDBA</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@pReportDate">
+          <DefaultValue>=Nothing</DefaultValue>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>DateTime2</rd:DbType>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandType>StoredProcedure</CommandType>
+      <CommandText>LstWaitStatsDiff</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="Prev_ReportDate">
+        <DataField>Prev ReportDate</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Wait_Type">
+        <DataField>Wait Type</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Prev_Wait_Sec">
+        <DataField>Prev Wait Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Prev_Resource_Sec">
+        <DataField>Prev Resource Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Prev_Signal_Sec">
+        <DataField>Prev Signal Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Prev_Wait_Count">
+        <DataField>Prev Wait Count</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="State_Wait_Sec">
+        <DataField>State Wait Sec</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Diff_Wait_Sec">
+        <DataField>Diff Wait Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Prev_Wait_Percentage">
+        <DataField>Prev Wait Percentage</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Prev_Avg_Wait_Sec">
+        <DataField>Prev Avg Wait Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="State_Resource_Sec">
+        <DataField>State Resource Sec</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Diff_Resource_Sec">
+        <DataField>Diff Resource Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Prev_Avg_Res_Sec">
+        <DataField>Prev Avg Res Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Prev_Avg_Sig_Sec">
+        <DataField>Prev Avg Sig Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Cur_ReportDate">
+        <DataField>Cur ReportDate</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="State_Signal_Sec">
+        <DataField>State Signal Sec</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Cur_Wait_Sec">
+        <DataField>Cur Wait Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Diff_Signal_Sec">
+        <DataField>Diff Signal Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="State_Wait_Count">
+        <DataField>State Wait Count</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Cur_Resource_Sec">
+        <DataField>Cur Resource Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Cur_Signal_Sec">
+        <DataField>Cur Signal Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Cur_Wait_Count">
+        <DataField>Cur Wait Count</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="Diff_Wait_Count">
+        <DataField>Diff Wait Count</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="Cur_Wait_Percentage">
+        <DataField>Cur Wait Percentage</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="State_Wait_Percentage">
+        <DataField>State Wait Percentage</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Cur_Avg_Wait_Sec">
+        <DataField>Cur Avg Wait Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Diff_Wait_Percentage">
+        <DataField>Diff Wait Percentage</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Cur_Avg_Res_Sec">
+        <DataField>Cur Avg Res Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="State_Avg_Wait_Sec">
+        <DataField>State Avg Wait Sec</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Cur_Avg_Sig_Sec">
+        <DataField>Cur Avg Sig Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="State_Avg_Res_Sec">
+        <DataField>State Avg Res Sec</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="State_Avg_Sig_Sec">
+        <DataField>State Avg Sig Sec</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Diff_Avg_Wait_Sec">
+        <DataField>Diff Avg Wait Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Diff_Avg_Res_Sec">
+        <DataField>Diff Avg Res Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Diff_Avg_Sig_Sec">
+        <DataField>Diff Avg Sig Sec</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

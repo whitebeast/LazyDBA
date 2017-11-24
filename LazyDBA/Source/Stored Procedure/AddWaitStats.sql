@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GetWaitStatsList]
+﻿CREATE PROCEDURE [dbo].[AddWaitStats]
 (
     @pReportDate DATETIME2
 )

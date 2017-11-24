@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GetCachedSPByExecCntList]
+﻿CREATE PROCEDURE [dbo].[AddCachedSPByExecCntList]
 (
     @pReportDate DATETIME2,
     @pRowCnt INT = 10

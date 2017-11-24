@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GetCachedQueriesByIOCostList]
+﻿CREATE PROCEDURE [dbo].[AddCachedQueriesByIOCostList]
 (
     @pReportDate DATETIME2,
     @pRowCnt INT = 10
