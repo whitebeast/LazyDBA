@@ -1,5 +1,5 @@
-﻿CREATE TABLE [dbo].[PossibleNewIndexesByAdvantageList](
-    [PossibleNewIndexesByAdvantageListId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkPossibleNewIndexesByAdvantageList PRIMARY KEY CLUSTERED,
+﻿CREATE TABLE [dbo].[PossibleNewIndexesByAdvantage](
+    [PossibleNewIndexesByAdvantageId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkPossibleNewIndexesByAdvantage PRIMARY KEY CLUSTERED,
     [ReportDate] DATETIME2 NOT NULL,
     [Index Advantage] [decimal](18, 2) NOT NULL,
     [Last User Seek Date] [datetime] NOT NULL,
@@ -15,5 +15,5 @@
 )
 GO
 
-CREATE INDEX ixPossibleNewIndexesByAdvantageList_ReportDate ON PossibleNewIndexesByAdvantageList (ReportDate)
+CREATE INDEX ixPossibleNewIndexesByAdvantage_ReportDate ON PossibleNewIndexesByAdvantage (ReportDate)
 GO

@@ -1,5 +1,5 @@
-﻿CREATE TABLE [dbo].[CachedSPByLogicalWritesList](
-    [CachedSPByLogicalWritesListId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkCachedSPByLogicalWritesList PRIMARY KEY CLUSTERED,
+﻿CREATE TABLE [dbo].[CachedSPByLogicalWrites](
+    [CachedSPByLogicalWritesId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkCachedSPByLogicalWrites PRIMARY KEY CLUSTERED,
     [ReportDate] DATETIME2 NOT NULL,
     [SP Name] [sysname] NOT NULL,
     [Total Logical Writes] [bigint] NOT NULL,
@@ -12,5 +12,5 @@
 )
 GO
 
-CREATE INDEX ixCachedSPByLogicalWritesList_ReportDate ON CachedSPByLogicalWritesList (ReportDate)
+CREATE INDEX ixCachedSPByLogicalWrites_ReportDate ON CachedSPByLogicalWrites (ReportDate)
 GO

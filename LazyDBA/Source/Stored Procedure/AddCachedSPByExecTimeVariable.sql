@@ -1,6 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[AddCachedSPByExecTimeVariableList]
 (
-    @pReportDate DATETIME2,
     @pRowCnt INT = 10
 )
 AS
@@ -21,7 +20,7 @@ INSERT INTO [dbo].[CachedSPByExecTimeVariableList]
         [Cached Time]
     )
 SELECT  TOP(@pRowCnt) 
-        @pReportDate,
+        GETDATE() AS [ReportDate],
         p.name AS [SP Name], 
         qs.execution_count AS [Execution Count], 
         qs.min_elapsed_time AS [Min Elapsed Time],

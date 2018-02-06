@@ -1,5 +1,5 @@
-﻿CREATE TABLE [dbo].[CachedSPByExecTimeVariableList](
-    [CachedSPByExecTimeVariableListId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkCachedSPByExecTimeVariableList PRIMARY KEY CLUSTERED,
+﻿CREATE TABLE [dbo].[CachedSPByExecTimeVariable](
+    [CachedSPByExecTimeVariableId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkCachedSPByExecTimeVariable PRIMARY KEY CLUSTERED,
     [ReportDate] DATETIME2 NOT NULL,
     [SP Name] [sysname] NOT NULL,
     [Execution Count] [bigint] NOT NULL,
@@ -11,5 +11,5 @@
 )
 GO
 
-CREATE INDEX ixCachedSPByExecTimeVariableList_ReportDate ON CachedSPByExecTimeVariableList (ReportDate)
+CREATE INDEX ixCachedSPByExecTimeVariable_ReportDate ON CachedSPByExecTimeVariable (ReportDate)
 GO

@@ -1,5 +1,5 @@
-﻿CREATE TABLE [dbo].[WaitStatsList](
-    [WaitStatsListId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkWaitStatsList PRIMARY KEY CLUSTERED,
+﻿CREATE TABLE [dbo].[WaitStats](
+    [WaitStatsId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkWaitStats PRIMARY KEY CLUSTERED,
     [ReportDate] DATETIME2 NOT NULL,
     [Wait Type] [nvarchar](60) NOT NULL,
     [Wait Sec] [decimal](16, 2) NOT NULL,
@@ -13,7 +13,7 @@
 )
 GO
 
-CREATE INDEX ixWaitStatsList_ReportDate ON WaitStatsList (ReportDate)
+CREATE INDEX ixWaitStats_ReportDate ON WaitStats (ReportDate)
 INCLUDE (
     [Wait Type],
     [Wait Sec],

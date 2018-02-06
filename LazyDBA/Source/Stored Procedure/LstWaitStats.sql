@@ -5,7 +5,7 @@ BEGIN
     SET NOCOUNT ON;
 
     IF @pReportDate IS NULL
-        SELECT @pReportDate = MAX(ReportDate) FROM dbo.WaitStatsList
+        SELECT @pReportDate = MAX(ReportDate) FROM dbo.WaitStats
     
     SELECT
         [ReportDate],
@@ -18,9 +18,9 @@ BEGIN
         [Avg Wait Sec],
         [Avg Res Sec],
         [Avg Sig Sec]
-    FROM dbo.WaitStatsList
-    WHERE ReportDate = @pReportDate
-    ORDER BY [WaitStatsListId]
+    FROM dbo.WaitStats
+    WHERE [ReportDate] = @pReportDate
+    ORDER BY [WaitStatsId]
     ;
 
 END

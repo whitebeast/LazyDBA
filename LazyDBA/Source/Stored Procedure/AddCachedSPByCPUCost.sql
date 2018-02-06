@@ -1,6 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[AddCachedSPByCPUCostList]
 (
-    @pReportDate DATETIME2,
     @pRowCnt INT = 10
 )
 AS
@@ -22,7 +21,7 @@ INSERT INTO [dbo].[CachedSPByCPUCostList]
         [Cached Time]
     )
 SELECT  TOP(@pRowCnt) 
-        @pReportDate,
+        GETDATE() AS [ReportDate],
         p.name AS [SP Name], 
         qs.total_worker_time AS [Total Worker Time], 
         qs.total_worker_time/qs.execution_count AS [Avg Worker Time], 

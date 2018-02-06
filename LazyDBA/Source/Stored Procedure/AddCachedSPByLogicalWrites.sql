@@ -1,6 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[AddCachedSPByLogicalWritesList]
 (
-    @pReportDate DATETIME2,
     @pRowCnt INT = 10
 )
 AS
@@ -23,7 +22,7 @@ INSERT INTO [dbo].[CachedSPByLogicalWritesList]
         [Cached Time]
     )
 SELECT  TOP(@pRowCnt) 
-        @pReportDate,
+        GETDATE() AS [ReportDate],
         p.name AS [SP Name], 
         qs.total_logical_writes AS [Total Logical Writes], 
         qs.total_logical_writes/qs.execution_count AS [Avg Logical Writes], 

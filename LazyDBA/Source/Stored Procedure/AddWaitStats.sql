@@ -1,7 +1,4 @@
 ﻿CREATE PROCEDURE [dbo].[AddWaitStats]
-(
-    @pReportDate DATETIME2
-)
 AS
 BEGIN
 SET NOCOUNT ON;
@@ -38,7 +35,7 @@ AS (
                 N'WAIT_XTP_OFFLINE_CKPT_NEW_LOG', N'WAIT_XTP_CKPT_CLOSE', N'XE_DISPATCHER_JOIN',
                 N'XE_DISPATCHER_WAIT', N'XE_TIMER_EVENT')
             AND waiting_tasks_count > 0)
-INSERT INTO [dbo].[WaitStatsList]
+INSERT INTO [dbo].[WaitStats]
     (
         [ReportDate],
         [Wait Type],
@@ -52,7 +49,7 @@ INSERT INTO [dbo].[WaitStatsList]
         [Avg Sig Sec]
     )
 SELECT
-        @pReportDate,
+        GETDATE() AS [ReportDate],
         MAX (W1.wait_type) AS [Wait Type],
         CAST (MAX (W1.WaitS) AS DECIMAL (16,2)) AS [Wait Sec],
         CAST (MAX (W1.ResourceS) AS DECIMAL (16,2)) AS [Resource Sec],

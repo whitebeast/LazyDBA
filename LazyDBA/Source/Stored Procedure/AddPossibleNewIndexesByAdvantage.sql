@@ -1,6 +1,5 @@
-﻿CREATE PROCEDURE [dbo].[AddPossibleNewIndexesByAdvantageList]
+﻿CREATE PROCEDURE [dbo].[AddPossibleNewIndexesByAdvantage]
 (   
-    @pReportDate DATETIME2,
     @pRowCnt INT = 10
 )
 AS
@@ -25,7 +24,7 @@ INSERT INTO [dbo].[PossibleNewIndexesByAdvantageList]
     )
 SELECT	DISTINCT
         TOP (@pRowCnt)
-        @pReportDate,
+        GETDATE() AS [ReportDate],
 		CONVERT(decimal(18,2), user_seeks * avg_total_user_cost * (avg_user_impact * 0.01)) AS [Index Advantage], 
 		migs.last_user_seek AS [Last User Seek Date], 
 		mid.equality_columns AS [Equality Columns], 

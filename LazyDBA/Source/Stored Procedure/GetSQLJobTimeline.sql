@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[AddSQLJobTimeline]
+﻿CREATE PROCEDURE [dbo].[GetSQLJobTimeline]
     @pMinRuntimeInSec INT = 10,
     @pEmailProfileName NVARCHAR(100),
     @pEmailRecipients NVARCHAR(100)

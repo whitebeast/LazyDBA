@@ -1,5 +1,5 @@
-﻿CREATE TABLE [dbo].[CachedSPByCPUCostList](
-    [CachedSPByCPUCostListId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkCachedSPByCPUCostList PRIMARY KEY CLUSTERED,
+﻿CREATE TABLE [dbo].[CachedSPByCPUCost](
+    [CachedSPByCPUCostId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkCachedSPByCPUCost PRIMARY KEY CLUSTERED,
     [ReportDate] DATETIME2 NOT NULL,
     [SP Name] [sysname] NOT NULL,
     [Total Worker Time] [bigint] NOT NULL,
@@ -12,5 +12,5 @@
 )
 GO
 
-CREATE INDEX ixCachedSPByCPUCostList_ReportDate ON CachedSPByCPUCostList (ReportDate)
+CREATE INDEX ixCachedSPByCPUCost_ReportDate ON CachedSPByCPUCost (ReportDate)
 GO

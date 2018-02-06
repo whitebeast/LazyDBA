@@ -1,5 +1,5 @@
-﻿CREATE TABLE [dbo].[CachedSPByPhysicalReadsList](
-    [CachedSPByPhysicalReadsListId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkCachedSPByPhysicalReadsList PRIMARY KEY CLUSTERED,
+﻿CREATE TABLE [dbo].[CachedSPByPhysicalReads](
+    [CachedSPByPhysicalReadsId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkCachedSPByPhysicalReads PRIMARY KEY CLUSTERED,
     [ReportDate] DATETIME2 NOT NULL,
     [SP Name] [sysname] NOT NULL,
     [Total Physical Reads] [bigint] NOT NULL,
@@ -12,5 +12,5 @@
 )
 GO
 
-CREATE INDEX ixCachedSPByPhysicalReadsList_ReportDate ON CachedSPByPhysicalReadsList (ReportDate)
+CREATE INDEX ixCachedSPByPhysicalReads_ReportDate ON CachedSPByPhysicalReads (ReportDate)
 GO

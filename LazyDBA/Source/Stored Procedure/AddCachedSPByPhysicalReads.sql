@@ -1,6 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[AddCachedSPByPhysicalReadsList]
 (
-    @pReportDate DATETIME2,
     @pRowCnt INT = 10
 )
 AS
@@ -22,7 +21,7 @@ INSERT INTO [dbo].[CachedSPByPhysicalReadsList]
         [Cached Time]
     )
 SELECT  TOP(@pRowCnt) 
-        @pReportDate,
+        GETDATE() AS [ReportDate],
         p.name AS [SP Name],
         qs.total_physical_reads AS [Total Physical Reads], 
         qs.total_physical_reads/qs.execution_count AS [Avg Physical Reads], 

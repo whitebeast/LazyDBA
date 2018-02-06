@@ -1,6 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[AddCachedQueriesByIOCostList]
 (
-    @pReportDate DATETIME2,
     @pRowCnt INT = 10
 )
 AS
@@ -18,7 +17,7 @@ INSERT INTO [dbo].[CachedQueriesByIOCostList]
         [Query Text]
     )
 SELECT  TOP(@pRowCnt) 
-        @pReportDate,
+        GETDATE() AS [ReportDate],
         p.name AS [SP Name],
         (qs.total_logical_reads + qs.total_logical_writes) / qs.execution_count AS [Avg IO], 
         qs.execution_count AS [Execution Count],

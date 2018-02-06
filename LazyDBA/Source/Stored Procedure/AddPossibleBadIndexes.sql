@@ -1,6 +1,5 @@
 ﻿CREATE PROCEDURE [dbo].[AddPossibleBadIndexesList]
 (   
-    @pReportDate DATETIME2,
     @pRowCnt INT = 10
 )
 AS
@@ -22,7 +21,7 @@ INSERT INTO [dbo].[PossibleBadIndexesList]
         [Difference]
     )
 SELECT  TOP(@pRowCnt)
-		@pReportDate,
+		GETDATE() AS [ReportDate],
         t.name AS [Table Name], 
 		i.name AS [Index Name], 
 		i.is_disabled AS [Is Disabled], 

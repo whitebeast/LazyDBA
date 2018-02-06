@@ -1,5 +1,5 @@
-﻿CREATE TABLE [dbo].[PossibleBadIndexesList](
-    [PossibleBadIndexesListId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkPossibleBadIndexesList PRIMARY KEY CLUSTERED,
+﻿CREATE TABLE [dbo].[PossibleBadIndexes](
+    [PossibleBadIndexesId] INT IDENTITY(1,1) NOT NULL CONSTRAINT pkPossibleBadIndexes PRIMARY KEY CLUSTERED,
     [ReportDate] DATETIME2 NOT NULL,
     [Table Name] [sysname] NOT NULL,
     [Index Name] [sysname] NOT NULL,
@@ -13,5 +13,5 @@
 )
 GO
 
-CREATE INDEX ixPossibleBadIndexesList_ReportDate ON PossibleBadIndexesList (ReportDate)
+CREATE INDEX ixPossibleBadIndexes_ReportDate ON PossibleBadIndexes (ReportDate)
 GO

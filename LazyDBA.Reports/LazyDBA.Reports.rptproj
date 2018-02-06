@@ -63,12 +63,12 @@
       <FullPath>WaitStats.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
-      <Name>WaitStatsDetailed.rdl</Name>
-      <FullPath>WaitStatsDetailed.rdl</FullPath>
-    </ProjectItem>
-    <ProjectItem>
       <Name>WaitStatsChart.rdl</Name>
       <FullPath>WaitStatsChart.rdl</FullPath>
+    </ProjectItem>
+    <ProjectItem>
+      <Name>WaitStatsDetailed.rdl</Name>
+      <FullPath>WaitStatsDetailed.rdl</FullPath>
     </ProjectItem>
     <ProjectItem>
       <Name>WaitStatsDetailedDiff.rdl</Name>
