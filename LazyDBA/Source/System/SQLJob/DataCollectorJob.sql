@@ -9,9 +9,9 @@ DECLARE @ReturnCode INT = 0,
         @JobId UNIQUEIDENTIFIER,
         @name NVARCHAR(100) = N'$(ProjectName).Data collector Job'
 
-SELECT    @JobId = job_id
+SELECT  @JobId = job_id
 FROM    msdb..sysjobs 
-WHERE    [name] = @name
+WHERE   [name] = @name
 
 IF NOT EXISTS (SELECT name FROM msdb.dbo.syscategories WHERE name=N'[Uncategorized (Local)]' AND category_class=1)
     BEGIN
@@ -60,9 +60,7 @@ SELECT @PruningPeriod = ConfigValue FROM dbo._Config WHERE ConfigItem = N''Histo
 
 EXEC dbo.[DataCollector]
     @pEmailProfileName = @Profile,
-    @pEmailRecipients = @Email,
-    @PruningPeriod = @PruningPeriod,
-    @pDebugMode = 0',
+    @pEmailRecipients = @Email',
             @database_name=N'$(ProjectName)', 
             @flags=0
     IF (@@ERROR <> 0 OR @ReturnCode <> 0) GOTO QuitWithRollback

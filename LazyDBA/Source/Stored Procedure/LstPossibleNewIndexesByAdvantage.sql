@@ -19,7 +19,8 @@ BEGIN
         [Avg Total User Costs],
         [Avg User Impact],
         [Table Name],
-        [Table Rows]
+        [Table Rows],
+        [Index Script]
     FROM dbo.PossibleNewIndexesByAdvantage
     WHERE [ReportDate] = @pReportDate
     ORDER BY [PossibleNewIndexesByAdvantageId]

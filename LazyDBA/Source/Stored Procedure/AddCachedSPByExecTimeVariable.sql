@@ -1,14 +1,26 @@
-﻿CREATE PROCEDURE [dbo].[AddCachedSPByExecTimeVariableList]
+﻿CREATE PROCEDURE [dbo].[AddCachedSPByExecTimeVariable]
 (
-    @pRowCnt INT = 10
+    @pRowCnt INT = 10,
+    @pHTML NVARCHAR(MAX) OUTPUT
 )
 AS
 BEGIN
 
 SET NOCOUNT ON;
 
+DECLARE @tOutput TABLE
+(
+    [SP Name] NVARCHAR(128),
+    [Execution Count] BIGINT,
+    [Min Elapsed Time] BIGINT,
+    [Avg Elapsed Time] BIGINT,
+    [Max Elapsed Time] BIGINT,
+    [Last Elapsed Time] BIGINT,
+    [Cached Time] DATETIME
+);
+
 -- Top Cached SPs By Avg Elapsed Time with execution time variability (SQL Server 2012)
-INSERT INTO [dbo].[CachedSPByExecTimeVariableList]
+INSERT INTO [dbo].[CachedSPByExecTimeVariable]
     (
         [ReportDate],
         [SP Name],
@@ -19,6 +31,14 @@ INSERT INTO [dbo].[CachedSPByExecTimeVariableList]
         [Last Elapsed Time],
         [Cached Time]
     )
+OUTPUT  inserted.[SP Name],
+        inserted.[Execution Count],
+        inserted.[Min Elapsed Time],
+        inserted.[Avg Elapsed Time],
+        inserted.[Max Elapsed Time],
+        inserted.[Last Elapsed Time],
+        inserted.[Cached Time]
+INTO    @tOutput
 SELECT  TOP(@pRowCnt) 
         GETDATE() AS [ReportDate],
         p.name AS [SP Name], 
@@ -39,5 +59,30 @@ OPTION (RECOMPILE);
 
 -- This gives you some interesting information about the variability in the
 -- execution time of your cached stored procedures, which is useful for tuning
+
+SET @pHTML =
+    N'<table>' + 
+        N'<tr>'+
+            N'<th style="width: 40%;">SP Name</th>' +
+            N'<th style="width: 5%;" >Execution Count</th>' +
+            N'<th style="width: 5%;" >Min Elapsed Time</th>' +
+            N'<th style="width: 5%;" >Avg Elapsed Time</th>' +
+            N'<th style="width: 5%;" >Max Elapsed Time</th>' +
+            N'<th style="width: 5%;" >Last Elapsed Time</th>' +
+            N'<th style="width: 10%;">Cached Time</th>' +
+        N'</tr>' +
+                CAST ( ( 
+                    SELECT  
+                           td=REPLACE(ISNULL([SP Name],''),'"',''),'',      
+                           td=REPLACE(ISNULL(CAST([Execution Count] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Min Elapsed Time] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Avg Elapsed Time] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Max Elapsed Time] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Last Elapsed Time] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(CONVERT(NVARCHAR,ISNULL([Cached Time],''),121),'"','')
+                    FROM @tOutput 
+                    FOR XML PATH('tr'), TYPE 
+                ) AS NVARCHAR(MAX) ) +
+        N'</table>';  
 
 END

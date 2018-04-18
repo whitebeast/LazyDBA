@@ -1,27 +1,29 @@
 ﻿DECLARE 
         @MailServer NVARCHAR(100) = N'smtp.gmail.com',
         @MailPort INT = 587,
-        @AccountName NVARCHAR(100) = N'FindAndFollow.Notification@gmail.com',
-        @UserName NVARCHAR(100) = N'FindAndFollow.Notification@gmail.com',
-        @Password NVARCHAR(100) = N'VsKexibt!',
+        @AccountName NVARCHAR(100) = N'$(EmailAccountName)',
+        @UserName NVARCHAR(100) = N'$(EmailAccountName)',
+        @Password NVARCHAR(100) = N'$(EmailAccountPassword)',
         @UseDefaultCredentials BIT = 0,
         @EnableSSL BIT = 1,
 
-        @ProfileName NVARCHAR(100) = N'Notification Mailer',
+        @ProfileName NVARCHAR(100) = N'$(EmailProfile)',
 
         @OperatorName NVARCHAR(100) = N'DBA',
-        @OperatorEmail NVARCHAR(100) = N'mark.herasimovich@itechart-group.com'        
+        @OperatorEmail NVARCHAR(100) = N'$(EmailRecipients)';
+
+DECLARE @Email NVARCHAR(100) = STUFF(@AccountName,CHARINDEX('@',@AccountName,0),100,'');
 
 IF NOT EXISTS (SELECT 1 FROM msdb.dbo.sysmail_account AS sa WHERE NAME = @AccountName) BEGIN 
     PRINT 'Configuring Email account';
     EXECUTE msdb.dbo.sysmail_add_account_sp
             @account_name = @AccountName,
             @email_address = @AccountName,
-            @display_name = N'Notification service',
+            @display_name = N'$(EmailProfile)',
             @description = N'',
             @mailserver_name = @MailServer,
             @port = @MailPort,
-            @username = @UserName,
+            @username = @Email,
             @password = @Password,
             @use_default_credentials = @UseDefaultCredentials,
             @enable_ssl = @EnableSSL
@@ -50,8 +52,8 @@ IF NOT EXISTS (SELECT 1 FROM msdb.dbo.sysoperators AS s WHERE s.name = @Operator
 END;    
         
 /*
-DECLARE @AccountName VARCHAR(100) = 'FindAndFollow.Notification@gmail.com',
-        @ProfileName VARCHAR(100) = 'FindAndFollow.Notification Mailer';
+DECLARE @AccountName VARCHAR(100) = 'agilelogeventnotification@gmail.com',
+        @ProfileName VARCHAR(100) = 'Log events notification';
 
 IF EXISTS (SELECT 1 FROM msdb.dbo.sysmail_account AS sa WHERE NAME = @AccountName) BEGIN
     PRINT 'Deleting Email account';                                                                                   	

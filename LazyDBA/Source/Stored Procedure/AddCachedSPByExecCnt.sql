@@ -1,14 +1,27 @@
-﻿CREATE PROCEDURE [dbo].[AddCachedSPByExecCntList]
+﻿CREATE PROCEDURE [dbo].[AddCachedSPByExecCnt]
 (
-    @pRowCnt INT = 10
+    @pRowCnt INT = 10,
+    @pHTML NVARCHAR(MAX) OUTPUT
 )
 AS
 BEGIN
 
 SET NOCOUNT ON;
 
+DECLARE @tOutput TABLE 
+(
+    [SP Name] NVARCHAR(128),
+    [Execution Count] BIGINT,
+    [Calls/Minute] BIGINT,
+    [Avg Worker Time] BIGINT,
+    [Total Worker Time] BIGINT,
+    [Total Elapsed Time] BIGINT,
+    [Avg Elapsed Time] BIGINT,
+    [Cached Time] DATETIME
+);
+
 -- Top Cached SPs By Execution Count (SQL Server 2012)
-INSERT INTO [dbo].[CachedSPByExecCntList]
+INSERT INTO [dbo].[CachedSPByExecCnt]
     (
         [ReportDate],
         [SP Name],
@@ -19,7 +32,16 @@ INSERT INTO [dbo].[CachedSPByExecCntList]
         [Total Elapsed Time],
         [Avg Elapsed Time],
         [Cached Time]
-    )
+    )   
+OUTPUT  inserted.[SP Name],
+        inserted.[Execution Count],
+        inserted.[Calls/Minute],
+        inserted.[Avg Worker Time],
+        inserted.[Total Worker Time],
+        inserted.[Total Elapsed Time],
+        inserted.[Avg Elapsed Time],
+        inserted.[Cached Time]
+INTO    @tOutput
 SELECT  TOP(@pRowCnt) 
         GETDATE() AS [ReportDate],
         p.name AS [SP Name], 
@@ -41,5 +63,32 @@ OPTION (RECOMPILE);
 
 -- Tells you which cached stored procedures are called the most often
 -- This helps you characterize and baseline your workload
+
+SET @pHTML =
+    N'<table>' + 
+        N'<tr>'+
+            N'<th style="width: 40%;">SP Name</th>' +
+            N'<th style="width: 5%; ">Execution Count</th>' +
+            N'<th style="width: 5%; ">Calls/Minute</th>' +
+            N'<th style="width: 5%; ">Avg Worker Time</th>' +
+            N'<th style="width: 5%; ">Total Worker Time</th>' +
+            N'<th style="width: 5%; ">Total Elapsed Time</th>' +
+            N'<th style="width: 5%; ">Avg Elapsed Time</th>' +
+            N'<th style="width: 10%;">Cached Time</th>' +
+        N'</tr>' +
+                CAST ( ( 
+                    SELECT  
+                           td=REPLACE(ISNULL([SP Name],''),'"',''),'',      
+                           td=REPLACE(ISNULL(CAST([Execution Count] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Calls/Minute] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Avg Worker Time] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Total Worker Time] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Total Elapsed Time] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Avg Elapsed Time] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(CONVERT(NVARCHAR,ISNULL([Cached Time],''),121),'"','')
+                    FROM @tOutput 
+                    FOR XML PATH('tr'), TYPE 
+                ) AS NVARCHAR(MAX) ) +
+        N'</table>';
 
 END

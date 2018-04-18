@@ -1,10 +1,26 @@
 ﻿CREATE PROCEDURE [dbo].[AddWaitStats]
+(
+    @pHTML NVARCHAR(MAX) OUTPUT
+)
 AS
 BEGIN
 SET NOCOUNT ON;
 
+DECLARE @tOutput TABLE
+(
+    [Wait Type] NVARCHAR(60),
+    [Wait Sec] DECIMAL(16,2),
+    [Resource Sec] DECIMAL(16,2),
+    [Signal Sec] DECIMAL(16,2),
+    [Wait Count] BIGINT,
+    [Wait Percentage] DECIMAL(5,2),
+    [Avg Wait Sec] DECIMAL(16,4),
+    [Avg Res Sec] DECIMAL(16,4),
+    [Avg Sig Sec] DECIMAL(16,4)
+);
+
 -- Isolate top waits for server instance since last restart or wait statistics clear
-WITH [Waits] 
+;WITH [Waits] 
 AS (
     SELECT  wait_type, 
             wait_time_ms/ 1000.0 AS [WaitS],
@@ -48,6 +64,16 @@ INSERT INTO [dbo].[WaitStats]
         [Avg Res Sec],
         [Avg Sig Sec]
     )
+OUTPUT  inserted.[Wait Type],
+        inserted.[Wait Sec],
+        inserted.[Resource Sec],
+        inserted.[Signal Sec],
+        inserted.[Wait Count],
+        inserted.[Wait Percentage],
+        inserted.[Avg Wait Sec],
+        inserted.[Avg Res Sec],
+        inserted.[Avg Sig Sec]
+INTO    @tOutput
 SELECT
         GETDATE() AS [ReportDate],
         MAX (W1.wait_type) AS [Wait Type],
@@ -68,5 +94,34 @@ HAVING  SUM (W2.Percentage) - MAX (W1.Percentage) < 99 -- percentage threshold
 OPTION (RECOMPILE);
 
 -- Cumulative wait stats are not as useful on an idle instance that is not under load or performance pressure
+
+SET @pHTML =
+    N'<table>' + 
+        N'<tr>'+
+            N'<th style="width: 20%;">Wait Type</th>' +
+            N'<th style="width: 5%;" >Wait (sec)</th>' +
+            N'<th style="width: 5%;" >Resource (sec)</th>' +
+            N'<th style="width: 5%;" >Signal (sec)</th>' +
+            N'<th style="width: 5%;" >Wait count</th>' +
+            N'<th style="width: 5%;" >Wait Percentage</th>' +
+            N'<th style="width: 5%;" >Avg Wait (sec)</th>' +
+            N'<th style="width: 5%;" >Avg Resource (sec)</th>' +
+            N'<th style="width: 5%;" >Avg Signal (sec)</th>' +
+        N'</tr>' +
+                CAST ( ( 
+                    SELECT  
+                           td=REPLACE(ISNULL([Wait Type],''),'"',''),'',      
+                           td=REPLACE(ISNULL(CAST([Wait Sec] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Resource Sec] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Signal Sec] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Wait Count] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Wait Percentage] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Avg Wait Sec] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Avg Res Sec] AS NVARCHAR(MAX)),''),'"',''),'',
+                           td=REPLACE(ISNULL(CAST([Avg Sig Sec] AS NVARCHAR(MAX)),''),'"','')
+                    FROM @tOutput 
+                    FOR XML PATH('tr'), TYPE 
+                ) AS NVARCHAR(MAX) ) +
+        N'</table>'; 
 
 END

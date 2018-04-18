@@ -91,7 +91,6 @@
     <Build Include="Source\Stored Procedure\AddCachedQueriesByIOCost.sql" />
     <Build Include="Source\Stored Procedure\AddWaitStats.sql" />
     <Build Include="Source\Stored Procedure\GetSQLJobTimeline.sql" />
-    <None Include="Source\System\Manual running\EmailProfile.sql" />
     <None Include="Source\Script\ConfigInitial.sql" />
     <Build Include="Source\Table\_Exception.sql" />
     <None Include="Source\Stored Procedure\TODO\GetPossibleNewIndexesBySprocList.sql" />
@@ -121,6 +120,7 @@
     <Build Include="Source\Stored Procedure\LstCachedSPByExecCnt.sql" />
     <Build Include="Source\Stored Procedure\LstCachedSPByCPUCost.sql" />
     <Build Include="Source\Stored Procedure\LstCachedQueriesByIOCost.sql" />
+    <None Include="Source\Script\EmailProfile.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Source\System\SQLJob\CPUUsageMonitoringJob.sql" />
@@ -128,6 +128,22 @@
     <None Include="Properties\LazyDBA.localhost.UPDATE.publish.xml" />
   </ItemGroup>
   <ItemGroup>
+    <SqlCmdVariable Include="EmailAccountName">
+      <DefaultValue>agilelogeventnotification@gmail.com</DefaultValue>
+      <Value>$(SqlCmdVar__5)</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="EmailAccountPassword">
+      <DefaultValue>IL0veM1nsk!</DefaultValue>
+      <Value>$(SqlCmdVar__6)</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="EmailProfile">
+      <DefaultValue>Log events notification</DefaultValue>
+      <Value>$(SqlCmdVar__4)</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="EmailRecipients">
+      <DefaultValue>mark.herasimovich@itechart-group.com</DefaultValue>
+      <Value>$(SqlCmdVar__3)</Value>
+    </SqlCmdVariable>
     <SqlCmdVariable Include="TargetDBName">
       <DefaultValue>agile_pm</DefaultValue>
       <Value>$(SqlCmdVar__1)</Value>
