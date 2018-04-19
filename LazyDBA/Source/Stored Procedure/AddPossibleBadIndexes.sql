@@ -76,7 +76,8 @@ OPTION (RECOMPILE);
 -- Investigate further before dropping an index!
 
 SET @pHTML =
-    N'<table>' + 
+    N'            <div class="header" id="9-header">Possible Bad Indexes</div><div class="content" id="9-content"><div class="text">' + 
+    ISNULL(N'<table>' + 
         N'<tr>'+
             N'<th style="width: 15%;">Table Name</th>' +
             N'<th style="width: 40%;">Index Name</th>' +
@@ -102,6 +103,7 @@ SET @pHTML =
                     FROM @tOutput 
                     FOR XML PATH('tr'), TYPE 
                 ) AS NVARCHAR(MAX) ) +
-        N'</table>'; 
+        N'</table>','NO DATA') + 
+        N'</div></div>'; 
 
 END

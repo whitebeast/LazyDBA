@@ -13,8 +13,9 @@ INSERT INTO @tConfig
 )
 SELECT N'Email profile name',N'$(EmailProfile)' UNION ALL
 SELECT N'Email recipients',N'$(EmailRecipients)' UNION ALL
+SELECT N'Email HTML files dir', N'$(EmailHTMLFilesDir)' UNION ALL
 --SELECT N'Report frequency',N'7' UNION ALL
-SELECT N'History table pruning period',N'120' UNION ALL
+SELECT N'Table pruning period (in days)',N'120' UNION ALL
 SELECT 'Email Header',N'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'
 + CHAR(13)+CHAR(10) + N'<html xmlns="http://www.w3.org/1999/xhtml">'
 + CHAR(13)+CHAR(10) + N'    <head>'
@@ -124,7 +125,6 @@ SELECT 'Email Header',N'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 + CHAR(13)+CHAR(10) + N'                cont.timer = setInterval("slide(''" + id + "'')", timer);'
 + CHAR(13)+CHAR(10) + N'            }' UNION ALL
 SELECT 'Email Header 2',
-+ CHAR(13)+CHAR(10) + N''
 + CHAR(13)+CHAR(10) + N'            function slide(id) {'
 + CHAR(13)+CHAR(10) + N'                var cont = document.getElementById(id);'
 + CHAR(13)+CHAR(10) + N'                var maxh = cont.maxh;'
@@ -154,9 +154,9 @@ SELECT 'Email Header 2',
 + CHAR(13)+CHAR(10) + N'    </head>'
 + CHAR(13)+CHAR(10) + N'    <body onload="slider(''slider'',0)">'
 + CHAR(13)+CHAR(10) + N'        <div id="slider">' UNION ALL
-SELECT 'Email Data', '<div class="header" id="' + '<_ID_>' +'-header">' + '<_ReportName_>' + '</div><div class="content" id="' + '<_ID_>' +'-content">' 
-                   + '    <div class="text">' + '<_HTML_>' +'</div></div>' UNION ALL
-SELECT 'Email Footer', '</div> </body> </html>'
+SELECT 'Email Footer', '        </div>'
++ CHAR(13)+CHAR(10) + N'    </body>' 
++ CHAR(13)+CHAR(10) + N'</html>'
 
 INSERT INTO dbo._Config 
     (
@@ -166,7 +166,9 @@ INSERT INTO dbo._Config
 SELECT  t.ConfigItem,
         t.ConfigValue
 FROM    @tConfig AS t
-LEFT JOIN dbo._Config c ON c.ConfigItem = t.ConfigItem AND c.ConfigValue = t.ConfigValue
-WHERE c.ConfigItem IS NULL
+LEFT JOIN dbo._Config c ON 
+        c.ConfigItem = t.ConfigItem 
+    AND c.ConfigValue = t.ConfigValue
+WHERE   c.ConfigItem IS NULL
 GO    
     

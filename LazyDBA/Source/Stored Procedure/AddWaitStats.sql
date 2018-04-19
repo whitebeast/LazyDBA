@@ -96,7 +96,8 @@ OPTION (RECOMPILE);
 -- Cumulative wait stats are not as useful on an idle instance that is not under load or performance pressure
 
 SET @pHTML =
-    N'<table>' + 
+    N'            <div class="header" id="11-header">Wait Statistics</div><div class="content" id="11-content"><div class="text">' + 
+    ISNULL(N'<table>' + 
         N'<tr>'+
             N'<th style="width: 20%;">Wait Type</th>' +
             N'<th style="width: 5%;" >Wait (sec)</th>' +
@@ -122,6 +123,7 @@ SET @pHTML =
                     FROM @tOutput 
                     FOR XML PATH('tr'), TYPE 
                 ) AS NVARCHAR(MAX) ) +
-        N'</table>'; 
+        N'</table>','NO DATA') + 
+        N'</div></div>'; 
 
 END

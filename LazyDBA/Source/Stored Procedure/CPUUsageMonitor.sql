@@ -6,11 +6,13 @@ AS
 BEGIN
     SET NOCOUNT ON;
 	SET QUOTED_IDENTIFIER ON;
-
+    
 	DECLARE @ts_now BIGINT = (SELECT cpu_ticks/(cpu_ticks/ms_ticks) FROM sys.dm_os_sys_info WITH (NOLOCK)),
 			@DB INT,
 			@Other INT,
-            @ErrMsg NVARCHAR(1000)
+            @Profile NVARCHAR(100) = (SELECT ConfigValue FROM dbo._Config WHERE ConfigItem = N'Email profile name'),
+            @Email NVARCHAR(100) = (SELECT ConfigValue FROM dbo._Config WHERE ConfigItem = N'Email recipients'),
+            @body VARCHAR(MAX);
 
 	SELECT TOP(60) 
 		   @DB = AVG(SQLProcessUtilization),
@@ -31,7 +33,14 @@ BEGIN
 	OPTION (RECOMPILE);
 
 	IF @DB + @Other >= @pCPUTrashold
-		SET @ErrMsg = 'Database CPU utilization: ' + CAST(@DB AS NVARCHAR) + CHAR(13) + 'Other process CPU utilization: ' + CAST(@Other AS NVARCHAR);
-        RAISERROR(@ErrMsg, 16, 1);
-
+    BEGIN
+        SET @body = 'Database CPU utilization: ' + CAST(@DB AS NVARCHAR) + CHAR(13) + 'Other process CPU utilization: ' + CAST(@Other AS NVARCHAR)
+        EXEC msdb.dbo.sp_send_dbmail	
+            @profile_name = @Profile,
+            @recipients = @Email,
+            @subject = 'LazyDBA: CPU Utilization monitor',
+            @body = @body,
+            @body_format = 'TEXT', -- or TEXT
+            @importance = 'HIGH'
+    END
 END

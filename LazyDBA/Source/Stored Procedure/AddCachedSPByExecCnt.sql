@@ -65,7 +65,8 @@ OPTION (RECOMPILE);
 -- This helps you characterize and baseline your workload
 
 SET @pHTML =
-    N'<table>' + 
+    N'            <div class="header" id="3-header">Cached SP By Exec Cnt</div><div class="content" id="3-content"><div class="text">' + 
+    ISNULL(N'<table>' + 
         N'<tr>'+
             N'<th style="width: 40%;">SP Name</th>' +
             N'<th style="width: 5%; ">Execution Count</th>' +
@@ -89,6 +90,7 @@ SET @pHTML =
                     FROM @tOutput 
                     FOR XML PATH('tr'), TYPE 
                 ) AS NVARCHAR(MAX) ) +
-        N'</table>';
+        N'</table>','NO DATA') + 
+        N'</div></div>';
 
 END

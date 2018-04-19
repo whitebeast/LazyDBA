@@ -1,4 +1,9 @@
-﻿USE [msdb]
+﻿USE [$(ProjectName)]
+GO
+:r .\Script\ConfigInitial.sql
+GO
+
+USE [msdb]
 GO
 :r .\Script\EmailProfile.sql
 :r .\System\SQLJob\CPUUsageMonitoringJob.sql
@@ -6,7 +11,3 @@ GO
 :r .\System\SQLJob\DataCollectorJob.sql
 GO
 
-USE [$(ProjectName)]
-GO
-:r .\Script\ConfigInitial.sql
-GO

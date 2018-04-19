@@ -61,7 +61,8 @@ OPTION (RECOMPILE);
 -- execution time of your cached stored procedures, which is useful for tuning
 
 SET @pHTML =
-    N'<table>' + 
+    N'            <div class="header" id="5-header">Cached SP By Exec Time Variable</div><div class="content" id="5-content"><div class="text">' + 
+    ISNULL(N'<table>' + 
         N'<tr>'+
             N'<th style="width: 40%;">SP Name</th>' +
             N'<th style="width: 5%;" >Execution Count</th>' +
@@ -83,6 +84,7 @@ SET @pHTML =
                     FROM @tOutput 
                     FOR XML PATH('tr'), TYPE 
                 ) AS NVARCHAR(MAX) ) +
-        N'</table>';  
+        N'</table>','NO DATA') + 
+        N'</div></div>';  
 
 END

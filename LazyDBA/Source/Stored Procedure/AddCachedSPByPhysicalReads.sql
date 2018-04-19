@@ -67,7 +67,8 @@ OPTION (RECOMPILE);
 -- You should look at this if you see signs of I/O pressure or of memory pressure
 
 SET @pHTML =
-    N'<table>' + 
+    N'            <div class="header" id="8-header">Cached SP By Physical Reads</div><div class="content" id="8-content"><div class="text">' + 
+    ISNULL(N'<table>' + 
         N'<tr>'+
             N'<th style="width: 40%;">SP Name</th>' +
             N'<th style="width: 5%;" >Total Physical Reads</th>' +
@@ -91,6 +92,7 @@ SET @pHTML =
                     FROM @tOutput 
                     FOR XML PATH('tr'), TYPE 
                 ) AS NVARCHAR(MAX) ) +
-        N'</table>';   
+        N'</table>','NO DATA') + 
+        N'</div></div>';   
 
 END

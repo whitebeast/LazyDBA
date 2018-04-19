@@ -65,7 +65,8 @@ OPTION (RECOMPILE);
 -- may be easy to optimize with standard query tuning techniques
 
 SET @pHTML =
-    N'<table>' + 
+    N'            <div class="header" id="4-header">Cached SP By Exec Time</div><div class="content" id="4-content"><div class="text">' + 
+    ISNULL(N'<table>' + 
         N'<tr>'+
             N'<th style="width: 40%;">SP Name</th>' +
             N'<th style="width: 5%;" >Avg Elapsed Time</th>' +
@@ -89,6 +90,7 @@ SET @pHTML =
                     FROM @tOutput 
                     FOR XML PATH('tr'), TYPE 
                 ) AS NVARCHAR(MAX) ) +
-        N'</table>';   
+        N'</table>','NO DATA') +  
+        N'</div></div>';   
 
 END

@@ -79,7 +79,6 @@
     <PostDeploy Include="Source\PostDeployment.sql" />
     <PreDeploy Include="Source\PreDeployment.sql" />
     <Build Include="Source\Stored Procedure\AddPossibleNewIndexesByAdvantage.sql" />
-    <Build Include="Source\Stored Procedure\DataCollector.sql" />
     <Build Include="Source\Stored Procedure\CPUUsageMonitor.sql" />
     <Build Include="Source\Stored Procedure\AddCachedSPByExecCnt.sql" />
     <Build Include="Source\Stored Procedure\AddCachedSPByExecTime.sql" />
@@ -135,6 +134,10 @@
     <SqlCmdVariable Include="EmailAccountPassword">
       <DefaultValue>IL0veM1nsk!</DefaultValue>
       <Value>$(SqlCmdVar__6)</Value>
+    </SqlCmdVariable>
+    <SqlCmdVariable Include="EmailHTMLFilesDir">
+      <DefaultValue>c:\temp</DefaultValue>
+      <Value>$(SqlCmdVar__7)</Value>
     </SqlCmdVariable>
     <SqlCmdVariable Include="EmailProfile">
       <DefaultValue>Log events notification</DefaultValue>

@@ -102,7 +102,8 @@ OPTION (RECOMPILE);
 -- Do not just blindly add indexes that show up from this query!!!
 
 SET @pHTML =
-    N'<table>' + 
+    N'            <div class="header" id="10-header">Possible New Indexes By Advantage</div><div class="content" id="10-content"><div class="text">' + 
+    ISNULL(N'<table>' + 
         N'<tr>'+
             N'<th style="width: 5%;" >Index Advantage</th>' +
             N'<th style="width: 10%;">Last User Seek Date</th>' +
@@ -132,6 +133,7 @@ SET @pHTML =
                     FROM @tOutput 
                     FOR XML PATH('tr'), TYPE 
                 ) AS NVARCHAR(MAX) ) +
-        N'</table>';   
+        N'</table>','NO DATA') + 
+        N'</div></div>';   
 
 END

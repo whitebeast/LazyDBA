@@ -48,7 +48,8 @@ OPTION (RECOMPILE);
 -- Helps you find the most expensive statements for I/O by SP
 
 SET @pHTML =
-    N'<table>' + 
+    N'            <div class="header" id="1-header">Cached Queries By IO Cost</div><div class="content" id="1-content"><div class="text">' + 
+    ISNULL(N'<table>' + 
         N'<tr>'+
             N'<th style="width: 10%;">SP Name</th>' +
             N'<th style="width: 3%;">Avg IO</th>' +
@@ -64,7 +65,8 @@ SET @pHTML =
                     FROM @tOutput
                     FOR XML PATH('tr'), TYPE 
                 ) AS NVARCHAR(MAX) ) +
-        N'</table>';  
+        N'</table>','NO DATA') + 
+        N'</div></div>'
         ;
 
 END

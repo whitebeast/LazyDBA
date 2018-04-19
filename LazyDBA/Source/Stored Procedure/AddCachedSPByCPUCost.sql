@@ -65,7 +65,8 @@ OPTION (RECOMPILE);
 -- You should look at this if you see signs of CPU pressure
 
 SET @pHTML =
-    N'<table>' + 
+    N'            <div class="header" id="2-header">Cached SP By CPU Cost</div><div class="content" id="2-content"><div class="text">' + 
+    ISNULL(N'<table>' + 
         N'<tr>'+
             N'<th style="width: 40%;" >SP Name</th>' +
             N'<th style="width: 5%;"  >Total Worker Time</th>' +
@@ -89,6 +90,7 @@ SET @pHTML =
                     FROM @tOutput 
                     FOR XML PATH('tr'), TYPE 
                 ) AS NVARCHAR(MAX) ) +
-        N'</table>';   
+        N'</table>','NO DATA') + 
+        N'</div></div>';   
 
 END
