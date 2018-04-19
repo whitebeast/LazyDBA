@@ -68,7 +68,6 @@
     <Folder Include="Source\System" />
     <Folder Include="Source\System\SQLJob" />
     <Folder Include="Source\System\Manual running" />
-    <Folder Include="Source\Stored Procedure\TODO" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Source\Table\_Config.sql" />
@@ -92,7 +91,6 @@
     <Build Include="Source\Stored Procedure\GetSQLJobTimeline.sql" />
     <None Include="Source\Script\ConfigInitial.sql" />
     <Build Include="Source\Table\_Exception.sql" />
-    <None Include="Source\Stored Procedure\TODO\GetPossibleNewIndexesBySprocList.sql" />
     <None Include="Source\System\SQLJob\DataCollectorJob.sql" />
     <Build Include="Source\Function\fnSplit.sql" />
     <Build Include="Source\Table\CachedQueriesByIOCost.sql" />
@@ -106,7 +104,6 @@
     <Build Include="Source\Table\PossibleBadIndexes.sql" />
     <Build Include="Source\Table\PossibleNewIndexesByAdvantage.sql" />
     <Build Include="Source\Table\WaitStats.sql" />
-    <None Include="Source\Stored Procedure\TODO\Procedure1.sql" />
     <Build Include="Source\Stored Procedure\LstWaitStats.sql" />
     <Build Include="Source\Stored Procedure\LstWaitStatsDiff.sql" />
     <Build Include="Source\Stored Procedure\LstPossibleNewIndexesByAdvantage.sql" />
