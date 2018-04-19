@@ -68,5 +68,6 @@ SET @pHTML =
         N'</table>','NO DATA') + 
         N'</div></div>'
         ;
+SET @pHTML = REPLACE(@pHTML,'&#x0D;','');
 
 END
